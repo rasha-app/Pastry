@@ -1,2 +1,40 @@
 # ------------------- Core Web Framework ------------ #
 Django==5.2                    # فریم‌ورک اصلی توسعه وب با پایتون
+
+# ------------ Authentication and User Management ----------- #
+django-allauth==65.19.3
+
+# ------------------ Development Tools --------------- #
+django-debug-toolbar==8.0.0   # بررسی عملکرد، کوئری‌های دیتابیس و خطاهای پروژه در محیط توسعه
+ipython==9.17.1               # محیط تعاملی پیشرفته برای اجرای دستورات پایتون و دیباگ
+
+# ---------------- Configuration Management ---------- #
+environs==15.2.0              # خواندن و مدیریت متغیرهای محیطی و فایل .env
+
+# ------------------- Date and Time ------------------ #
+django-jalali==7.4.0          # مبدل تاریخ داخل مدل
+jdatetime==6.1.0              # کار با تاریخ و زمان شمسی یا جلالی
+
+# ----------------- Image Processing ----------------- #
+pillow==12.3.0                # پردازش، تغییر اندازه و مدیریت تصاویر
+django-cleanup==9.0.0          # حذف عکس قدیمی بعد تغییر  به عکس جدید در دیتابیس
+
+# --------------------- Database --------------------- #
+psycopg2-binary==2.9.13       # اتصال Django به دیتابیس PostgreSQL
+
+# ------------------- HTTP Requests ------------------ #
+requests==2.34.2
+
+# -------------------- Redis Caches ------------------ #
+django-redis==7.0.0 
+redis==8.1.0
+
+# ----- CSP Header and Django Permissions Policy ----- #
+django-csp==4.0
+django-permissions-policy==4.33.0
+
+# ----------------- Django Import Export ------------- #
+django-import-export==4.4.1
+
+# --------------- Phone Numbers Check ---------------- #
+phonenumbers==9.0.40
