@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,34 +23,66 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1*fuz+f%76kjm4q$zq_rg@nc)f@^r+4*!)f2m-7cpv0l7nmp^h'
+SECRET_KEY = env.str('DJANGO_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+allowed_hosts_str = env.str('ALLOWED_HOSTS', default='')
+if allowed_hosts_str:
+    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
 
+csrf_trusted_origins_str = env.str('CSRF_TRUSTED_ORIGINS', default='')
+if csrf_trusted_origins_str:
+    CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_trusted_origins_str.split(',')]
+
+
+SMS_IR_API_KEY = env.str('SMS_IR_API_KEY', default='')
+SMS_IR_TEMPLATE_ID = env.str('SMS_IR_TEMPLATE_ID', default='')
 
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third party apps
+
+    
+    'allauth', #just for template views and verfiy email
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    'django_jalali',
+    'django_jalali.db',
+    
+    'csp',
+    
+    'import_export',
+
+    'django_cleanup.apps.CleanupConfig', #django-cleanup clear changed pic
+
+    # My Apps
+    'accounts',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django_permissions_policy.PermissionsPolicyMiddleware', # django-permissions-policyHeader
+    'csp.middleware.CSPMiddleware', # CSP Header
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # allauth
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -54,13 +90,16 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # مسیر قالب‌های پروژه
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # allauth
+                'django.template.context_processors.request'
             ],
         },
     },
@@ -72,13 +111,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME':env.str('DB_NAME'),
+            'USER':env.str('DB_USER'),
+            'PASSWORD':env.str('DB_PASSWORD'),
+            'HOST':env.str('DB_HOST','localhost'),
+            'PORT':env.str('DB_PORT','5432'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -98,25 +148,241 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
-
+LANGUAGES = [
+            ('en', 'English'),
+            ('fa', 'Persian'),
+        ]
+LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 31  # 30 day
+LOCALE_PATHS = [BASE_DIR/'locale']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static',] # مسیر استاتیک‌های پروژه
+
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+####################### EMAIL  ##################################
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+elif not DEBUG:
+    EMAIL_BACKEND = env.str('EMAIL_BACKEND', 'django.core.mail.backends.dummy.EmailBackend')
+    if env.str('EMAIL_HOST_USER', ''):
+        EMAIL_HOST = env.str('EMAIL_HOST', 'smtp.gmail.com')
+        EMAIL_PORT = env.int('EMAIL_PORT', 465)
+        EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', True)
+        EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', False)
+        EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+        EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+    else:
+        # اگر اطلاعات ایمیل در محیط تعریف نشده، از Backend بی‌اثر استفاده کن
+        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+###################### END EMAIL ################################
+
+
+####################### CACHES ##################################
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env.str("REDIS_URL", "redis://127.0.0.1:6379/1"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {
+                "max_connections": 50,
+                "protocol": 2,          # ← کلید حل مشکل: استفاده از RESP2
+            },
+            "SOCKET_CONNECT_TIMEOUT": 5,
+            "SOCKET_TIMEOUT": 5,
+            "IGNORE_EXCEPTIONS": env.bool("REDIS_IGNORE_EXCEPTIONS", default=not DEBUG),
+        },
+        "KEY_PREFIX": "pastry_cache",
+        "TIMEOUT": 300,
+    }
+}
+####################### END CACHES ##############################
+
+####################### LOGGING ##############################
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+# In production environment, use RotatingFileHandler instead of FileHandler
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {name} {module} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file_app_error": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "apps_errors.log",
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 5,
+            "formatter": "verbose",
+            "encoding": "utf-8",
+        },
+        "file_app_info": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "apps_info.log",
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 5,
+            "formatter": "verbose",
+            "encoding": "utf-8",
+        },
+        "file_django_error": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "django_errors.log",
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 5,
+            "formatter": "verbose",
+            "encoding": "utf-8",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file_django_error"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "": {
+            "handlers": (
+                ["console", "file_app_info", "file_app_error"]
+                if DEBUG else
+                ["file_app_info", "file_app_error"]
+            ),
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
+####################### END LOGGING ##############################
+
+####################### ALLAUTH ##################################
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_LOGIN_METHODS = {"phone", "username"}
+ACCOUNT_SIGNUP_FIELDS = ["username*","phone*","national_code*","password1*","password2*",]
+
+ACCOUNT_PHONE_VERIFICATION_ENABLED = True #    - اگر True باشه، کاربر بعد از ثبت‌نام باید کد پیامکی رو وارد کنه
+ACCOUNT_PHONE_VERIFICATION_MAX_ATTEMPTS = 3 # ۴. حداکثر تلاش برای وارد کردن کد صحیح
+ACCOUNT_PHONE_VERIFICATION_TIMEOUT = 120 # ۵. مدت زمان اعتبار کد (به ثانیه) - پیش‌فرض ۹۰۰ ثانیه (۱۵ دقیقه)
+ACCOUNT_PHONE_VERIFICATION_SUPPORTS_RESEND = True # ۶. اجازه به کاربر برای درخواست مجدد کد
+
+ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = True # فعال‌سازی بازیابی رمز عبور با کد (به جای لینک)
+ACCOUNT_PHONE_VERIFICATION_SUPPORTS_CHANGE = True # اجازه دادن به کاربر برای تغییر شماره موبایل در پروفایل
+
+ACCOUNT_ADAPTER = 'accounts.adapters.MyAccountAdapter' #(مهم) معرفی آداپتور سفارشی برای ارسال پیامک و ذخیره شماره
+
+# =========== تنظیمات ورود و خروج (مربوط به allauth نیستند) =============#
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_ON_GET = False # اگر False باشه (پیشنهادی)، برای خروج باید تأییدیه (POST) ارسال بشه
+
+ALLAUTH_USER_CODE_FORMAT = {"numeric": True,"dashed": False,"length": 6,} # فرمت کلی کدهای کاربری
+PHONE_VERIFY_CODE_TTL = 120 # 2 minute
+
+if DEBUG:
+    ACCOUNT_RATE_LIMITS = False
+
+####################### END ALLAUTH ##############################
+
+
+# ======================== SECURITY ========================
+if not DEBUG:
+    # HSTS
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = False # برای فعال کردن با ai مشورت شود
+    # SSL Redirect
+    SECURE_SSL_REDIRECT = True
+    # Cookies
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY = True
+    # Content Type
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    # Referrer Policy
+    SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+    # Frame Options
+    X_FRAME_OPTIONS = 'DENY'
+
+# ======================== Server Header Leak ========================
+# مخفی کردن اطلاعات سرور
+SECURE_SERVER_HEADER = None
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# ======================== END SECURITY ========================
+
+# ======================== Permissions-Policy ========================
+# pip install django-permissions-policy
+PERMISSIONS_POLICY = {
+    "accelerometer": [],
+    "ambient-light-sensor": [],
+    "autoplay": [],
+    "camera": [],
+    "display-capture": [],
+    "encrypted-media": [],
+    "fullscreen": [],
+    "geolocation": [],
+    "gyroscope": [],
+    "interest-cohort": [],
+    "magnetometer": [],
+    "microphone": [],
+    "midi": [],
+    "payment": [],
+    "usb": [],
+    }
+
+# ======================== CSP (Content Security Policy) ========================
+# pip install django-csp settings New style (نسخه 4.x)
+from csp.constants import SELF,NONE,NONCE
+
+CONTENT_SECURITY_POLICY = {
+    "DIRECTIVES": {
+        "default-src": [SELF],
+        "script-src": [SELF,NONCE,"https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+        "style-src":[SELF, "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "https://fonts.googleapis.com"],
+        "img-src":[SELF, "data:", "https:"],
+        "font-src":[SELF, "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+        "connect-src":[SELF, "wss:", "ws:"],
+        "frame-ancestors":[SELF],
+        "base-uri":[SELF],
+        "worker-src":[SELF],
+        "object-src":[NONE],
+        "frame-src": [SELF]
+    },
+    "EXCLUDE_URL_PREFIXES": ("/admin/",), #دادن مجوز دستی به این آدرس
+}
+
