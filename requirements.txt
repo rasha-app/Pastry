@@ -38,3 +38,8 @@ django-import-export==4.4.1
 
 # --------------- Phone Numbers Check ---------------- #
 phonenumbers==9.0.40
+
+# -------------- Forms and UI enhancements ----------- #
+crispy-bootstrap5==2026.9     # برای ظاهر فرم استفاده میشه
+django-crispy-forms==2.7      # برای ظاهر فرم استفاده میشه
+django-unfold==0.107.0      # تغییر ظاهر پنل ادمین تو حال csp کار نمیکنه
