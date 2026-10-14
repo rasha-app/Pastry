@@ -1,0 +1,1295 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-14 15:48+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Persian\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\accounts\adapters.py:60
+msgid "Mobile number is invalid."
+msgstr "شماره موبایل نامعتبر است."
+
+#: .\accounts\adapters.py:66
+msgid "This mobile number is already registered."
+msgstr "این شماره موبایل قبلاً ثبت شده است."
+
+#: .\accounts\adapters.py:70
+msgid "The mobile number format is invalid."
+msgstr "قالب شماره موبایل نامعتبر است."
+
+#: .\accounts\admin.py:49
+msgid "Login information"
+msgstr "اطلاعات ورود"
+
+#: .\accounts\admin.py:53
+msgid "Personal information"
+msgstr "اطلاعات شخصی"
+
+#: .\accounts\admin.py:57
+msgid "Profile images"
+msgstr "تصاویر پروفایل"
+
+#: .\accounts\admin.py:61
+msgid "Permissions"
+msgstr "دسترسی‌ها"
+
+#: .\accounts\admin.py:66
+msgid "Important dates"
+msgstr "تاریخ‌های مهم"
+
+#: .\accounts\apps.py:8
+msgid "Accounts"
+msgstr "حساب‌های کاربری"
+
+#: .\accounts\forms.py:91
+msgid "Exm: 1405-01-01 Solar calendar"
+msgstr "مثال: 01-01-1374 تقویم شمسی"
+
+#: .\accounts\forms.py:99 .\accounts\forms.py:113
+msgid "No files selected"
+msgstr "هیچ فایلی انتخاب نشده است"
+
+#: .\accounts\forms.py:135 .\accounts\models.py:35
+msgid "Phone Number"
+msgstr "شماره تلفن"
+
+#: .\accounts\forms.py:137
+msgid "Exm: 09123456789"
+msgstr "مثال: ۰۹۱۲۳۴۵۶۷۸۹"
+
+#: .\accounts\forms.py:145
+msgid "Invalid phone number."
+msgstr "شماره تلفن نامعتبر است."
+
+#: .\accounts\forms.py:148
+msgid "Invalid phone number format."
+msgstr "قالب شماره تلفن نامعتبر است."
+
+#: .\accounts\forms.py:153
+msgid "6 Digit Code"
+msgstr "کد ۶ رقمی"
+
+#: .\accounts\forms.py:154
+msgid "Verified Code"
+msgstr "کد تأیید"
+
+#: .\accounts\forms.py:158
+msgid "New Password"
+msgstr "رمز عبور جدید"
+
+#: .\accounts\forms.py:159
+msgid "Confirm New Password"
+msgstr "تکرار رمز عبور جدید"
+
+#: .\accounts\forms.py:166
+msgid "Passwords do not match."
+msgstr "رمزهای عبور مطابقت ندارند."
+
+#: .\accounts\forms.py:176
+msgid "Forgot your password?"
+msgstr "رمز عبور خود را فراموش کرده اید؟"
+
+#: .\accounts\models.py:19
+msgid "Valid formats are: JPG, JPEG, PNG and WEBP."
+msgstr "قالب‌های معتبر عبارتند از: JPG، JPEG، PNG و WEBP."
+
+#: .\accounts\models.py:22
+msgid "File size must be less than 300 KB."
+msgstr "حجم فایل باید کمتر از ۳۰۰ کیلوبایت باشد."
+
+#: .\accounts\models.py:32
+msgid "Male"
+msgstr "مرد"
+
+#: .\accounts\models.py:33
+msgid "Female"
+msgstr "زن"
+
+#: .\accounts\models.py:36
+msgid "Verified Phone Number"
+msgstr "شماره تلفن تأییدشده"
+
+#: .\accounts\models.py:37 .\templates\account\email_change.html:6
+#: .\templates\account\email_change.html:14
+msgid "Email Address"
+msgstr "آدرس ایمیل"
+
+#: .\accounts\models.py:38
+msgid "Enter the date of birth in the solar calendar. Exm: 1374-01-01"
+msgstr "تاریخ تولد را به تقویم شمسی وارد کنید. مثال: 01-01-1374"
+
+#: .\accounts\models.py:38
+msgid "Birth Date"
+msgstr "تاریخ تولد"
+
+#: .\accounts\models.py:39
+msgid "National Code"
+msgstr "کد ملی"
+
+#: .\accounts\models.py:40
+msgid "Gender"
+msgstr "جنسیت"
+
+#: .\accounts\models.py:41
+msgid "Avatar"
+msgstr "تصویر پروفایل"
+
+#: .\accounts\models.py:42
+msgid "Loyalty Points"
+msgstr "امتیاز وفاداری"
+
+#: .\accounts\models.py:43
+msgid "Wallet Balance"
+msgstr "موجودی کیف پول"
+
+#: .\accounts\models.py:58 .\accounts\models.py:69
+msgid "User"
+msgstr "کاربر"
+
+#: .\accounts\models.py:59
+msgid "Users"
+msgstr "کاربران"
+
+#: .\accounts\models.py:63 .\accounts\models.py:66
+msgid "Ardabil"
+msgstr "اردبیل"
+
+#: .\accounts\models.py:70
+msgid "Enter a title for this address, e.g., Home, Office, etc."
+msgstr "یک عنوان برای این آدرس وارد کنید، مانند: خانه، محل کار و غیره."
+
+#: .\accounts\models.py:70
+msgid "Address Title"
+msgstr "عنوان آدرس"
+
+#: .\accounts\models.py:71
+msgid "Receiver Name"
+msgstr "نام گیرنده"
+
+#: .\accounts\models.py:72
+msgid "Receiver Phone Number"
+msgstr "شماره تلفن گیرنده"
+
+#: .\accounts\models.py:73
+msgid "Province"
+msgstr "استان"
+
+#: .\accounts\models.py:74
+msgid "City"
+msgstr "شهر"
+
+#: .\accounts\models.py:75
+msgid "Enter the full address including street, alley, etc."
+msgstr "آدرس کامل را همراه با خیابان، کوچه و... وارد کنید."
+
+#: .\accounts\models.py:75 .\accounts\models.py:89 .\templates\home.html:111
+msgid "Address"
+msgstr "آدرس"
+
+#: .\accounts\models.py:76
+msgid "Postal Code"
+msgstr "کد پستی"
+
+#: .\accounts\models.py:77
+msgid "Plaque Number"
+msgstr "پلاک"
+
+#: .\accounts\models.py:78
+msgid "Block"
+msgstr "بلوک"
+
+#: .\accounts\models.py:79
+msgid "Floor"
+msgstr "طبقه"
+
+#: .\accounts\models.py:80 .\accounts\templates\profile.html:457
+msgid "Unit"
+msgstr "واحد"
+
+#: .\accounts\models.py:81
+msgid "Default Address"
+msgstr "آدرس پیش‌فرض"
+
+#: .\accounts\models.py:82
+msgid "Created Date"
+msgstr "تاریخ ایجاد"
+
+#: .\accounts\models.py:90
+msgid "Addresses"
+msgstr "آدرس‌ها"
+
+#: .\accounts\templates\profile.html:4 .\accounts\templates\profile.html:388
+msgid "Profile"
+msgstr "پروفایل"
+
+#: .\accounts\templates\profile.html:389
+msgid "Manage your account information and security"
+msgstr "اطلاعات و امنیت حساب خود را مدیریت کنید"
+
+#: .\accounts\templates\profile.html:398
+msgid "Change email address"
+msgstr "تغییر آدرس ایمیل"
+
+#: .\accounts\templates\profile.html:399
+msgid "Update your email"
+msgstr "ایمیل خود را به‌روزرسانی کنید"
+
+#: .\accounts\templates\profile.html:407
+msgid "Change password"
+msgstr "تغییر رمز عبور"
+
+#: .\accounts\templates\profile.html:408
+msgid "Keep your account safe"
+msgstr "حساب خود را امن نگه دارید"
+
+#: .\accounts\templates\profile.html:417
+msgid "Personal Information"
+msgstr "اطلاعات شخصی"
+
+#: .\accounts\templates\profile.html:426
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+#: .\accounts\templates\profile.html:435
+msgid "My Addresses"
+msgstr "آدرس‌های من"
+
+#: .\accounts\templates\profile.html:445
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#: .\accounts\templates\profile.html:455
+msgid "Postal code"
+msgstr "کد پستی"
+
+#: .\accounts\templates\profile.html:456
+msgid "Plaque"
+msgstr "پلاک"
+
+#: .\accounts\templates\profile.html:460
+msgid "Delete this address?"
+msgstr "این آدرس حذف شود؟"
+
+#: .\accounts\templates\profile.html:464
+msgid "Delete"
+msgstr "حذف"
+
+#: .\accounts\templates\profile.html:471
+msgid "You haven't added any addresses yet."
+msgstr "شما هنوز هیچ آدرسی اضافه نکرده‌اید."
+
+#: .\accounts\templates\profile.html:479
+msgid "Add New Address"
+msgstr "افزودن آدرس جدید"
+
+#: .\accounts\templates\profile.html:488
+msgid "Add address"
+msgstr "افزودن آدرس"
+
+#: .\accounts\templates\reset_form.html:4
+msgid "Password Reset Form"
+msgstr "فرم بازنشانی رمز عبور"
+
+#: .\accounts\templates\reset_form.html:182
+#: .\accounts\templates\reset_password_set_by_phone.html:4
+#: .\accounts\templates\reset_password_set_by_phone.html:12
+msgid "Set New Password"
+msgstr "تعیین رمز عبور جدید"
+
+#: .\accounts\templates\reset_form.html:183
+msgid "Choose a strong password to keep your account safe."
+msgstr "برای امنیت حساب خود یک رمز عبور قوی انتخاب کنید."
+
+#: .\accounts\templates\reset_form.html:203
+msgid "New Password Register"
+msgstr "ثبت رمز عبور جدید"
+
+#: .\accounts\templates\reset_pass_by_phone.html:7
+msgid "Reset Phone Number"
+msgstr "بازنشانی شماره تلفن"
+
+#: .\accounts\templates\reset_pass_by_phone.html:15
+msgid "Reset with Phone"
+msgstr "بازنشانی با تلفن"
+
+#: .\accounts\templates\reset_pass_by_phone.html:23
+msgid "Submit"
+msgstr "ارسال"
+
+#: .\accounts\templates\reset_pass_by_phone.html:26
+msgid "Code Send"
+msgstr "ارسال کد"
+
+#: .\accounts\templates\reset_password_set_by_phone.html:20
+#: .\templates\account\password_change.html:5
+#: .\templates\account\password_change.html:15
+#: .\templates\account\password_change.html:31
+#: .\templates\account\password_reset_from_key.html:6
+#: .\templates\account\password_reset_from_key.html:17
+#: .\templates\account\password_reset_from_key.html:37
+#: .\templates\account\password_reset_from_key_done.html:5
+#: .\templates\account\password_reset_from_key_done.html:9
+msgid "Change Password"
+msgstr "تغییر رمز عبور"
+
+#: .\accounts\utils.py:23
+msgid "One-time password has been sent, please check your inbox."
+msgstr "رمز یکبار مصرف ارسال شد، لطفاً صندوق پیام‌های خود را بررسی کنید."
+
+#: .\accounts\utils.py:26
+msgid "SMS service is temporarily unavailable."
+msgstr "سرویس پیامک موقتاً در دسترس نیست."
+
+#: .\accounts\utils.py:29
+msgid "Unspecified error, try again later."
+msgstr "خطای نامشخص، لطفاً بعداً دوباره تلاش کنید."
+
+#: .\accounts\views.py:53
+msgid "If this phone is registered, a code will be sent."
+msgstr "اگر این تلفن ثبت شده باشد، کدی ارسال خواهد شد."
+
+#: .\accounts\views.py:58
+msgid "Please wait 60 seconds before requesting a new code."
+msgstr "لطفاً ۶۰ ثانیه قبل از درخواست کد جدید صبر کنید."
+
+#: .\accounts\views.py:78
+msgid "Session expired, try again."
+msgstr "نشست منقضی شد، دوباره تلاش کنید."
+
+#: .\accounts\views.py:83
+msgid "Invalid OTP code."
+msgstr "کد یکبار مصرف نامعتبر است."
+
+#: .\accounts\views.py:89 .\accounts\views.py:94
+msgid "OTP expired"
+msgstr "کد یکبار مصرف منقضی شد"
+
+#: .\accounts\views.py:103
+msgid "Phone verified. Please set your new password."
+msgstr "تلفن تأیید شد. لطفاً رمز عبور جدید خود را تعیین کنید."
+
+#: .\accounts\views.py:111
+#, python-brace-format
+msgid "Wrong code. Remaining attempts: {remain}"
+msgstr "کد اشتباه است. تلاش‌های باقی‌مانده: {remain}"
+
+#: .\accounts\views.py:143
+msgid "Session expired. Please start over."
+msgstr "نشست منقضی شد. لطفاً از ابتدا شروع کنید."
+
+#: .\accounts\views.py:152
+msgid "User not found."
+msgstr "کاربر یافت نشد."
+
+#: .\accounts\views.py:161
+msgid "Password reset successfully. Please login."
+msgstr "رمز عبور با موفقیت بازنشانی شد. لطفاً وارد شوید."
+
+#: .\accounts\views.py:263
+msgid "Profile updated successfully."
+msgstr "پروفایل با موفقیت بروزرسانی شد."
+
+#: .\accounts\views.py:271 .\accounts\views.py:299
+msgid "Please fix the errors below and try again."
+msgstr "لطفاً خطاهای زیر را برطرف کرده و دوباره امتحان کنید."
+
+#: .\accounts\views.py:291
+msgid "Address added successfully."
+msgstr "آدرس با موفقیت اضافه شد."
+
+#: .\accounts\views.py:311
+msgid "Address not found."
+msgstr "آدرس یافت نشد."
+
+#: .\accounts\views.py:330
+msgid "Address removed successfully."
+msgstr "آدرس با موفقیت حذف شد."
+
+#: .\templates\403.html:9
+msgid "You do not have permission to access this page."
+msgstr "شما اجازه دسترسی به این صفحه را ندارید."
+
+#: .\templates\403.html:10 .\templates\404.html:10 .\templates\405.html:10
+#: .\templates\500.html:10
+msgid "Return to home"
+msgstr "بازگشت به خانه"
+
+#: .\templates\404.html:9
+msgid "The requested page was not found!"
+msgstr "صفحه درخواستی یافت نشد!"
+
+#: .\templates\405.html:9
+msgid "This method is not valid for this address."
+msgstr "این روش برای این آدرس معتبر نیست."
+
+#: .\templates\500.html:9
+msgid "An internal server-side error occurred."
+msgstr "خطای داخلی سرور رخ داد."
+
+#: .\templates\account\account_inactive.html:6
+#: .\templates\account\account_inactive.html:14
+msgid "Account Inactive"
+msgstr "حساب غیرفعال"
+
+#: .\templates\account\account_inactive.html:17
+msgid "This account is inactive."
+msgstr "این حساب غیرفعال است."
+
+#: .\templates\account\base_confirm_code.html:32
+#, python-format
+msgid ""
+"We've sent a code to %(recipient)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+"ما کدی به %(recipient)s ارسال کردیم. این کد به‌زودی منقضی می‌شود، لطفاً سریع آن "
+"را وارد کنید."
+
+#: .\templates\account\base_confirm_code.html:45
+#: .\templates\account\email_confirm.html:35
+#: .\templates\account\reauthenticate.html:24
+msgid "Confirm"
+msgstr "تأیید"
+
+#: .\templates\account\base_confirm_code.html:49
+msgid "Request new code"
+msgstr "درخواست کد جدید"
+
+#: .\templates\account\base_confirm_code.html:54
+#: .\templates\account\base_confirm_code.html:58
+#: .\templates\account\password_reset_from_key.html:40
+msgid "Cancel"
+msgstr "انصراف"
+
+#: .\templates\account\base_reauthenticate.html:6
+#: .\templates\account\base_reauthenticate.html:14
+msgid "Confirm Access"
+msgstr "تأیید دسترسی"
+
+#: .\templates\account\base_reauthenticate.html:17
+msgid "Please reauthenticate to safeguard your account."
+msgstr "لطفاً برای حفظ امنیت حساب خود، مجدداً احراز هویت کنید."
+
+#: .\templates\account\base_reauthenticate.html:24
+msgid "Alternative options"
+msgstr "گزینه‌های جایگزین"
+
+#: .\templates\account\confirm_email_verification_code.html:5
+msgid "Email Verification"
+msgstr "تأیید ایمیل"
+
+#: .\templates\account\confirm_email_verification_code.html:17
+msgid "Use a different email address"
+msgstr "استفاده از ایمیل دیگر"
+
+#: .\templates\account\confirm_login_code.html:5
+#: .\templates\account\login.html:8 .\templates\account\login.html:18
+#: .\templates\account\login.html:47
+#: .\templates\account\request_login_code.html:6
+msgid "Sign In"
+msgstr "ورود"
+
+#: .\templates\account\confirm_password_reset_code.html:5
+#: .\templates\account\password_reset.html:5
+#: .\templates\account\password_reset.html:13
+#: .\templates\account\password_reset_done.html:7
+#: .\templates\account\password_reset_done.html:15
+msgid "Password Reset"
+msgstr "بازنشانی رمز عبور"
+
+#: .\templates\account\confirm_phone_verification_code.html:5
+msgid "Phone Verification"
+msgstr "تأیید تلفن"
+
+#: .\templates\account\confirm_phone_verification_code.html:8
+msgid "Enter Phone Verification Code"
+msgstr "کد تأیید تلفن را وارد کنید"
+
+#: .\templates\account\confirm_phone_verification_code.html:15
+msgid "Use a different phone number"
+msgstr "استفاده از شماره تلفن دیگر"
+
+#: .\templates\account\email.html:7 .\templates\account\email.html:17
+msgid "Email Addresses"
+msgstr "آدرس‌های ایمیل"
+
+#: .\templates\account\email.html:21
+msgid "The following email addresses are associated with your account:"
+msgstr "آدرس‌های ایمیل زیر با حساب شما مرتبط هستند:"
+
+#: .\templates\account\email.html:34
+msgid "Verified"
+msgstr "تأییدشده"
+
+#: .\templates\account\email.html:38
+msgid "Unverified"
+msgstr "تأییدنشده"
+
+#: .\templates\account\email.html:43
+msgid "Primary"
+msgstr "اصلی"
+
+#: .\templates\account\email.html:63
+msgid "Make Primary"
+msgstr "تعیین به‌عنوان اصلی"
+
+#: .\templates\account\email.html:66 .\templates\account\email_change.html:42
+#: .\templates\account\phone_change.html:29
+msgid "Re-send Verification"
+msgstr "ارسال مجدد تأیید"
+
+#: .\templates\account\email.html:69
+msgid "Remove"
+msgstr "حذف"
+
+#: .\templates\account\email.html:78
+msgid "Add Email Address"
+msgstr "افزودن آدرس ایمیل"
+
+#: .\templates\account\email.html:95
+msgid "Add Email"
+msgstr "افزودن ایمیل"
+
+#: .\templates\account\email.html:106
+msgid "Do you really want to remove the selected email address?"
+msgstr "آیا واقعاً می‌خواهید آدرس ایمیل انتخاب‌شده را حذف کنید؟"
+
+#: .\templates\account\email_change.html:26
+#: .\templates\account\email_change.html:34
+msgid "Current email"
+msgstr "ایمیل فعلی"
+
+#: .\templates\account\email_change.html:36
+msgid "Changing to"
+msgstr "تغییر به"
+
+#: .\templates\account\email_change.html:40
+msgid "Your email address is still pending verification."
+msgstr "آدرس ایمیل شما هنوز در انتظار تأیید است."
+
+#: .\templates\account\email_change.html:46
+msgid "Cancel Change"
+msgstr "لغو تغییر"
+
+#: .\templates\account\email_change.html:55
+#: .\templates\account\phone_change.html:38
+msgid "Change to"
+msgstr "تغییر به"
+
+#: .\templates\account\email_change.html:62
+msgid "Change Email"
+msgstr "تغییر ایمیل"
+
+#: .\templates\account\email_confirm.html:9
+#: .\templates\account\email_confirm.html:19
+msgid "Confirm Email Address"
+msgstr "تأیید آدرس ایمیل"
+
+#: .\templates\account\email_confirm.html:25
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
+"address for user %(user_display)s."
+msgstr ""
+"لطفاً تأیید کنید که <a href=\"mailto:%(email)s\">%(email)s</a> آدرس ایمیل "
+"کاربر %(user_display)s است."
+
+#: .\templates\account\email_confirm.html:45
+#, python-format
+msgid ""
+"Unable to confirm %(email)s because it is already confirmed by a different "
+"account."
+msgstr ""
+"امکان تأیید %(email)s وجود ندارد، زیرا قبلاً توسط حساب دیگری تأیید شده است."
+
+#: .\templates\account\email_confirm.html:51
+#, python-format
+msgid ""
+"This email confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new email confirmation request</a>."
+msgstr ""
+"این لینک تأیید ایمیل منقضی شده یا نامعتبر است. لطفاً <a "
+"href=\"%(email_url)s\">درخواست تأیید ایمیل جدید صادر کنید</a>."
+
+#: .\templates\account\login.html:28
+#, python-format
+msgid ""
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr ""
+"اگر هنوز حساب کاربری نساخته‌اید، لطفاً ابتدا %(link)sثبت‌نام%(end_link)s کنید."
+
+#: .\templates\account\login.html:60
+msgid "Sign in with a passkey"
+msgstr "ورود با کلید عبور"
+
+#: .\templates\account\login.html:65
+#: .\templates\account\request_login_code.html:14
+msgid "Send me a sign-in code"
+msgstr "برای من کد ورود ارسال کن"
+
+#: .\templates\account\logout.html:7 .\templates\account\logout.html:17
+#: .\templates\account\logout.html:36
+msgid "Sign Out"
+msgstr "خروج"
+
+#: .\templates\account\logout.html:20
+msgid "Are you sure you want to sign out?"
+msgstr "آیا مطمئن هستید که می‌خواهید خارج شوید؟"
+
+#: .\templates\account\password_change.html:33
+msgid "Forgot Password?"
+msgstr "رمز عبور را فراموش کرده‌اید؟"
+
+#: .\templates\account\password_reset.html:19
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"رمز عبور خود را فراموش کرده‌اید؟ آدرس ایمیل خود را در زیر وارد کنید تا ایمیلی "
+"برای بازنشانی آن برایتان ارسال کنیم."
+
+#: .\templates\account\password_reset.html:33
+msgid "Reset My Password"
+msgstr "بازنشانی رمز عبور من"
+
+#: .\templates\account\password_reset.html:38
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "اگر در بازنشانی رمز عبور مشکلی داشتید، لطفاً با ما تماس بگیرید."
+
+#: .\templates\account\password_reset_done.html:21
+msgid ""
+"We have sent you an email. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr ""
+"ما ایمیلی برای شما ارسال کردیم. اگر آن را دریافت نکردید، لطفاً پوشه اسپم خود "
+"را بررسی کنید. در غیر این صورت، اگر تا چند دقیقه دیگر آن را دریافت نکردید، "
+"با ما تماس بگیرید."
+
+#: .\templates\account\password_reset_from_key.html:15
+msgid "Bad Token"
+msgstr "توکن نامعتبر"
+
+#: .\templates\account\password_reset_from_key.html:23
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"لینک بازنشانی رمز عبور نامعتبر بود، احتمالاً به این دلیل که قبلاً استفاده شده "
+"است. لطفاً <a href=\"%(passwd_reset_url)s\">بازنشانی رمز عبور جدیدی درخواست "
+"کنید</a>."
+
+#: .\templates\account\password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr "رمز عبور شما اکنون تغییر کرد."
+
+#: .\templates\account\password_set.html:6
+#: .\templates\account\password_set.html:14
+#: .\templates\account\password_set.html:28
+msgid "Set Password"
+msgstr "تعیین رمز عبور"
+
+#: .\templates\account\phone_change.html:6
+#: .\templates\account\phone_change.html:14
+msgid "Change Phone"
+msgstr "تغییر تلفن"
+
+#: .\templates\account\phone_change.html:23
+msgid "Current phone"
+msgstr "تلفن فعلی"
+
+#: .\templates\account\phone_change.html:27
+msgid "Your phone number is still pending verification."
+msgstr "شماره تلفن شما هنوز در انتظار تأیید است."
+
+#: .\templates\account\phone_change.html:45
+msgctxt "action"
+msgid "Change Phone"
+msgstr "تغییر تلفن"
+
+#: .\templates\account\reauthenticate.html:10
+msgid "Enter your password:"
+msgstr "رمز عبور خود را وارد کنید:"
+
+#: .\templates\account\request_login_code.html:17
+msgid "You will receive a special code for a password-free sign-in."
+msgstr "شما یک کد ویژه برای ورود بدون رمز عبور دریافت خواهید کرد."
+
+#: .\templates\account\request_login_code.html:31
+msgid "Request Code"
+msgstr "درخواست کد"
+
+#: .\templates\account\request_login_code.html:37
+msgid "Other sign-in options"
+msgstr "گزینه‌های دیگر ورود"
+
+#: .\templates\account\signup.html:7
+#: .\templates\account\signup_by_passkey.html:5
+#: .\templates\account\signup_org.html:5
+msgid "Signup"
+msgstr "ثبت‌نام"
+
+#: .\templates\account\signup.html:18 .\templates\account\signup.html:47
+#: .\templates\account\signup_by_passkey.html:36
+#: .\templates\account\signup_org.html:13
+#: .\templates\account\signup_org.html:37
+msgid "Sign Up"
+msgstr "ثبت‌نام"
+
+#: .\templates\account\signup.html:27
+#: .\templates\account\signup_by_passkey.html:22
+#: .\templates\account\signup_org.html:22
+#, python-format
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr "قبلاً حساب کاربری دارید؟ پس لطفاً %(link)sوارد شوید%(end_link)s."
+
+#: .\templates\account\signup.html:60 .\templates\account\signup_org.html:46
+msgid "Sign up using a passkey"
+msgstr "ثبت‌نام با کلید عبور"
+
+#: .\templates\account\signup_by_passkey.html:13
+msgid "Passkey Sign Up"
+msgstr "ثبت‌نام با کلید عبور"
+
+#: .\templates\account\signup_by_passkey.html:43
+msgid "Other options"
+msgstr "گزینه‌های دیگر"
+
+#: .\templates\account\signup_closed.html:6
+#: .\templates\account\signup_closed.html:14
+msgid "Sign Up Closed"
+msgstr "ثبت‌نام بسته است"
+
+#: .\templates\account\signup_closed.html:17
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "متأسفیم، اما ثبت‌نام در حال حاضر بسته است."
+
+#: .\templates\account\snippets\already_logged_in.html:7
+msgid "Note"
+msgstr "توجه"
+
+#: .\templates\account\snippets\already_logged_in.html:7
+#, python-format
+msgid "You are already logged in as %(user_display)s."
+msgstr "شما در حال حاضر به عنوان %(user_display)s وارد شده‌اید."
+
+#: .\templates\account\snippets\warn_no_email.html:3
+msgid "Warning:"
+msgstr "هشدار:"
+
+#: .\templates\account\snippets\warn_no_email.html:3
+msgid ""
+"You currently do not have any email address set up. You should really add an "
+"email address so you can receive notifications, reset your password, etc."
+msgstr ""
+"شما در حال حاضر هیچ آدرس ایمیلی تنظیم نکرده‌اید. بهتر است یک آدرس ایمیل اضافه "
+"کنید تا بتوانید اعلان‌ها را دریافت کنید، رمز عبور خود را بازنشانی کنید و غیره."
+
+#: .\templates\account\verification_sent.html:6
+#: .\templates\account\verification_sent.html:14
+#: .\templates\account\verified_email_required.html:6
+#: .\templates\account\verified_email_required.html:14
+msgid "Verify Your Email Address"
+msgstr "آدرس ایمیل خود را تأیید کنید"
+
+#: .\templates\account\verification_sent.html:17
+msgid ""
+"We have sent an email to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification email in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification email within a few minutes."
+msgstr ""
+"ما ایمیلی برای تأیید به شما ارسال کردیم. برای نهایی‌سازی فرآیند ثبت‌نام، لینک "
+"ارائه‌شده را دنبال کنید. اگر ایمیل تأیید را در صندوق ورودی اصلی خود نمی‌بینید، "
+"پوشه اسپم خود را بررسی کنید. لطفاً اگر تا چند دقیقه دیگر ایمیل تأیید را "
+"دریافت نکردید، با ما تماس بگیرید."
+
+#: .\templates\account\verified_email_required.html:18
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your email address. "
+msgstr ""
+"این بخش از سایت نیازمند تأیید هویت شماست. برای این منظور، ما نیاز داریم که "
+"مالکیت آدرس ایمیل خود را تأیید کنید."
+
+#: .\templates\account\verified_email_required.html:23
+msgid ""
+"We have sent an email to you for\n"
+"verification. Please click on the link inside that email. If you do not see "
+"the verification email in your main inbox, check your spam folder. "
+"Otherwise\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"ما ایمیلی برای تأیید به شما ارسال کردیم. لطفاً روی لینک داخل آن ایمیل کلیک "
+"کنید. اگر ایمیل تأیید را در صندوق ورودی اصلی خود نمی‌بینید، پوشه اسپم خود را "
+"بررسی کنید. در غیر این صورت، اگر تا چند دقیقه دیگر آن را دریافت نکردید، با "
+"ما تماس بگیرید."
+
+#: .\templates\account\verified_email_required.html:28
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"email address</a>."
+msgstr ""
+"<strong>توجه:</strong> شما همچنان می‌توانید <a href=\"%(email_url)s\">آدرس "
+"ایمیل خود را تغییر دهید</a>."
+
+#: .\templates\base.html:9 .\templates\base.html:108
+msgid "Zarrin Patisserie"
+msgstr "قنادی زرین"
+
+#: .\templates\base.html:10
+msgid ""
+"Handcrafted Persian baklava, cakes and traditional pastries, baked fresh "
+"every day."
+msgstr "باقلوا، کیک و شیرینی‌های سنتی ایرانی دست‌ساز، هر روز تازه پخته می‌شود."
+
+#: .\templates\base.html:37
+msgid "Skip to content"
+msgstr "پرش به محتوا"
+
+#: .\templates\base.html:41 .\templates\base.html:78
+msgid "Zarrin"
+msgstr "زرین"
+
+#: .\templates\base.html:43
+msgid "Main navigation"
+msgstr "منوی اصلی"
+
+#: .\templates\base.html:44 .\templates\base.html:89
+msgid "Home"
+msgstr "خانه"
+
+#: .\templates\base.html:45 .\templates\base.html:89 .\templates\base.html:123
+msgid "Shop"
+msgstr "فروشگاه"
+
+#: .\templates\base.html:46 .\templates\base.html:89
+msgid "Blog"
+msgstr "وبلاگ"
+
+#: .\templates\base.html:47 .\templates\base.html:89
+msgid "About"
+msgstr "درباره ما"
+
+#: .\templates\base.html:48 .\templates\base.html:89 .\templates\base.html:96
+msgid "Contact"
+msgstr "تماس با ما"
+
+#: .\templates\base.html:60
+msgid "Change language"
+msgstr "تغییر زبان"
+
+#: .\templates\base.html:68
+msgid "Menu"
+msgstr "منو"
+
+#: .\templates\base.html:79
+msgid ""
+"A Persian patisserie baking baklava, cakes and traditional sweets by hand, "
+"every morning, with saffron, pistachio and honey."
+msgstr ""
+"یک قنادی ایرانی که هر روز صبح با زعفران، پسته و عسل، باقلوا، کیک و شیرینی‌های "
+"سنتی را به‌صورت دست‌ساز می‌پزد."
+
+#: .\templates\base.html:87
+msgid "Quick links"
+msgstr "دسترسی سریع"
+
+#: .\templates\base.html:88
+msgid "Quick Links"
+msgstr "دسترسی‌های سریع"
+
+#: .\templates\base.html:91
+msgid "Customer links"
+msgstr "لینک‌های مشتریان"
+
+#: .\templates\base.html:92
+msgid "Customers"
+msgstr "مشتریان"
+
+#: .\templates\base.html:93
+msgid "My Account"
+msgstr "حساب من"
+
+#: .\templates\base.html:93
+msgid "My Orders"
+msgstr "سفارش‌های من"
+
+#: .\templates\base.html:93 .\templates\base.html:126
+msgid "Cart"
+msgstr "سبد خرید"
+
+#: .\templates\base.html:93
+msgid "Wishlist"
+msgstr "لیست علاقه‌مندی‌ها"
+
+#: .\templates\base.html:98 .\templates\home.html:111
+msgid "No. 12, Golestan Street, Tehran"
+msgstr "تهران، خیابان گلستان، پلاک ۱۲"
+
+#: .\templates\base.html:102 .\templates\home.html:112
+msgid "Saturday to Thursday: 9:00 AM – 10:00 PM"
+msgstr "شنبه تا پنجشنبه: ۹:۰۰ صبح تا ۱۰:۰۰ شب"
+
+#: .\templates\base.html:102 .\templates\home.html:112
+msgid "Friday: 2:00 PM – 10:00 PM"
+msgstr "جمعه: ۲:۰۰ بعدازظهر تا ۱۰:۰۰ شب"
+
+#: .\templates\base.html:108
+msgid "All rights reserved."
+msgstr "تمامی حقوق محفوظ است."
+
+#: .\templates\base.html:109
+msgid "Designed & Developed by"
+msgstr "طراحی و توسعه توسط"
+
+#: .\templates\base.html:109
+msgid "Your Name"
+msgstr "نام شما"
+
+#: .\templates\base.html:116
+msgid "Search pastries, cakes, and sweets..."
+msgstr "جستجوی شیرینی، کیک و دسر..."
+
+#: .\templates\base.html:116 .\templates\base.html:125
+msgid "Search"
+msgstr "جستجو"
+
+#: .\templates\base.html:117
+msgid "Close search"
+msgstr "بستن جستجو"
+
+#: .\templates\base.html:121
+msgid "Quick navigation"
+msgstr "ناوبری سریع"
+
+#: .\templates\base.html:124
+msgid "Account"
+msgstr "حساب کاربری"
+
+#: .\templates\home.html:4
+msgid "Zarrin Patisserie — Persian Baklava, Cakes & Pastries"
+msgstr "قنادی زرین — باقلوا، کیک و شیرینی ایرانی"
+
+#: .\templates\home.html:8
+msgid "Golden baklava layered with crushed pistachios"
+msgstr "باقلوا طلایی با لایه‌های پسته کوبیده"
+
+#: .\templates\home.html:10
+msgid "Handcrafted Persian Sweets"
+msgstr "شیرینی‌های ایرانی دست‌ساز"
+
+#: .\templates\home.html:11
+msgid "Fresh Baklava, Cakes & Traditional Pastries"
+msgstr "باقلوا، کیک و شیرینی‌های سنتی تازه"
+
+#: .\templates\home.html:12
+msgid ""
+"Made daily with real pistachios, saffron, honey, and premium ingredients."
+msgstr "هر روز با پسته واقعی، زعفران، عسل و مواد اولیه درجه‌یک تهیه می‌شود."
+
+#: .\templates\home.html:14
+msgid "Shop Now"
+msgstr "همین حالا خرید کنید"
+
+#: .\templates\home.html:15
+msgid "Explore Our Menu"
+msgstr "منوی ما را کاوش کنید"
+
+#: .\templates\home.html:21
+msgid "Fresh Daily Baking"
+msgstr "پخت تازه روزانه"
+
+#: .\templates\home.html:22
+msgid "Premium Pistachios & Saffron"
+msgstr "پسته و زعفران درجه‌یک"
+
+#: .\templates\home.html:23
+msgid "Custom Celebration Cakes"
+msgstr "کیک‌های جشن سفارشی"
+
+#: .\templates\home.html:24
+msgid "Fast Local Delivery"
+msgstr "ارسال سریع محلی"
+
+#: .\templates\home.html:29
+msgid "Signature Creations"
+msgstr "آفریده‌های امضایی"
+
+#: .\templates\home.html:30
+msgid "Chef's selection of our most loved pastries"
+msgstr "انتخاب سرآشپز از محبوب‌ترین شیرینی‌های ما"
+
+#: .\templates\home.html:34
+msgid "Pistachio baklava on a ceramic plate"
+msgstr "باقلوا پسته‌ای روی بشقاب سرامیکی"
+
+#: .\templates\home.html:34
+msgid "Best Seller"
+msgstr "پرفروش‌ترین"
+
+#: .\templates\home.html:36
+msgid "Baklava"
+msgstr "باقلوا"
+
+#: .\templates\home.html:37 .\templates\home.html:84
+msgid "Pistachio Baklava"
+msgstr "باقلوا پسته‌ای"
+
+#: .\templates\home.html:38
+msgid ""
+"Thirty-two crisp filo layers, crushed Persian pistachios and honey syrup."
+msgstr "سی‌ودو لایه ترد خمیر یوفا، پسته کوبیده ایرانی و شربت عسل."
+
+#: .\templates\home.html:39 .\templates\home.html:48 .\templates\home.html:57
+#: .\templates\home.html:66
+msgid "Add to Cart"
+msgstr "افزودن به سبد خرید"
+
+#: .\templates\home.html:43
+msgid "Saffron cake topped with pistachio and rose petals"
+msgstr "کیک زعفرانی با تزئین پسته و گلبرگ‌های رز"
+
+#: .\templates\home.html:43
+msgid "Chef's Choice"
+msgstr "انتخاب سرآشپز"
+
+#: .\templates\home.html:45
+msgid "Cake"
+msgstr "کیک"
+
+#: .\templates\home.html:46
+msgid "Saffron Cream Cake"
+msgstr "کیک خامه‌ای زعفرانی"
+
+#: .\templates\home.html:47
+msgid "Soft sponge, saffron-infused cream and a crown of pistachio."
+msgstr "اسفنجی نرم، خامه آغشته به زعفران و تاجی از پسته."
+
+#: .\templates\home.html:52
+msgid "Traditional almond cookies"
+msgstr "کلوچه‌های سنتی بادامی"
+
+#: .\templates\home.html:54
+msgid "Cookies"
+msgstr "کلوچه‌ها"
+
+#: .\templates\home.html:55 .\templates\home.html:99
+msgid "Cardamom Almond Cookies"
+msgstr "کلوچه‌های بادامی هل"
+
+#: .\templates\home.html:56
+msgid "Delicate, buttery and perfumed with cardamom and rose water."
+msgstr "لطیف، کره‌ای و معطر با هل و گلاب."
+
+#: .\templates\home.html:61
+msgid "Sohan saffron brittle with pistachios"
+msgstr "سوهان زعفرانی با پسته"
+
+#: .\templates\home.html:61
+msgid "New"
+msgstr "جدید"
+
+#: .\templates\home.html:63
+msgid "Traditional Sweets"
+msgstr "شیرینی‌های سنتی"
+
+#: .\templates\home.html:64 .\templates\home.html:94
+msgid "Saffron Sohan"
+msgstr "سوهان زعفرانی"
+
+#: .\templates\home.html:65
+msgid "Golden saffron brittle, slowly caramelised and finished with pistachio."
+msgstr "سوهان زعفرانی طلایی، آهسته کاراملی شده و با پسته تکمیل شده است."
+
+#: .\templates\home.html:74
+msgid "Loved by Our Customers"
+msgstr "محبوب مشتریان ما"
+
+#: .\templates\home.html:76
+msgid "Previous review"
+msgstr "نظر قبلی"
+
+#: .\templates\home.html:77
+msgid "Next review"
+msgstr "نظر بعدی"
+
+#: .\templates\home.html:80
+msgid "Customer reviews"
+msgstr "نظرات مشتریان"
+
+#: .\templates\home.html:82 .\templates\home.html:87 .\templates\home.html:92
+#: .\templates\home.html:97
+msgid "5 out of 5 stars"
+msgstr "۵ از ۵ ستاره"
+
+#: .\templates\home.html:83
+msgid ""
+"The baklava is crisp, never too sweet, and the pistachio is unmistakable. "
+"Our family's new tradition."
+msgstr ""
+"باقلوا ترد است، هرگز زیادی شیرین نیست و پسته‌اش کاملاً محسوس است. سنت جدید "
+"خانواده ما."
+
+#: .\templates\home.html:84
+msgid "SM"
+msgstr "س.م"
+
+#: .\templates\home.html:84
+msgid "Sara M."
+msgstr "سارا م."
+
+#: .\templates\home.html:88
+msgid ""
+"They made our wedding cake with saffron cream. Guests are still talking "
+"about it."
+msgstr ""
+"آن‌ها کیک عروسی ما را با خامه زعفرانی درست کردند. مهمانان هنوز درباره‌اش حرف "
+"می‌زنند."
+
+#: .\templates\home.html:89
+msgid "AR"
+msgstr "آ.ر"
+
+#: .\templates\home.html:89
+msgid "Arman R."
+msgstr "آرمان ر."
+
+#: .\templates\home.html:89
+msgid "Custom Celebration Cake"
+msgstr "کیک جشن سفارشی"
+
+#: .\templates\home.html:93
+msgid ""
+"Delivery arrived warm and beautifully boxed. You can taste the care in every "
+"piece."
+msgstr ""
+"سفارش گرم و در جعبه‌ای زیبا به دستمان رسید. می‌توانید ذوق و توجه را در هر تکه "
+"بچشید."
+
+#: .\templates\home.html:94
+msgid "NK"
+msgstr "ن.ک"
+
+#: .\templates\home.html:94
+msgid "Nasim K."
+msgstr "نسیم ک."
+
+#: .\templates\home.html:98
+msgid ""
+"The cardamom cookies remind me of my grandmother's kitchen. Honest, "
+"fragrant, perfect with tea."
+msgstr ""
+"کلوچه‌های هل مرا به یاد آشپزخانه مادربزرگم می‌اندازد. صادقانه، معطر و عالی با "
+"چای."
+
+#: .\templates\home.html:99
+msgid "DH"
+msgstr "د.ه"
+
+#: .\templates\home.html:99
+msgid "Dariush H."
+msgstr "داریوش ه."
+
+#: .\templates\home.html:106
+msgid "Visit Our Bakery"
+msgstr "از قنادی ما دیدن کنید"
+
+#: .\templates\home.html:107
+msgid ""
+"Step inside, breathe in the saffron and honey, and let us pack a box while "
+"it is still warm."
+msgstr ""
+"قدم بگذارید داخل، عطر زعفران و عسل را تنفس کنید و بگذارید تا جعبه‌ای برایتان "
+"ببندیم، در حالی که هنوز گرم است."
+
+#: .\templates\home.html:108
+msgid "Get Directions"
+msgstr "مسیریابی"
+
+#: .\templates\home.html:112
+msgid "Opening Hours"
+msgstr "ساعات کاری"
+
+#: .\templates\home.html:113
+msgid "Phone"
+msgstr "تلفن"
+
+#: .\templates\home.html:120
+msgid "Sweet Offers, Straight to Your Inbox"
+msgstr "پیشنهادهای شیرین، مستقیم در صندوق ایمیل شما"
+
+#: .\templates\home.html:121
+msgid ""
+"New creations, seasonal flavours and a little something for your first order."
+msgstr "آفریده‌های جدید، طعم‌های فصلی و یک چیز کوچک برای اولین سفارش شما."
+
+#: .\templates\home.html:125
+msgid "Email address"
+msgstr "آدرس ایمیل"
+
+#: .\templates\home.html:126
+msgid "Your email address"
+msgstr "آدرس ایمیل شما"
+
+#: .\templates\home.html:127
+msgid "Subscribe"
+msgstr "عضویت"
+
+#~ msgid "Change phone number"
+#~ msgstr "تغییر شماره تلفن"
+
+#~ msgid "Update your phone"
+#~ msgstr "شماره تلفن خود را به‌روزرسانی کنید"
+
+#~ msgid "Browse our full collection of Persian sweets and pastries."
+#~ msgstr "مجموعه کامل شیرینی‌ها و دسرهای ایرانی ما را مرور کنید."
+
+#~ msgid "Product filters"
+#~ msgstr "فیلترهای محصول"
+
+#~ msgid "Category"
+#~ msgstr "دسته‌بندی"
+
+#~ msgid "Cakes"
+#~ msgstr "کیک‌ها"
+
+#~ msgid "Price"
+#~ msgstr "قیمت"
+
+#~ msgid "Under $15"
+#~ msgstr "زیر ۱۵ دلار"
+
+#~ msgid "$30 and up"
+#~ msgstr "۳۰ دلار و بالاتر"
+
+#~ msgid "Dietary"
+#~ msgstr "رژیم غذایی"
+
+#~ msgid "Vegan"
+#~ msgstr "وگان"
+
+#~ msgid "Gluten-free"
+#~ msgstr "بدون گلوتن"
+
+#~ msgid "Nut-free"
+#~ msgstr "بدون مغزها"
+
+#~ msgid "Availability"
+#~ msgstr "موجودی"
+
+#~ msgid "In stock"
+#~ msgstr "موجود"
+
+#~ msgid "Apply Filters"
+#~ msgstr "اعمال فیلترها"
