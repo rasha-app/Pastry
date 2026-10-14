@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} 403 {% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-3 text-warning">403</h1>
+    <p class="lead">{% trans "You do not have permission to access this page." %}</p>
+    <a href="/" class="btn btn-warning mt-3">{% trans "Return to home" %}</a>
+</div>
+{% endblock %}

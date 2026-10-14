@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} 405 {% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-3 text-info">405</h1>
+    <p class="lead">{% trans "This method is not valid for this address." %}</p>
+    <a href="/" class="btn btn-info mt-3">{% trans "Return to home" %}</a>
+</div>
+{% endblock %}

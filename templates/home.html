@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Zarrin Patisserie — Persian Baklava, Cakes & Pastries" %}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero__media"><img src="https://placehold.co/1920x1200/C97B2D/FFF8EC?text=Baklava+Hero" alt="{% trans 'Golden baklava layered with crushed pistachios' %}" fetchpriority="high"></div>
+  <div class="hero__card glass-dark">
+    <p class="hero__label">{% trans "Handcrafted Persian Sweets" %}</p>
+    <h1>{% trans "Fresh Baklava, Cakes & Traditional Pastries" %}</h1>
+    <p>{% trans "Made daily with real pistachios, saffron, honey, and premium ingredients." %}</p>
+    <div class="hero__cta">
+      <a class="btn btn--gold" href="#">{% trans "Shop Now" %}</a>
+      <a class="btn btn--glass" href="#">{% trans "Explore Our Menu" %}</a>
+    </div>
+  </div>
+</section>
+
+<ul class="trust">
+  <li>{% trans "Fresh Daily Baking" %}</li>
+  <li>{% trans "Premium Pistachios & Saffron" %}</li>
+  <li>{% trans "Custom Celebration Cakes" %}</li>
+  <li>{% trans "Fast Local Delivery" %}</li>
+</ul>
+
+<section class="section reveal" aria-labelledby="sig-title">
+  <header class="section__head">
+    <h2 id="sig-title">{% trans "Signature Creations" %}</h2>
+    <p>{% trans "Chef's selection of our most loved pastries" %}</p>
+  </header>
+  <div class="grid">
+    <article class="card">
+      <div class="card__img"><img src="https://placehold.co/640x800/E8A33D/3B2A1A?text=Pistachio+Baklava" alt="{% trans 'Pistachio baklava on a ceramic plate' %}" loading="lazy"><span class="badge-tag">{% trans "Best Seller" %}</span></div>
+      <div class="card__body">
+        <span class="tag">{% trans "Baklava" %}</span>
+        <h3>{% trans "Pistachio Baklava" %}</h3>
+        <p>{% trans "Thirty-two crisp filo layers, crushed Persian pistachios and honey syrup." %}</p>
+        <div class="card__foot"><strong>$24.00</strong><a class="btn btn--soft" href="#">{% trans "Add to Cart" %}</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card__img"><img src="https://placehold.co/640x800/D98E2B/FFF8EC?text=Saffron+Cake" alt="{% trans 'Saffron cake topped with pistachio and rose petals' %}" loading="lazy"><span class="badge-tag">{% trans "Chef's Choice" %}</span></div>
+      <div class="card__body">
+        <span class="tag">{% trans "Cake" %}</span>
+        <h3>{% trans "Saffron Cream Cake" %}</h3>
+        <p>{% trans "Soft sponge, saffron-infused cream and a crown of pistachio." %}</p>
+        <div class="card__foot"><strong>$38.00</strong><a class="btn btn--soft" href="#">{% trans "Add to Cart" %}</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card__img"><img src="https://placehold.co/640x800/7C9A5B/FFF8EC?text=Almond+Cookies" alt="{% trans 'Traditional almond cookies' %}" loading="lazy"></div>
+      <div class="card__body">
+        <span class="tag">{% trans "Cookies" %}</span>
+        <h3>{% trans "Cardamom Almond Cookies" %}</h3>
+        <p>{% trans "Delicate, buttery and perfumed with cardamom and rose water." %}</p>
+        <div class="card__foot"><strong>$16.00</strong><a class="btn btn--soft" href="#">{% trans "Add to Cart" %}</a></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card__img"><img src="https://placehold.co/640x800/C97B2D/FFF8EC?text=Sohan" alt="{% trans 'Sohan saffron brittle with pistachios' %}" loading="lazy"><span class="badge-tag">{% trans "New" %}</span></div>
+      <div class="card__body">
+        <span class="tag">{% trans "Traditional Sweets" %}</span>
+        <h3>{% trans "Saffron Sohan" %}</h3>
+        <p>{% trans "Golden saffron brittle, slowly caramelised and finished with pistachio." %}</p>
+        <div class="card__foot"><strong>$20.00</strong><a class="btn btn--soft" href="#">{% trans "Add to Cart" %}</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section reveal" aria-labelledby="rev-title" data-slider>
+  <header class="section__head section__head--row">
+    <h2 id="rev-title">{% trans "Loved by Our Customers" %}</h2>
+    <div class="slider__ctrl">
+      <button type="button" class="ico ico--ring" data-prev aria-label="{% trans 'Previous review' %}"><svg class="i chev"><use href="#i-prev"/></svg></button>
+      <button type="button" class="ico ico--ring" data-next aria-label="{% trans 'Next review' %}"><svg class="i chev"><use href="#i-next"/></svg></button>
+    </div>
+  </header>
+  <div class="slider__track" data-track tabindex="0" role="group" aria-label="{% trans 'Customer reviews' %}">
+    <figure class="quote">
+      <svg class="stars" role="img" aria-label="{% trans '5 out of 5 stars' %}"><use href="#i-stars"/></svg>
+      <blockquote>{% trans "The baklava is crisp, never too sweet, and the pistachio is unmistakable. Our family's new tradition." %}</blockquote>
+      <figcaption><span class="avatar">{% trans "SM" %}</span><span><strong>{% trans "Sara M." %}</strong><small>{% trans "Pistachio Baklava" %}</small></span></figcaption>
+    </figure>
+    <figure class="quote">
+      <svg class="stars" role="img" aria-label="{% trans '5 out of 5 stars' %}"><use href="#i-stars"/></svg>
+      <blockquote>{% trans "They made our wedding cake with saffron cream. Guests are still talking about it." %}</blockquote>
+      <figcaption><span class="avatar">{% trans "AR" %}</span><span><strong>{% trans "Arman R." %}</strong><small>{% trans "Custom Celebration Cake" %}</small></span></figcaption>
+    </figure>
+    <figure class="quote">
+      <svg class="stars" role="img" aria-label="{% trans '5 out of 5 stars' %}"><use href="#i-stars"/></svg>
+      <blockquote>{% trans "Delivery arrived warm and beautifully boxed. You can taste the care in every piece." %}</blockquote>
+      <figcaption><span class="avatar">{% trans "NK" %}</span><span><strong>{% trans "Nasim K." %}</strong><small>{% trans "Saffron Sohan" %}</small></span></figcaption>
+    </figure>
+    <figure class="quote">
+      <svg class="stars" role="img" aria-label="{% trans '5 out of 5 stars' %}"><use href="#i-stars"/></svg>
+      <blockquote>{% trans "The cardamom cookies remind me of my grandmother's kitchen. Honest, fragrant, perfect with tea." %}</blockquote>
+      <figcaption><span class="avatar">{% trans "DH" %}</span><span><strong>{% trans "Dariush H." %}</strong><small>{% trans "Cardamom Almond Cookies" %}</small></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section reveal visit" aria-labelledby="visit-title">
+  <div>
+    <h2 id="visit-title">{% trans "Visit Our Bakery" %}</h2>
+    <p>{% trans "Step inside, breathe in the saffron and honey, and let us pack a box while it is still warm." %}</p>
+    <a class="btn btn--gold" href="#">{% trans "Get Directions" %}</a>
+  </div>
+  <dl class="glass visit__info">
+    <div><dt>{% trans "Address" %}</dt><dd>{% trans "No. 12, Golestan Street, Tehran" %}</dd></div>
+    <div><dt>{% trans "Opening Hours" %}</dt><dd>{% trans "Saturday to Thursday: 9:00 AM – 10:00 PM" %}<br>{% trans "Friday: 2:00 PM – 10:00 PM" %}</dd></div>
+    <div><dt>{% trans "Phone" %}</dt><dd dir="ltr">+98 21 0000 0000</dd></div>
+  </dl>
+</section>
+
+<section class="section reveal news" aria-labelledby="news-title">
+  <div class="news__box glass">
+    <div>
+      <h2 id="news-title">{% trans "Sweet Offers, Straight to Your Inbox" %}</h2>
+      <p>{% trans "New creations, seasonal flavours and a little something for your first order." %}</p>
+    </div>
+    <form action="#" method="post" class="news__form">
+      {% csrf_token %}
+      <label class="sr" for="news-email">{% trans "Email address" %}</label>
+      <input id="news-email" type="email" name="email" placeholder="{% trans 'Your email address' %}" required autocomplete="email">
+      <button class="btn btn--gold" type="submit">{% trans "Subscribe" %}</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
