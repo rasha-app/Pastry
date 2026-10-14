@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load static i18n crispy_forms_tags %}
+
+{% block title %}{% trans "Password Reset Form" %}{% endblock title %}
+
+{% block extra_css %}
+<style>
+    .reset-wrapper {
+        padding: 60px 1rem 80px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 60vh;
+    }
+
+    /* ---- Card ---- */
+    .reset-card {
+        width: 100%;
+        max-width: 460px;
+        background: rgba(255, 255, 255, .6);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(59, 42, 26, .08);
+        overflow: hidden;
+    }
+
+    /* ---- Header ---- */
+    .reset-header {
+        padding: 34px 34px 26px;
+        text-align: center;
+        background: linear-gradient(160deg, rgba(232, 163, 61, .18), rgba(255, 255, 255, .5));
+        border-bottom: 1px solid var(--hair);
+    }
+
+    .reset-title {
+        font-family: var(--serif);
+        font-size: clamp(1.4rem, 3vw, 1.7rem);
+        color: var(--brown);
+        font-weight: 600;
+        margin: 0 0 8px;
+    }
+
+    .reset-subtitle {
+        font-size: .82rem;
+        color: var(--brown);
+        opacity: .75;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    /* ---- Body ---- */
+    .reset-body {
+        padding: 28px 34px 34px;
+    }
+
+    /* ---- Alert ---- */
+    .reset-alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 18px;
+        background: rgba(201, 123, 45, .12);
+        border: 1px solid rgba(201, 123, 45, .3);
+        border-radius: 12px;
+        color: var(--brown);
+        font-size: .82rem;
+        font-weight: 500;
+        margin-bottom: 22px;
+    }
+    .reset-alert ul { margin: 0; padding: 0; list-style: none; }
+
+    /* ---- Form fields (crispy output normalized) ---- */
+    .reset-fields .form-group,
+    .reset-fields .mb-3 {
+        margin-bottom: 18px !important;
+    }
+
+    .reset-fields label {
+        display: block;
+        font-size: .82rem;
+        font-weight: 500;
+        color: var(--brown);
+        opacity: .85;
+        margin-bottom: 8px;
+    }
+
+    .reset-fields .form-control,
+    .reset-fields input,
+    .reset-fields textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid var(--hair);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, .8);
+        color: var(--brown);
+        font: 400 .95rem var(--sans);
+        transition: border-color .25s, box-shadow .25s, background .25s;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    .reset-fields .form-control:focus,
+    .reset-fields input:focus,
+    .reset-fields textarea:focus {
+        border-color: var(--saffron-d);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(232, 163, 61, .28);
+    }
+
+    .reset-fields .form-text,
+    .reset-fields .helptext,
+    .reset-fields small {
+        display: block;
+        font-size: .75rem;
+        color: var(--brown);
+        opacity: .7;
+        margin-top: 6px;
+        line-height: 1.6;
+    }
+
+    .reset-fields .form-text ul,
+    .reset-fields .helptext ul {
+        margin: 6px 0 0;
+        padding-inline-start: 18px;
+    }
+
+    .reset-fields .invalid-feedback,
+    .reset-fields .errorlist {
+        color: #b02a2a;
+        font-size: .8rem;
+        margin-top: 6px;
+        list-style: none;
+        padding: 0;
+    }
+
+    .reset-fields .is-invalid { border-color: #b02a2a !important; }
+
+    /* ---- Submit ---- */
+    .reset-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 14px 28px;
+        margin-top: 12px;
+        background: var(--saffron);
+        color: var(--brown);
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font: 700 .95rem var(--sans);
+        cursor: pointer;
+        transition: transform .25s var(--ease), box-shadow .25s, background .25s;
+    }
+    .reset-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 0 4px rgba(232, 163, 61, .28), 0 10px 26px rgba(217, 142, 43, .4);
+    }
+    .reset-submit:focus-visible {
+        outline: 2px solid var(--honey);
+        outline-offset: 3px;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+        .reset-wrapper { padding: 30px 1rem 60px; }
+        .reset-header { padding: 26px 22px 20px; }
+        .reset-body { padding: 22px 22px 26px; }
+    }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="container reset-wrapper">
+
+        <div class="reset-card">
+
+            <!-- ===== Header ===== -->
+            <div class="reset-header">
+                <h1 class="reset-title">{% translate "Set New Password" %}</h1>
+                <p class="reset-subtitle">{% translate "Choose a strong password to keep your account safe." %}</p>
+            </div>
+
+            <!-- ===== Body ===== -->
+            <div class="reset-body">
+
+                {% if form.non_field_errors %}
+                    <div class="reset-alert">
+                        <div>{{ form.non_field_errors }}</div>
+                    </div>
+                {% endif %}
+
+                <form method="POST" class="reset-form">
+                    {% csrf_token %}
+
+                    <div class="reset-fields">
+                        {{ form|crispy }}
+                    </div>
+
+                    <button type="submit" class="reset-submit">
+                        <span>{% translate "New Password Register" %}</span>
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock content %}

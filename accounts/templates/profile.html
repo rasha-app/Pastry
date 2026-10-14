@@ -1,0 +1,922 @@
+{% extends "base.html" %}
+{% load static i18n crispy_forms_tags %}
+
+{% block title %}{% translate "Profile" %}{% endblock title %}
+
+{% block extra_css %}
+<style nonce="{{ request.csp_nonce }}">
+
+    /* ============================================================
+       PROFILE PAGE
+       همه‌ی رنگ‌ها/فونت‌ها/شعاع‌ها با fallback نوشته شدن
+       تا مستقل از base.html کار کنن
+       ============================================================ */
+    .profile-wrapper {
+        --pf-saffron:      var(--saffron, #E8A33D);
+        --pf-saffron-deep: var(--saffron-deep, var(--saffron-d, #D98E2B));
+        --pf-honey:        var(--honey, #C97B2D);
+        --pf-pistachio-d:  var(--pistachio-deep, var(--pistachio-d, #6B8E4E));
+        --pf-brown:        var(--brown, #3B2A1A);
+        --pf-brown-soft:   var(--brown-soft, rgba(59, 42, 26, 0.68));
+        --pf-brown-line:   var(--brown-line, var(--hair, var(--line, rgba(59, 42, 26, 0.12))));
+        --pf-cream:        var(--cream, #FFF8EC);
+        --pf-ivory:        #FFFDF8;
+
+        --pf-font-display: var(--font-display, var(--serif, "Cormorant Garamond", "Playfair Display", Georgia, serif));
+        --pf-font-body:    var(--font-body, var(--sans, "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif));
+
+        --pf-r-md:   var(--radius-md, 14px);
+        --pf-r-lg:   var(--radius-lg, 20px);
+        --pf-r-pill: var(--radius-pill, 999px);
+
+        --pf-shadow-sm: var(--shadow-sm, 0 6px 18px rgba(59, 42, 26, 0.07));
+        --pf-shadow-md: var(--shadow-md, 0 14px 34px rgba(59, 42, 26, 0.11));
+
+        --pf-ease: var(--ease, cubic-bezier(0.22, 0.61, 0.36, 1));
+
+        max-width: 980px;
+        margin-inline: auto;
+        padding: 2.75rem 1.25rem 4.5rem;
+        color: var(--pf-brown);
+        font-family: var(--pf-font-body);
+        line-height: 1.6;
+    }
+
+    /* ============================================================
+       PAGE HEADING
+       ============================================================ */
+    .profile-heading {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+        margin-block-end: 2rem;
+    }
+
+    .profile-heading__icon {
+        flex: 0 0 auto;
+        width: 56px;
+        height: 56px;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(140deg, var(--pf-saffron) 0%, var(--pf-honey) 100%);
+        color: var(--pf-ivory);
+        box-shadow: 0 10px 24px rgba(217, 142, 43, 0.32);
+    }
+
+    .profile-heading__icon svg { width: 26px; height: 26px; }
+
+    .profile-heading__text h1 {
+        font-family: var(--pf-font-display);
+        font-size: clamp(1.55rem, 3.4vw, 2.05rem);
+        font-weight: 600;
+        line-height: 1.1;
+        margin: 0 0 0.2rem;
+        color: var(--pf-brown);
+    }
+
+    .profile-heading__text p {
+        font-size: 0.88rem;
+        color: var(--pf-brown-soft);
+        margin: 0;
+    }
+
+    /* ============================================================
+       MESSAGES
+       ============================================================ */
+    .profile-messages {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0 0 1.5rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    .profile-message {
+        padding: 0.8rem 1rem;
+        border-radius: var(--pf-r-md);
+        font-family: var(--pf-font-body);
+        font-size: 0.86rem;
+        font-weight: 500;
+        border: 1px solid var(--pf-brown-line);
+        background: rgba(255, 255, 255, 0.7);
+        color: var(--pf-brown);
+    }
+    .profile-message--success {
+        border-color: rgba(107, 142, 78, 0.4);
+        background: rgba(107, 142, 78, 0.12);
+        color: var(--pf-pistachio-d);
+    }
+    .profile-message--warning {
+        border-color: rgba(232, 163, 61, 0.5);
+        background: rgba(232, 163, 61, 0.14);
+        color: var(--pf-honey);
+    }
+    .profile-message--error {
+        border-color: rgba(176, 42, 42, 0.35);
+        background: rgba(176, 42, 42, 0.08);
+        color: #B02A2A;
+    }
+    .profile-message--info { border-color: var(--pf-brown-line); }
+
+    /* ============================================================
+       TABS
+       ============================================================ */
+    .profile-tabs {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.4rem;
+        margin-block-end: 1.75rem;
+        border-radius: var(--pf-r-pill);
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        backdrop-filter: blur(16px) saturate(150%);
+        box-shadow: var(--pf-shadow-sm);
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .profile-tabs::-webkit-scrollbar { display: none; }
+
+    .profile-tab {
+        flex: 1 1 0;
+        min-width: max-content;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        padding: 0.7rem 1.1rem;
+        border: 0;
+        border-radius: var(--pf-r-pill);
+        background: transparent;
+        color: var(--pf-brown-soft);
+        font-family: var(--pf-font-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.28s var(--pf-ease),
+                    color 0.28s var(--pf-ease),
+                    box-shadow 0.28s var(--pf-ease),
+                    transform 0.28s var(--pf-ease);
+    }
+
+    .profile-tab svg {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
+        stroke: currentColor;
+    }
+
+    .profile-tab:hover {
+        background: rgba(232, 163, 61, 0.16);
+        color: var(--pf-honey);
+    }
+
+    /* تب فعال — پس‌زمینه‌ی طلایی با متن تیره تا کنتراست تضمین بشه */
+    .profile-tab[aria-selected="true"] {
+        background: linear-gradient(135deg, var(--pf-saffron) 0%, var(--pf-saffron-deep) 100%);
+        color: #3B2A1A;                     /* متن تیره روی طلایی */
+        box-shadow: 0 10px 22px rgba(217, 142, 43, 0.34);
+    }
+
+    .profile-tab[aria-selected="true"] svg { stroke: #3B2A1A; }
+
+    .profile-tab[aria-selected="true"]:hover { color: #3B2A1A; }
+
+    /* ============================================================
+       PANELS
+       ============================================================ */
+    .profile-panel { display: none; }
+
+    .profile-panel.is-active {
+        display: block;
+        animation: profileFade 0.42s var(--pf-ease);
+    }
+
+    @keyframes profileFade {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .profile-panel.is-active { animation: none; }
+    }
+
+    /* ============================================================
+       CARD
+       ============================================================ */
+    .profile-card {
+        background: rgba(255, 255, 255, 0.6);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        backdrop-filter: blur(16px) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        border-radius: var(--pf-r-lg);
+        box-shadow: var(--pf-shadow-sm);
+        overflow: hidden;
+        margin-block-end: 1.5rem;
+    }
+
+    .profile-card:last-child { margin-block-end: 0; }
+
+    .profile-card__head {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 1.05rem 1.5rem;
+        background: linear-gradient(135deg, rgba(232, 163, 61, 0.22), rgba(201, 123, 45, 0.10));
+        border-block-end: 1px solid var(--pf-brown-line);
+    }
+
+    .profile-card__head h2,
+    .profile-card__head h3 {
+        font-family: var(--pf-font-display);
+        font-size: 1.15rem;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+        color: var(--pf-brown);
+    }
+
+    .profile-card__body { padding: 1.5rem; }
+
+    /* ============================================================
+       FIELDS (crispy-aware)
+       ============================================================ */
+    .profile-fields .form-group,
+    .profile-fields .mb-3 { margin-block-end: 1.1rem !important; }
+
+    .profile-fields label,
+    .profile-fields .form-label {
+        display: block;
+        font-family: var(--pf-font-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--pf-brown);
+        margin-block-end: 0.4rem;
+    }
+
+    .profile-fields .form-control,
+    .profile-fields input:not([type="checkbox"]):not([type="radio"]),
+    .profile-fields textarea,
+    .profile-fields select {
+        width: 100%;
+        padding: 0.72rem 1rem;
+        border: 1px solid var(--pf-brown-line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--pf-brown);
+        font-family: var(--pf-font-body);
+        font-size: 0.92rem;
+        line-height: 1.4;
+        transition: border-color 0.25s var(--pf-ease),
+                    box-shadow 0.25s var(--pf-ease),
+                    background-color 0.25s var(--pf-ease);
+    }
+
+    .profile-fields .form-control:focus,
+    .profile-fields input:not([type="checkbox"]):not([type="radio"]):focus,
+    .profile-fields textarea:focus,
+    .profile-fields select:focus {
+        outline: none;
+        border-color: var(--pf-saffron-deep);
+        background: #FFFFFF;
+        box-shadow: 0 0 0 4px rgba(232, 163, 61, 0.18);
+    }
+
+    .profile-fields textarea { resize: vertical; min-height: 90px; }
+
+    .profile-fields input[type="file"] {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.85rem;
+        cursor: pointer;
+    }
+
+    .profile-fields input[type="checkbox"],
+    .profile-fields input[type="radio"] {
+        width: auto;
+        accent-color: var(--pf-saffron-deep);
+        margin-inline-end: 0.5rem;
+    }
+
+    .profile-fields .invalid-feedback,
+    .profile-fields .errorlist {
+        color: #B02A2A;
+        font-size: 0.78rem;
+        margin-block-start: 0.35rem;
+        list-style: none;
+        padding: 0;
+    }
+
+    .profile-fields .is-invalid { border-color: #B02A2A !important; }
+
+    .profile-fields .helptext,
+    .profile-fields .form-text,
+    .profile-fields small {
+        display: block;
+        font-size: 0.76rem;
+        color: var(--pf-brown-soft);
+        margin-block-start: 0.35rem;
+        line-height: 1.5;
+    }
+
+    .profile-fields .helptext a { color: var(--pf-honey); }
+
+    /* Submit row */
+    .profile-submit-row {
+        margin-block-start: 1.25rem;
+        padding-block-start: 1.25rem;
+        border-block-start: 1px solid var(--pf-brown-line);
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .profile-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.78rem 1.6rem;
+        border: 0;
+        border-radius: var(--pf-r-pill);
+        background: linear-gradient(135deg, var(--pf-saffron) 0%, var(--pf-saffron-deep) 100%);
+        color: #3B2A1A;                     /* متن تیره روی طلایی */
+        font-family: var(--pf-font-body);
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(217, 142, 43, 0.32);
+        transition: transform 0.25s var(--pf-ease), box-shadow 0.25s var(--pf-ease);
+    }
+
+    .profile-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(217, 142, 43, 0.44);
+    }
+
+    /* ============================================================
+       SECURITY — action cards
+       ============================================================ */
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .action-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.15rem 1.25rem;
+        border-radius: var(--pf-r-md);
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        text-decoration: none;
+        color: var(--pf-brown);
+        transition: transform 0.3s var(--pf-ease),
+                    box-shadow 0.3s var(--pf-ease),
+                    border-color 0.3s var(--pf-ease);
+    }
+
+    .action-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(232, 163, 61, 0.5);
+        box-shadow: var(--pf-shadow-md);
+    }
+
+    .action-card__icon {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: rgba(232, 163, 61, 0.18);
+        color: var(--pf-honey);
+        border: 1px solid rgba(201, 123, 45, 0.25);
+        transition: background-color 0.3s var(--pf-ease),
+                    color 0.3s var(--pf-ease),
+                    border-color 0.3s var(--pf-ease);
+    }
+
+    .action-card__icon svg { width: 20px; height: 20px; stroke: currentColor; }
+
+    .action-card:hover .action-card__icon {
+        background: var(--pf-saffron);
+        color: #3B2A1A;
+        border-color: transparent;
+    }
+
+    .action-card__text { flex: 1 1 auto; min-width: 0; }
+
+    .action-card__text strong {
+        display: block;
+        font-family: var(--pf-font-body);
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: var(--pf-brown);
+        margin-block-end: 0.12rem;
+        line-height: 1.3;
+    }
+
+    .action-card__text small {
+        font-size: 0.76rem;
+        color: var(--pf-brown-soft);
+        line-height: 1.4;
+    }
+
+    .action-card__arrow {
+        flex: 0 0 auto;
+        color: var(--pf-brown-soft);
+        transition: transform 0.3s var(--pf-ease), color 0.3s var(--pf-ease);
+    }
+
+    .action-card__arrow svg { width: 16px; height: 16px; stroke: currentColor; }
+
+    html[dir="rtl"] .action-card__arrow { transform: scaleX(-1); }
+
+    .action-card:hover .action-card__arrow { color: var(--pf-honey); }
+    html[dir="ltr"] .action-card:hover .action-card__arrow { transform: translateX(4px); }
+    html[dir="rtl"] .action-card:hover .action-card__arrow { transform: scaleX(-1) translateX(4px); }
+
+    /* ============================================================
+       ADDRESSES
+       ============================================================ */
+    .addresses-empty {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--pf-brown-soft);
+        padding: 1.5rem 0;
+        margin: 0;
+    }
+
+    .address-list {
+        display: grid;
+        gap: 0.85rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .address-item {
+        position: relative;
+        padding: 1.05rem 1.15rem;
+        padding-inline-end: 5.5rem;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid var(--pf-brown-line);
+        border-radius: var(--pf-r-md);
+        transition: border-color 0.25s var(--pf-ease),
+                    background-color 0.25s var(--pf-ease),
+                    box-shadow 0.25s var(--pf-ease);
+    }
+
+    .address-item:hover {
+        border-color: rgba(232, 163, 61, 0.4);
+        box-shadow: var(--pf-shadow-sm);
+    }
+
+    .address-item.is-default {
+        border-color: rgba(201, 123, 45, 0.55);
+        background: rgba(232, 163, 61, 0.10);
+    }
+
+    .address-item__head {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+        margin-block-end: 0.4rem;
+    }
+
+    .address-item__head strong {
+        font-family: var(--pf-font-display);
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--pf-brown);
+        line-height: 1.2;
+    }
+
+    .default-badge {
+        padding: 0.18rem 0.6rem;
+        border-radius: var(--pf-r-pill);
+        background: linear-gradient(135deg, var(--pf-saffron), var(--pf-saffron-deep));
+        color: #3B2A1A;
+        font-family: var(--pf-font-body);
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .address-item__line {
+        font-size: 0.88rem;
+        color: var(--pf-brown);
+        margin: 0 0 0.25rem;
+        line-height: 1.6;
+    }
+
+    .address-item__meta {
+        font-size: 0.78rem;
+        color: var(--pf-brown-soft);
+        margin: 0.4rem 0 0;
+        line-height: 1.55;
+    }
+
+    .address-delete-form {
+        position: absolute;
+        inset-block-start: 0.85rem;
+        inset-inline-end: 0.85rem;
+        margin: 0;
+    }
+
+    .address-delete {
+        padding: 0.32rem 0.8rem;
+        border-radius: var(--pf-r-pill);
+        border: 1px solid rgba(176, 42, 42, 0.45);
+        background: rgba(176, 42, 42, 0.06);
+        color: #B02A2A;
+        font-family: var(--pf-font-body);
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition: background-color 0.2s var(--pf-ease),
+                    color 0.2s var(--pf-ease),
+                    border-color 0.2s var(--pf-ease),
+                    transform 0.2s var(--pf-ease);
+    }
+
+    .address-delete:hover {
+        background: #B02A2A;
+        color: #FFFFFF;
+        border-color: #B02A2A;
+        transform: translateY(-1px);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 700px) {
+        .profile-wrapper { padding: 2rem 1rem 4rem; }
+
+        .profile-heading {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.9rem;
+        }
+
+        .profile-tabs { border-radius: var(--pf-r-md); padding: 0.35rem; }
+
+        .profile-tab {
+            flex: 0 0 auto;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.78rem;
+        }
+
+        .profile-tab svg { width: 15px; height: 15px; }
+
+        .profile-card__head { padding: 0.95rem 1.15rem; }
+        .profile-card__head h2 { font-size: 1.05rem; }
+
+        .profile-card__body { padding: 1.15rem; }
+
+        .action-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+
+        .profile-submit-row { justify-content: stretch; }
+        .profile-submit { width: 100%; }
+
+        .address-item { padding-inline-end: 1.15rem; padding-block-start: 3rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .profile-tab,
+        .profile-submit,
+        .action-card,
+        .action-card__icon,
+        .action-card__arrow,
+        .address-item,
+        .address-delete { transition: none !important; }
+    }
+</style>
+{% endblock extra_css %}
+
+
+{% block content %}
+<div class="profile-wrapper">
+
+    <!-- ======================== PAGE HEADING ======================== -->
+    <header class="profile-heading">
+        <span class="profile-heading__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+        </span>
+        <div class="profile-heading__text">
+            <h1>{% translate "My Profile" %}</h1>
+            <p>{% translate "Manage your account information, addresses and security" %}</p>
+        </div>
+    </header>
+
+    <!-- ======================== MESSAGES ======================== -->
+    {% if messages %}
+        <ul class="profile-messages">
+            {% for message in messages %}
+                <li class="profile-message profile-message--{{ message.tags|default:'info' }}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- ======================== TABS ======================== -->
+    <div class="profile-tabs" role="tablist" aria-label="{% translate 'Profile sections' %}">
+
+        <button type="button" class="profile-tab"
+                id="tab-info" role="tab"
+                aria-controls="panel-info" aria-selected="true"
+                data-tab="info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>{% translate "Personal Info" %}</span>
+        </button>
+
+        <button type="button" class="profile-tab"
+                id="tab-addresses" role="tab"
+                aria-controls="panel-addresses" aria-selected="false"
+                data-tab="addresses">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/>
+                <circle cx="12" cy="10" r="2.6"/>
+            </svg>
+            <span>{% translate "Addresses" %}</span>
+        </button>
+
+        <button type="button" class="profile-tab"
+                id="tab-security" role="tab"
+                aria-controls="panel-security" aria-selected="false"
+                data-tab="security">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <rect x="4" y="11" width="16" height="10" rx="2"/>
+                <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+            </svg>
+            <span>{% translate "Security" %}</span>
+        </button>
+
+    </div>
+
+    <!-- ========================================================
+         PANEL 1 — PERSONAL INFO
+         ======================================================== -->
+    <section class="profile-panel is-active"
+             id="panel-info" role="tabpanel"
+             aria-labelledby="tab-info">
+
+        <div class="profile-card">
+            <div class="profile-card__head">
+                <h2>{% translate "Personal Information" %}</h2>
+            </div>
+            <div class="profile-card__body">
+                <form method="post" enctype="multipart/form-data" class="profile-form">
+                    {% csrf_token %}
+                    <div class="profile-fields">
+                        {{ forms|crispy }}
+                    </div>
+                    <div class="profile-submit-row">
+                        <button type="submit" name="profile_submit" class="profile-submit">
+                            {% translate "Save changes" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         PANEL 2 — ADDRESSES
+         ======================================================== -->
+    <section class="profile-panel"
+             id="panel-addresses" role="tabpanel"
+             aria-labelledby="tab-addresses" hidden>
+
+        <div class="profile-card">
+            <div class="profile-card__head">
+                <h2>{% translate "My Addresses" %}</h2>
+            </div>
+            <div class="profile-card__body">
+                {% if addresses %}
+                    <ul class="address-list">
+                        {% for address in addresses %}
+                            <li class="address-item {% if address.is_default %}is-default{% endif %}">
+                                <div class="address-item__head">
+                                    <strong>{{ address.title }}</strong>
+                                    {% if address.is_default %}
+                                        <span class="default-badge">{% translate "Default" %}</span>
+                                    {% endif %}
+                                </div>
+                                <p class="address-item__line">
+                                    {{ address.receiver_name }} — <span dir="ltr">{{ address.receiver_phone }}</span>
+                                </p>
+                                <p class="address-item__line">
+                                    {{ address.get_province_display }}، {{ address.get_city_display }}، {{ address.address }}
+                                </p>
+                                <p class="address-item__meta">
+                                    {% translate "Postal code" %}: <span dir="ltr">{{ address.postal_code }}</span>
+                                    · {% translate "Plaque" %}: {{ address.plaque_number }}
+                                    {% if address.block %} · {% translate "Block" %}: {{ address.block }}{% endif %}
+                                    {% if address.floor %} · {% translate "Floor" %}: {{ address.floor }}{% endif %}
+                                    {% if address.unit %} · {% translate "Unit" %}: {{ address.unit }}{% endif %}
+                                </p>
+
+                                <form method="post" class="address-delete-form"
+                                      data-confirm="{% translate 'Delete this address?' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="address_id" value="{{ address.pk }}">
+                                    <button type="submit" name="address_delete" class="address-delete">
+                                        {% translate "Delete" %}
+                                    </button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="addresses-empty">{% translate "You haven't added any addresses yet." %}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-card__head">
+                <h2>{% translate "Add New Address" %}</h2>
+            </div>
+            <div class="profile-card__body">
+                <form method="post" class="profile-form">
+                    {% csrf_token %}
+                    <div class="profile-fields">
+                        {{ address_forms|crispy }}
+                    </div>
+                    <div class="profile-submit-row">
+                        <button type="submit" name="address_submit" class="profile-submit">
+                            {% translate "Add address" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         PANEL 3 — SECURITY
+         ======================================================== -->
+    <section class="profile-panel"
+             id="panel-security" role="tabpanel"
+             aria-labelledby="tab-security" hidden>
+
+        <div class="profile-card">
+            <div class="profile-card__head">
+                <h2>{% translate "Account Security" %}</h2>
+            </div>
+            <div class="profile-card__body">
+                <div class="action-grid">
+
+                    <a href="{% url 'account_email' %}" class="action-card">
+                        <span class="action-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                                <path d="m3 7 9 6 9-6"/>
+                            </svg>
+                        </span>
+                        <span class="action-card__text">
+                            <strong>{% translate "Change email address" %}</strong>
+                            <small>{% translate "Update your email" %}</small>
+                        </span>
+                        <span class="action-card__arrow" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </a>
+
+                    <a href="{% url 'account_change_password' %}" class="action-card">
+                        <span class="action-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="8" cy="15" r="4"/>
+                                <path d="m11 12 8-8"/>
+                                <path d="m17 6 2 2"/>
+                                <path d="m14 9 2 2"/>
+                            </svg>
+                        </span>
+                        <span class="action-card__text">
+                            <strong>{% translate "Change password" %}</strong>
+                            <small>{% translate "Keep your account safe" %}</small>
+                        </span>
+                        <span class="action-card__arrow" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 5 7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock content %}
+
+
+{% block extra_js %}
+<script nonce="{{ request.csp_nonce }}">
+    (function () {
+        'use strict';
+
+        var tabs   = document.querySelectorAll('.profile-tab');
+        var panels = document.querySelectorAll('.profile-panel');
+        var validTabs = ['info', 'addresses', 'security'];
+
+        function activateTab(name) {
+            if (validTabs.indexOf(name) === -1) name = 'info';
+
+            Array.prototype.forEach.call(tabs, function (tab) {
+                var isActive = tab.getAttribute('data-tab') === name;
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                tab.setAttribute('tabindex', isActive ? '0' : '-1');
+            });
+
+            Array.prototype.forEach.call(panels, function (panel) {
+                var isActive = panel.id === 'panel-' + name;
+                panel.classList.toggle('is-active', isActive);
+                if (isActive) {
+                    panel.removeAttribute('hidden');
+                } else {
+                    panel.setAttribute('hidden', '');
+                }
+            });
+        }
+
+        Array.prototype.forEach.call(tabs, function (tab) {
+            tab.addEventListener('click', function () {
+                var name = tab.getAttribute('data-tab');
+                activateTab(name);
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', '#' + name);
+                }
+            });
+
+            tab.addEventListener('keydown', function (event) {
+                if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+                var list = Array.prototype.slice.call(tabs);
+                var index = list.indexOf(tab);
+                var dir = event.key === 'ArrowRight' ? 1 : -1;
+                var next = list[(index + dir + list.length) % list.length];
+                if (next) {
+                    event.preventDefault();
+                    next.focus();
+                    next.click();
+                }
+            });
+        });
+
+        var initialTab = 'info';
+        var hash = (window.location.hash || '').replace('#', '');
+        if (validTabs.indexOf(hash) !== -1) {
+            initialTab = hash;
+        }
+
+        {% if forms.errors %}initialTab = 'info';{% endif %}
+        {% if address_forms.errors %}initialTab = 'addresses';{% endif %}
+
+        activateTab(initialTab);
+
+        Array.prototype.forEach.call(
+            document.querySelectorAll('form[data-confirm]'),
+            function (form) {
+                form.addEventListener('submit', function (event) {
+                    var msg = form.getAttribute('data-confirm') || 'Are you sure?';
+                    if (!window.confirm(msg)) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        );
+    })();
+</script>
+{% endblock extra_js %}

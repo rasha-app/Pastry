@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% translate "Reset Phone Number" %}{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/allauth.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="custom-form-container">
+    <h1>{% translate "Reset with Phone" %}</h1>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="field-wrapper">
+            {% if show_verified %}
+                <p class="phone-display">{{ phone_display }}</p>
+                {{ verified_form|crispy }}
+                <input type="submit" class="action-button" name="reset_pass" value="{% translate 'Submit' %}">
+            {% else %}
+                {{ form|crispy }}
+                <input type="submit" class="action-button" name="code_send" value="{% translate 'Code Send' %}">
+            {% endif %}
+            <div id="timer" class="phone-timer" aria-live="polite"></div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

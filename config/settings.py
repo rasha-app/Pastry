@@ -321,6 +321,9 @@ PHONE_VERIFY_CODE_TTL = 120 # 2 minute
 if DEBUG:
     ACCOUNT_RATE_LIMITS = False
 
+ACCOUNT_FORMS = {
+    'login':'accounts.forms.CustomLoginForm'
+}
 ####################### END ALLAUTH ##############################
 
 
