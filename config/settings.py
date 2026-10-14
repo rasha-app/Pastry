@@ -64,6 +64,9 @@ INSTALLED_APPS = [
     
     'import_export',
 
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     'django_cleanup.apps.CleanupConfig', #django-cleanup clear changed pic
 
     # My Apps
@@ -75,6 +78,7 @@ MIDDLEWARE = [
     'django_permissions_policy.PermissionsPolicyMiddleware', # django-permissions-policyHeader
     'csp.middleware.CSPMiddleware', # CSP Header
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.locale.LocaleMiddleware",   # ← قبل از CommonMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -386,3 +390,7 @@ CONTENT_SECURITY_POLICY = {
     "EXCLUDE_URL_PREFIXES": ("/admin/",), #دادن مجوز دستی به این آدرس
 }
 
+####################### CRISPY ##################################
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+####################### END CRISPY ##############################
