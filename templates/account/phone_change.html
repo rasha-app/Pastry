@@ -1,0 +1,59 @@
+{% extends "account/base_manage_phone.html" %}
+{% load static %}
+{% load i18n %}
+{% load allauth %}
+{% block title %}
+    {% trans "Change Phone" %}
+{% endblock title %}
+{% block extra_css %}
+<link rel='stylesheet' href="{% static 'css/allauth.css' %}">
+{% endblock extra_css %}
+{% block content %}
+<div class="custom-form-container">
+    {% element h1 %}
+        {% trans "Change Phone" %}
+    {% endelement %}
+    {% url 'account_change_phone' as action_url %}
+    {% element form method="post" action=action_url %}
+        {% slot body %}
+            {% csrf_token %}
+            {% if phone %}
+                {% element field id="current_phone" disabled=True type="tel" value=phone %}
+                    {% slot label %}
+                        {% translate "Current phone" %}:
+                    {% endslot %}
+                    {% if not phone_verified %}
+                        {% slot help_text %}
+                            {% blocktranslate %}Your phone number is still pending verification.{% endblocktranslate %}
+                            {% element button form="verify-phone" type="submit" tags="minor,secondary" %}
+                                {% trans 'Re-send Verification' %}
+                            {% endelement %}
+                        {% endslot %}
+                    {% endif %}
+                {% endelement %}
+            {% endif %}
+            <div class="field-wrapper">
+                {% element field id=form.phone.auto_id name="phone" value=form.phone.value errors=form.phone.errors type="tel" %}
+                    {% slot label %}
+                        {% translate "Change to" %}:
+                    {% endslot %}
+                {% endelement %}
+            </div>
+        {% endslot %}
+        {% slot actions %}
+            <button type="submit" name="action_add" class="action-button">
+                {% translate "Change Phone" context "action" %}
+            </button>
+        {% endslot %}
+    {% endelement %}
+    {% if not phone_verified %}
+        <form style="display: none"
+              id="verify-phone"
+              method="post"
+              action="{{ action_url }}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="verify">
+        </form>
+    {% endif %}
+</div>
+{% endblock content %}

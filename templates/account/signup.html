@@ -1,0 +1,72 @@
+{% extends "account/base_entrance.html" %}
+
+{% load static %}
+{% load allauth i18n %}
+
+{% block title %}
+    {% trans "Signup" %}
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{%  static 'css/allauth.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    {# استفاده از کلاس جدید برای کانتینر کلی فرم #}
+    <div class="custom-form-container">
+        {% element h1 %}
+            {% trans "Sign Up" %}
+        {% endelement %}
+        {% setvar link %}
+            <a href="{{ login_url }}">
+            {% endsetvar %}
+            {% setvar end_link %}
+            </a>
+        {% endsetvar %}
+        {% element p %}
+            {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
+        {% endelement %}
+        
+        {% if not SOCIALACCOUNT_ONLY %}
+            {% url 'account_signup' as action_url %}
+            
+            {# المنت فرم اصلی بدون تغییر، کلاس‌ها داخل اسلات body اعمال می‌شوند #}
+            {% element form form=form method="post" action=action_url tags="entrance,signup" %}
+                {% slot body %}
+                    {# اینجا فیلدها را درون یک div با کلاس دلخواه قرار می‌دهیم #}
+                    <div class="field-wrapper"> {# wrapper برای هر فیلد #}
+                        {% csrf_token %}
+                        {% element fields form=form unlabeled=True %}
+                        {% endelement %}
+                        {{ redirect_field }}
+                    </div>
+                {% endslot %}
+                {% slot actions %}
+                    {# دکمه ثبت نام با کلاس سفارشی #}
+                    <button type="submit" class="action-button">
+                        {% trans "Sign Up" %}
+                    </button>
+                {% endslot %}
+            {% endelement %}
+        {% endif %}
+
+        {% if PASSKEY_SIGNUP_ENABLED %}
+            {% element hr %}
+            {% endelement %}
+            {# دکمه passkey با کلاس سفارشی #}
+            {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary"  attrs='class="passkey-button"' %}
+                {# می‌توانید آیکون هم اضافه کنید #}
+                {# <span class="icon">🔑</span> #}
+                {% trans "Sign up using a passkey" %}
+            {% endelement %}
+        {% endif %}
+
+        {% if SOCIALACCOUNT_ENABLED %}
+            {# المنت hr برای جدا کردن #}
+            {% element hr %}
+            {% endelement %}
+            {# شامل شدن فایل socialaccount/snippets/login.html با کلاس‌های سفارشی برای دکمه‌ها #}
+            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {% endif %}
+    </div>
+{% endblock content %}

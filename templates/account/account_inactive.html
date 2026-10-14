@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load allauth %}
+{% block title %}
+    {% translate "Account Inactive" %}
+{% endblock title %}
+{% block extra_css %}
+<link rel='stylesheet' href="{% static 'css/allauth.css' %}">
+{% endblock extra_css %}
+{% block content %}
+<div class="custom-form-container">
+    {% element h1 %}
+        {% translate "Account Inactive" %}
+    {% endelement %}
+    {% element p %}
+        {% translate "This account is inactive." %}
+    {% endelement %}
+</div>
+{% endblock content %}

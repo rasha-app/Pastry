@@ -1,0 +1,197 @@
+/* =========================================================
+   allauth.css — aligned with main.css design system
+   ========================================================= */
+
+/* ---------- Container ---------- */
+.custom-form-container {
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem 1.75rem;
+  background: rgba(255, 255, 255, .6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(59, 42, 26, .08);
+  font-family: var(--sans);
+  color: var(--brown);
+}
+
+/* ---------- Title ---------- */
+.custom-form-container h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  line-height: 1.15;
+  color: var(--brown);
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
+/* ---------- Paragraphs & links ---------- */
+.custom-form-container p {
+  color: var(--brown);
+  opacity: .8;
+  font-size: .95rem;
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
+.custom-form-container p a {
+  color: var(--honey);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color .2s var(--ease);
+}
+
+.custom-form-container p a:hover {
+  color: var(--saffron-d);
+  text-decoration: underline;
+}
+
+/* ---------- Field wrapper ---------- */
+.custom-form-container .field-wrapper {
+  margin-bottom: 1.1rem;
+}
+
+/* ---------- Labels ---------- */
+.custom-form-container label {
+  display: block;
+  margin-bottom: .4rem;
+  color: var(--brown);
+  font: 500 .85rem var(--sans);
+  opacity: .85;
+}
+
+/* ---------- Inputs ---------- */
+.custom-form-container input[type="text"],
+.custom-form-container input[type="email"],
+.custom-form-container input[type="password"],
+.custom-form-container input[type="tel"],
+.custom-form-container input[type="url"] {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .8);
+  box-sizing: border-box;
+  font: 400 .95rem var(--sans);
+  color: var(--brown);
+  transition: border-color .25s, box-shadow .25s, background .25s;
+}
+
+.custom-form-container input::placeholder {
+  color: rgba(59, 42, 26, .45);
+}
+
+.custom-form-container input:focus {
+  border-color: var(--saffron-d);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, .28);
+  outline: none;
+}
+
+/* ---------- Primary action button ---------- */
+.custom-form-container .action-button {
+  width: 100%;
+  padding: .8rem 1.3rem;
+  margin-top: .5rem;
+  background: var(--saffron);
+  color: var(--brown);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: 700 .95rem var(--sans);
+  cursor: pointer;
+  transition: transform .25s var(--ease), box-shadow .25s, background .25s;
+}
+
+.custom-form-container .action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(232, 163, 61, .28), 0 10px 26px rgba(217, 142, 43, .4);
+}
+
+.custom-form-container .action-button:active {
+  transform: translateY(0);
+}
+
+.custom-form-container .action-button:focus-visible {
+  outline: 2px solid var(--honey);
+  outline-offset: 3px;
+}
+
+/* ---------- Debug helper (kept as-is per request) ---------- */
+.custom-form-container .test-class {
+  border: 5px dashed red !important;
+}
+
+/* ---------- Divider ---------- */
+.custom-form-container hr {
+  border: 0;
+  height: 1px;
+  background: var(--hair);
+  margin: 1.75rem 0;
+}
+
+/* ---------- Social & passkey buttons ---------- */
+.custom-form-container .social-button,
+.custom-form-container .passkey-button {
+  width: 100%;
+  padding: .75rem 1rem;
+  margin-bottom: .75rem;
+  border-radius: 999px;
+  font: 500 .95rem var(--sans);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  transition: background .25s, border-color .25s, box-shadow .25s, transform .25s var(--ease);
+}
+
+.custom-form-container .social-button {
+  background: rgba(255, 255, 255, .8);
+  color: var(--brown);
+  border: 1px solid var(--hair);
+}
+
+.custom-form-container .social-button:hover {
+  background: rgba(232, 163, 61, .14);
+  border-color: rgba(201, 123, 45, .45);
+  box-shadow: 0 6px 18px rgba(217, 142, 43, .18);
+}
+
+.custom-form-container .passkey-button {
+  background: transparent;
+  color: var(--honey);
+  border: 1.5px solid var(--honey);
+}
+
+.custom-form-container .passkey-button:hover {
+  background: rgba(232, 163, 61, .14);
+  box-shadow: 0 6px 18px rgba(217, 142, 43, .18);
+}
+
+/* ---------- Icons ---------- */
+.custom-form-container .icon {
+  margin-inline-end: .5rem;   /* RTL/LTR friendly */
+  font-size: 1.15rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------- Error messages ---------- */
+.custom-form-container .error-message {
+  color: #b02a2a;
+  font-size: .85rem;
+  margin-top: .35rem;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .custom-form-container *,
+  .custom-form-container *::before,
+  .custom-form-container *::after {
+    transition: none !important;
+  }
+}
+
