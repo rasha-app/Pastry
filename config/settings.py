@@ -390,7 +390,18 @@ CONTENT_SECURITY_POLICY = {
     "EXCLUDE_URL_PREFIXES": ("/admin/",), #دادن مجوز دستی به این آدرس
 }
 
-####################### CRISPY ##################################
+# ======================== CRISPY ======================= #
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
-####################### END CRISPY ##############################
+# ====================== END CRISPY ===================== #
+
+# ================== DEBUG_TOOLBAR ====================== #
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+                       ]
+    MIDDLEWARE.insert(2, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+    INTERNAL_IPS = ['127.0.0.1', 'localhost']
+    #برای فرستادن داده خیلی زیاد برای حالت دیباگ خوبه در حالت عملیاتی بهتر است خاموش باشد
+    DATA_UPLOAD_MAX_NUMBER_FIELDS = 6000
+# ================== END DEBUG_TOOLBAR ================== #
