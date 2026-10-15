@@ -103,6 +103,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cores.context_processors.siteinfo_context.siteinfo_processor', # cores siteinfo
 
                 # allauth
                 'django.template.context_processors.request'
