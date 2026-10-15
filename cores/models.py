@@ -10,6 +10,17 @@ from django.utils.text import slugify
 
 import jdatetime
 
+def default_working_hours():
+        return {
+            "saturday": "08:00-20:00",
+            "sunday": "08:00-20:00",
+            "monday": "08:00-20:00",
+            "tuesday": "08:00-20:00",
+            "wednesday": "08:00-20:00",
+            "thursday": "08:00-17:00",
+            "friday": "closed",
+        }
+
 def validate_file_extension(file):
     max_img_size = 1000  * 1024  # 1 MB
     max_mp4_size = 60000 * 1024  # 60 MB
@@ -98,16 +109,7 @@ class SiteInfo(models.Model):
     whatsapp    = models.URLField(max_length=50,verbose_name=_('Whatsapp'),default='https://whatsapp.com')
     address_url = models.URLField (max_length=250,verbose_name=_('Address Url'),default='https://maps.app.goo.gl/9S6wDcm5yVqi6pZJ8')
     address     = models.CharField(max_length=300,verbose_name=_('Address'),default='Ardabil, Shariati Square, next to the Central Bank, Baklava Bakery')
-    working_hours   = models.JSONField(verbose_name=_('working hours'),default={
-                                                "saturday": "08:00-20:00",
-                                                "sunday": "08:00-20:00",
-                                                "monday": "08:00-20:00",
-                                                "tuesday": "08:00-20:00",
-                                                "wednesday": "08:00-20:00",
-                                                "thursday": "08:00-17:00",
-                                                "friday": "closed"
-                                            }
-                                        )
+    working_hours   = models.JSONField(verbose_name=_('working hours'),default=default_working_hours)
 
     def __str__(self):
             return f"{self.email} - {self.phone} - {self.address}" # type: ignore
