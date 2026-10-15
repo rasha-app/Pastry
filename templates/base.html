@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Manrope:wght@400;500;700&family=Vazirmatn:wght@400;500;700&display=swap">
+
+    {% block canonical %}<link rel="canonical" href="{{ request.build_absolute_uri }}">{% endblock %}
     <!-- Toastr -->
     <link rel="stylesheet" href="{% static "css/toastr_v_2_1_4_min.css" %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
@@ -32,6 +34,7 @@
         <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/><path d="M9 9c0 3 3 6 6 6l1-2-2-1-1 1c-1-.5-2-1.500-2.500-2.500l1-1-1-2z"/></symbol>
         <symbol id="i-star" viewBox="0 0 20 20"><path d="m10 1.500 2.400 5.200 5.600.6-4.200 3.800 1.200 5.500L10 13.900l-5 2.700 1.200-5.500L2 7.300l5.600-.6z"/></symbol>
         <symbol id="i-stars" viewBox="0 0 100 20"><use href="#i-star" x="0" width="20" height="20"/><use href="#i-star" x="20" width="20" height="20"/><use href="#i-star" x="40" width="20" height="20"/><use href="#i-star" x="60" width="20" height="20"/><use href="#i-star" x="80" width="20" height="20"/></symbol>
+        <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 3h-3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3"/><path d="M13 8l5 4-5 4"/><path d="M18 12H8"/></symbol>
     </svg>
 
     <a class="skip" href="#main">{% trans "Skip to content" %}</a>
@@ -41,26 +44,29 @@
         <a class="logo" href="#"><span class="logo__mark" aria-hidden="true"></span><span>{% trans "Zarrin" %}</span></a>
 
         <nav id="site-nav" class="nav" aria-label="{% trans 'Main navigation' %}">
-            <a href="#">{% trans "Home" %}</a>
+            <a href="{% url "home" %}">{% trans "Home" %}</a>
             <a href="#">{% trans "Shop" %}</a>
             <a href="#">{% trans "Blog" %}</a>
-            <a href="#">{% trans "About" %}</a>
-            <a href="#">{% trans "Contact" %}</a>
+            <a href="{% url "about" %}">{% trans "About" %}</a>
+            <a href="{% url "contact" %}">{% trans "Contact" %}</a>
         </nav>
 
         <div class="hdr__actions">
-                    <form class="lang-form" action="{% url 'set_language' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.get_full_path }}">
-            {% if LANGUAGE_CODE|slice:":2" == "fa" %}
-                <input type="hidden" name="language" value="en">
-            {% else %}
-                <input type="hidden" name="language" value="fa">
-            {% endif %}
-            <button class="lang" type="submit" aria-label="{% trans 'Change language' %}">
-                {{ LANGUAGE_CODE|upper }}<span aria-hidden="true"> / </span>{% if LANGUAGE_CODE|slice:":2" == "fa" %}EN{% else %}FA{% endif %}
-            </button>
+            <form class="lang-form" action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                {% if LANGUAGE_CODE|slice:":2" == "fa" %}
+                    <input type="hidden" name="language" value="en">
+                {% else %}
+                    <input type="hidden" name="language" value="fa">
+                {% endif %}
+                <button class="lang" type="submit" aria-label="{% trans 'Change language' %}">
+                    {{ LANGUAGE_CODE|upper }}<span aria-hidden="true"> / </span>{% if LANGUAGE_CODE|slice:":2" == "fa" %}EN{% else %}FA{% endif %}
+                </button>
             </form>
+            {% if user.is_authenticated %}
+                <a class="ico" href="{% url "account_logout" %}" aria-label="{% trans 'Logout' %}"><svg class="i"><use href="#i-logout"/></svg></a>
+            {% endif %}
             {% comment %} <a class="ico" href="#" aria-label="{% trans 'Account' %}"><svg class="i"><use href="#i-user"/></svg></a>
             <a class="ico" href="#" aria-label="{% trans 'Cart' %}"><svg class="i"><use href="#i-bag"/></svg><span class="badge">{{ cart_count|default:0 }}</span></a>
             <button class="ico" type="button" data-search-open aria-controls="search-bar" aria-expanded="false" aria-label="{% trans 'Search' %}"><svg class="i"><use href="#i-search"/></svg></button> {% endcomment %}
@@ -73,33 +79,91 @@
 
     <footer class="foot">
         <div class="foot__grid">
-        <div>
-            <a class="logo" href="#"><span class="logo__mark" aria-hidden="true"></span><span>{% trans "Zarrin" %}</span></a>
-            <p>{% trans "A Persian patisserie baking baklava, cakes and traditional sweets by hand, every morning, with saffron, pistachio and honey." %}</p>
-            <ul class="social">
-            <li><a href="#" aria-label="Instagram"><svg class="i"><use href="#i-ig"/></svg></a></li>
-            <li><a href="#" aria-label="Telegram"><svg class="i"><use href="#i-tg"/></svg></a></li>
-            <li><a href="#" aria-label="WhatsApp"><svg class="i"><use href="#i-wa"/></svg></a></li>
-            <li><a href="#" aria-label="Facebook"><svg class="i"><use href="#i-fb"/></svg></a></li>
-            </ul>
-        </div>
-        <nav aria-label="{% trans 'Quick links' %}">
-            <h2>{% trans "Quick Links" %}</h2>
-            <ul><li><a href="#">{% trans "Home" %}</a></li><li><a href="#">{% trans "Shop" %}</a></li><li><a href="#">{% trans "About" %}</a></li><li><a href="#">{% trans "Blog" %}</a></li><li><a href="#">{% trans "Contact" %}</a></li></ul>
-        </nav>
-        <nav aria-label="{% trans 'Customer links' %}">
-            <h2>{% trans "Customers" %}</h2>
-            <ul><li><a href="#">{% trans "My Account" %}</a></li><li><a href="#">{% trans "My Orders" %}</a></li><li><a href="#">{% trans "Cart" %}</a></li><li><a href="#">{% trans "Wishlist" %}</a></li></ul>
-        </nav>
-        <div>
-            <h2>{% trans "Contact" %}</h2>
-            <address>
-            <p>{% trans "No. 12, Golestan Street, Tehran" %}</p>
-            <p><a href="#" dir="ltr">+98 21 0000 0000</a></p>
-            <p><a href="#">hello@zarrin.example</a></p>
-            </address>
-            <p>{% trans "Saturday to Thursday: 9:00 AM – 10:00 PM" %}<br>{% trans "Friday: 2:00 PM – 10:00 PM" %}</p>
-        </div>
+            <div>
+                <a class="logo" href="#"><span class="logo__mark" aria-hidden="true"></span><span>{% trans "Zarrin" %}</span></a>
+                <p>{% trans "A Persian patisserie baking baklava, cakes and traditional sweets by hand, every morning, with saffron, pistachio and honey." %}</p>
+                <ul class="social">
+                <li><a href="{{ siteinfo.instagram }}" aria-label="Instagram"><svg class="i"><use href="#i-ig"/></svg></a></li>
+                <li><a href="{{ siteinfo.telegram }}" aria-label="Telegram"><svg class="i"><use href="#i-tg"/></svg></a></li>
+                <li><a href="{{ siteinfo.whatsapp }}" aria-label="WhatsApp"><svg class="i"><use href="#i-wa"/></svg></a></li>
+                <li><a href="{{ siteinfo.facebook }}" aria-label="Facebook"><svg class="i"><use href="#i-fb"/></svg></a></li>
+                </ul>
+            </div>
+            <nav aria-label="{% trans 'Quick links' %}">
+                <h2>{% trans "Quick Links" %}</h2>
+                <ul>
+                    <li>
+                        <a href="{% url "home" %}">{% trans "Home" %}</a>
+                    </li>
+                    <li>
+                        <a href="#">{% trans "Shop" %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url "about" %}">{% trans "About" %}</a>
+                    </li>
+                    <li>
+                        <a href="#">{% trans "Blog" %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url "contact" %}">{% trans "Contact" %}</a>
+                    </li>
+                </ul>
+            </nav>
+            <nav aria-label="{% trans 'Customer links' %}">
+                <h2>{% trans "Customers" %}</h2>
+                <ul>
+                    <li>
+                        <a href="{% url "profile" %}">{% trans "My Account" %}</a>
+                    </li>
+                    <li>
+                        <a href="#">{% trans "My Orders" %}</a>
+                    </li>
+                    <li>
+                        <a href="#">{% trans "Cart" %}</a>
+                    </li>
+                    <li>
+                        <a href="#">{% trans "Wishlist" %}</a>
+                    </li>
+                </ul>
+            </nav>
+            <div>
+                <h2>{% trans "Contact" %}</h2>
+                <address>
+                <p dir="rtl">{{ siteinfo.address }}</p>
+                <p><a href="tel:{{ siteinfo.phone }}" dir="ltr">{{ siteinfo.phone }}</a></p>
+                <p><a href="mailto:{{ siteinfo.email }}">{{ siteinfo.email }}</a></p>
+                </address>
+                {% if siteinfo.working_hours %}
+                    <div>
+                    <details style="margin:0;">
+                        <summary style="cursor:pointer; font-size:16px; font-weight:600; user-select:none; display:flex; align-items:center; gap:6px; list-style:none;">
+                        <span>{% trans "Opening Hours" %} ... ↓</span>
+                        </summary>
+
+                        <ul style="list-style:none; padding:0; margin:8px 0 0; display:grid; gap:6px;">
+                        {% for day_key, hours in siteinfo.working_hours.items %}
+                            <li style="display:flex; justify-content:space-between; gap:12px; font-size:14px; line-height:1.4;">
+                            <span style="white-space:nowrap;">
+                                {% if day_key == 'saturday' %}{% trans "Saturday" %}
+                                {% elif day_key == 'sunday' %}{% trans "Sunday" %}
+                                {% elif day_key == 'monday' %}{% trans "Monday" %}
+                                {% elif day_key == 'tuesday' %}{% trans "Tuesday" %}
+                                {% elif day_key == 'wednesday' %}{% trans "Wednesday" %}
+                                {% elif day_key == 'thursday' %}{% trans "Thursday" %}
+                                {% elif day_key == 'friday' %}{% trans "Friday" %}
+                                {% else %}{{ day_key|title }}{% endif %}
+                            </span>
+                            <span dir="ltr" style="white-space:nowrap; opacity:.85;">
+                                {% if hours == 'closed' %}{% trans "Closed" %}{% else %}{{ hours }}{% endif %}
+                            </span>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </details>
+                    </div>
+                {% endif %}
+                {% comment %} <p>{% trans "Saturday to Thursday: 9:00 AM – 10:00 PM" %}<br>{% trans "Friday: 2:00 PM – 10:00 PM" %}</p> {% endcomment %}
+            </div>
         </div>
     </footer>
     <div class="legal">
@@ -109,7 +173,7 @@
         </div>
     </div>
 
-    <form id="search-bar" class="search" action="#" method="get" role="search">
+    <form id="search-bar" class="search" action="{% url "search" %}" method="get" role="search">
         <div class="search__in">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
         <input type="search" name="q" placeholder="{% trans 'Search pastries, cakes, and sweets...' %}" aria-label="{% trans 'Search' %}" autocomplete="off">
@@ -119,10 +183,26 @@
 
     <nav class="dock" aria-label="{% trans 'Quick navigation' %}">
         <div class="dock__in">
-        <a href="#"><svg class="i"><use href="#i-shop"/></svg><span>{% trans "Shop" %}</span></a>
-        <a href="#"><svg class="i"><use href="#i-user"/></svg><span>{% trans "Account" %}</span></a>
-        <button type="button" data-search-open aria-controls="search-bar" aria-expanded="false"><svg class="i"><use href="#i-search"/></svg><span>{% trans "Search" %}</span></button>
-        <a href="#"><svg class="i"><use href="#i-bag"/></svg><span>{% trans "Cart" %}</span></a>
+            <a href="#"><svg class="i"><use href="#i-shop"/></svg><span>{% trans "Shop" %}</span></a>
+            {% if user.is_authenticated %}
+                <a href="{% url "profile" %}">
+                    {% comment %} {% if user.avatar %}
+                        <img
+                            src="{{ user.avatar.url }}"
+                            alt="avatar"
+                            style="width:16px;height:16px;object-fit:cover;border-radius:50%;display:inline-block;vertical-align:middle;"
+                        >
+                    {% else %}
+                        <svg class="i"><use href="#i-user"/></svg>
+                    {% endif %} {% endcomment %}
+                    <svg class="i"><use href="#i-user"/></svg>
+                    <span>{% trans "Account" %}</span>
+                </a>
+            {% else %}
+                <a href="{% url "account_login" %}"><svg class="i"><use href="#i-user"/></svg><span>{% trans "Login" %}</span></a>
+            {% endif %}
+            <button type="button" data-search-open aria-controls="search-bar" aria-expanded="false"><svg class="i"><use href="#i-search"/></svg><span>{% trans "Search" %}</span></button>
+            <a href="#"><svg class="i"><use href="#i-bag"/></svg><span>{% trans "Cart" %}</span></a>
         </div>
     </nav>
 

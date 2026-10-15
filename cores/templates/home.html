@@ -108,9 +108,34 @@
     <a class="btn btn--gold" href="#">{% trans "Get Directions" %}</a>
   </div>
   <dl class="glass visit__info">
-    <div><dt>{% trans "Address" %}</dt><dd>{% trans "No. 12, Golestan Street, Tehran" %}</dd></div>
-    <div><dt>{% trans "Opening Hours" %}</dt><dd>{% trans "Saturday to Thursday: 9:00 AM – 10:00 PM" %}<br>{% trans "Friday: 2:00 PM – 10:00 PM" %}</dd></div>
-    <div><dt>{% trans "Phone" %}</dt><dd dir="ltr">+98 21 0000 0000</dd></div>
+    <div><dt>{% trans "Address" %}</dt><dd>{{ siteinfo.address }}</dd></div>
+    {% comment %} <div><dt>{% trans "Opening Hours" %}</dt><dd>{% trans "Saturday to Thursday: 9:00 AM – 10:00 PM" %}<br>{% trans "Friday: 2:00 PM – 10:00 PM" %}</dd></div> {% endcomment %}
+    <div>
+      <dt>{% trans "Opening Hours" %}</dt>
+      <dd>
+        {% if siteinfo.working_hours %}
+          {% for day_key, hours in siteinfo.working_hours.items %}
+            <div style="display:flex; justify-content:space-between; gap:12px; white-space:nowrap;">
+              <span>
+                {% if day_key == 'saturday' %}{% trans "Saturday" %}
+                {% elif day_key == 'sunday' %}{% trans "Sunday" %}
+                {% elif day_key == 'monday' %}{% trans "Monday" %}
+                {% elif day_key == 'tuesday' %}{% trans "Tuesday" %}
+                {% elif day_key == 'wednesday' %}{% trans "Wednesday" %}
+                {% elif day_key == 'thursday' %}{% trans "Thursday" %}
+                {% elif day_key == 'friday' %}{% trans "Friday" %}
+                {% else %}{{ day_key|title }}{% endif %}
+              </span>
+              <span dir="ltr">
+                {% if hours == 'closed' %}{% trans "Closed" %}{% else %}{{ hours }}{% endif %}
+              </span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </dd>
+    </div>
+
+    <div><dt>{% trans "Phone" %}</dt><dd dir="ltr">{{ siteinfo.phone }}</dd></div>
   </dl>
 </section>
 

@@ -1,0 +1,839 @@
+{% extends "base.html" %}
+{% load i18n static crispy_forms_tags %}
+
+{% block title %}{% trans "Contact Us" %}{% endblock %}
+
+{% block extra_css %}
+<style nonce="{{ request.csp_nonce }}">
+    /* ============================================================
+       CONTACT PAGE
+       ============================================================ */
+    .contact-page {
+        --cp-saffron:      var(--saffron, #E8A33D);
+        --cp-saffron-deep: var(--saffron-deep, var(--saffron-d, #D98E2B));
+        --cp-honey:        var(--honey, #C97B2D);
+        --cp-pistachio:    var(--pistachio, #7C9A5B);
+        --cp-pistachio-d:  var(--pistachio-deep, var(--pistachio-d, #6B8E4E));
+        --cp-cream:        var(--cream, #FFF8EC);
+        --cp-cream-deep:   var(--cream-deep, #FBF0DC);
+        --cp-brown:        var(--brown, #3B2A1A);
+        --cp-brown-soft:   var(--brown-soft, rgba(59, 42, 26, 0.68));
+        --cp-brown-line:   var(--brown-line, var(--hair, var(--line, rgba(59, 42, 26, 0.12))));
+
+        --cp-font-display: var(--font-display, var(--serif, "Cormorant Garamond", "Playfair Display", Georgia, serif));
+        --cp-font-body:    var(--font-body, var(--sans, "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif));
+
+        --cp-r-sm:   var(--radius-sm, 10px);
+        --cp-r-md:   var(--radius-md, 16px);
+        --cp-r-lg:   var(--radius-lg, 22px);
+        --cp-r-pill: var(--radius-pill, 999px);
+
+        --cp-shadow-sm: var(--shadow-sm, 0 6px 18px rgba(59, 42, 26, 0.07));
+        --cp-shadow-md: var(--shadow-md, 0 14px 34px rgba(59, 42, 26, 0.11));
+
+        --cp-ease: var(--ease, cubic-bezier(0.22, 0.61, 0.36, 1));
+
+        color: var(--cp-brown);
+        font-family: var(--cp-font-body);
+        line-height: 1.65;
+    }
+
+    .contact-container {
+        width: min(1120px, 100% - 2.5rem);
+        margin-inline: auto;
+    }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    .contact-header {
+        padding-block: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.5rem);
+        text-align: center;
+        max-width: 720px;
+        margin-inline: auto;
+    }
+
+    .contact-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0 0 0.9rem;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--cp-honey);
+    }
+
+    .contact-eyebrow::before,
+    .contact-eyebrow::after {
+        content: "";
+        width: 22px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.5;
+    }
+
+    .contact-title {
+        font-family: var(--cp-font-display);
+        font-size: clamp(2rem, 4.5vw, 3rem);
+        font-weight: 600;
+        line-height: 1.08;
+        margin: 0 0 0.85rem;
+        color: var(--cp-brown);
+        text-wrap: balance;
+    }
+
+    .contact-lead {
+        font-size: clamp(0.94rem, 1.35vw, 1.05rem);
+        line-height: 1.7;
+        color: var(--cp-brown-soft);
+        margin: 0;
+        max-width: 54ch;
+        margin-inline: auto;
+    }
+
+    /* ============================================================
+       MESSAGES
+       ============================================================ */
+    .contact-messages {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0 0 1.75rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    .contact-message {
+        padding: 0.85rem 1.1rem;
+        border-radius: var(--cp-r-md);
+        font-size: 0.87rem;
+        font-weight: 500;
+        border: 1px solid var(--cp-brown-line);
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--cp-brown);
+    }
+
+    .contact-message--success {
+        border-color: rgba(107, 142, 78, 0.42);
+        background: rgba(107, 142, 78, 0.12);
+        color: var(--cp-pistachio-d);
+    }
+    .contact-message--warning {
+        border-color: rgba(232, 163, 61, 0.5);
+        background: rgba(232, 163, 61, 0.14);
+        color: var(--cp-honey);
+    }
+    .contact-message--error {
+        border-color: rgba(176, 42, 42, 0.35);
+        background: rgba(176, 42, 42, 0.08);
+        color: #B02A2A;
+    }
+
+    /* ============================================================
+       MAIN GRID
+       ============================================================ */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding-block-end: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    @media (min-width: 940px) {
+        .contact-grid {
+            grid-template-columns: 1.15fr 1fr;
+            gap: 1.75rem;
+            align-items: start;
+        }
+    }
+
+    /* ============================================================
+       SHARED CARD
+       ============================================================ */
+    .contact-card {
+        background: rgba(255, 255, 255, 0.58);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        backdrop-filter: blur(16px) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        border-radius: var(--cp-r-lg);
+        box-shadow: var(--cp-shadow-sm);
+        overflow: hidden;
+    }
+
+    .contact-card__head {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.15rem 1.5rem;
+        background: linear-gradient(135deg, rgba(232, 163, 61, 0.20), rgba(201, 123, 45, 0.08));
+        border-block-end: 1px solid var(--cp-brown-line);
+    }
+
+    .contact-card__head-icon {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        background: linear-gradient(140deg, var(--cp-saffron), var(--cp-honey));
+        color: #FFFDF8;
+        flex: 0 0 auto;
+        box-shadow: 0 8px 18px rgba(217, 142, 43, 0.28);
+    }
+
+    .contact-card__head-icon svg { width: 18px; height: 18px; }
+
+    .contact-card__head h2 {
+        font-family: var(--cp-font-display);
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+        color: var(--cp-brown);
+    }
+
+    .contact-card__body { padding: 1.5rem; }
+
+    /* ============================================================
+       FORM
+       ============================================================ */
+    .contact-fields .form-group,
+    .contact-fields .mb-3 { margin-block-end: 1.1rem !important; }
+
+    .contact-fields label,
+    .contact-fields .form-label {
+        display: block;
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: var(--cp-brown);
+        margin-block-end: 0.4rem;
+    }
+
+    .contact-fields .form-control,
+    .contact-fields input:not([type="checkbox"]):not([type="radio"]),
+    .contact-fields textarea,
+    .contact-fields select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--cp-brown-line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--cp-brown);
+        font-family: var(--cp-font-body);
+        font-size: 0.92rem;
+        line-height: 1.4;
+        transition: border-color 0.25s var(--cp-ease),
+                    box-shadow 0.25s var(--cp-ease),
+                    background-color 0.25s var(--cp-ease);
+    }
+
+    .contact-fields .form-control:focus,
+    .contact-fields input:not([type="checkbox"]):not([type="radio"]):focus,
+    .contact-fields textarea:focus,
+    .contact-fields select:focus {
+        outline: none;
+        border-color: var(--cp-saffron-deep);
+        background: #FFFFFF;
+        box-shadow: 0 0 0 4px rgba(232, 163, 61, 0.18);
+    }
+
+    .contact-fields textarea { resize: vertical; min-height: 130px; }
+
+    .contact-fields .invalid-feedback,
+    .contact-fields .errorlist {
+        color: #B02A2A;
+        font-size: 0.78rem;
+        margin-block-start: 0.35rem;
+        list-style: none;
+        padding: 0;
+    }
+
+    .contact-fields .helptext,
+    .contact-fields .form-text,
+    .contact-fields small {
+        display: block;
+        font-size: 0.76rem;
+        color: var(--cp-brown-soft);
+        margin-block-start: 0.35rem;
+        line-height: 1.5;
+    }
+
+    .contact-submit-row {
+        margin-block-start: 1.25rem;
+        padding-block-start: 1.25rem;
+        border-block-start: 1px solid var(--cp-brown-line);
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .contact-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.82rem 1.9rem;
+        border: 0;
+        border-radius: var(--cp-r-pill);
+        background: linear-gradient(135deg, var(--cp-saffron), var(--cp-saffron-deep));
+        color: #3B2A1A;
+        font-family: var(--cp-font-body);
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(217, 142, 43, 0.32);
+        transition: transform 0.25s var(--cp-ease), box-shadow 0.25s var(--cp-ease);
+    }
+
+    .contact-submit svg { width: 16px; height: 16px; }
+
+    .contact-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(217, 142, 43, 0.44);
+    }
+
+    /* ============================================================
+       INFO SIDE
+       ============================================================ */
+    .contact-info-list {
+        display: grid;
+        gap: 1.1rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+
+    .contact-info-item__icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(232, 163, 61, 0.18);
+        color: var(--cp-honey);
+        border: 1px solid rgba(201, 123, 45, 0.22);
+    }
+
+    .contact-info-item__icon svg { width: 18px; height: 18px; }
+
+    .contact-info-item__body { min-width: 0; flex: 1 1 auto; }
+
+    .contact-info-item__label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cp-brown-soft);
+        margin: 0 0 0.15rem;
+    }
+
+    .contact-info-item__value {
+        font-size: 0.92rem;
+        color: var(--cp-brown);
+        margin: 0;
+        line-height: 1.55;
+        word-break: break-word;
+    }
+
+    .contact-info-item__value a {
+        color: var(--cp-brown);
+        text-decoration: none;
+        transition: color 0.25s var(--cp-ease);
+    }
+
+    .contact-info-item__value a:hover { color: var(--cp-honey); }
+
+    /* ---------- Working hours table ---------- */
+    .contact-hours {
+        margin-block-start: 1.5rem;
+        padding-block-start: 1.35rem;
+        border-block-start: 1px solid var(--cp-brown-line);
+    }
+
+    .contact-hours__title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--cp-font-display);
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0 0 0.85rem;
+        color: var(--cp-brown);
+    }
+
+    .contact-hours__title svg {
+        width: 17px;
+        height: 17px;
+        color: var(--cp-saffron-deep);
+    }
+
+    .contact-hours__table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+    }
+
+    .contact-hours__table th,
+    .contact-hours__table td {
+        padding: 0.5rem 0;
+        text-align: start;
+        border-block-end: 1px dashed var(--cp-brown-line);
+        vertical-align: middle;
+        font-weight: 500;
+    }
+
+    .contact-hours__table tr:last-child th,
+    .contact-hours__table tr:last-child td { border-block-end: 0; }
+
+    .contact-hours__table th {
+        color: var(--cp-brown);
+        font-weight: 600;
+    }
+
+    .contact-hours__table td {
+        text-align: end;
+        color: var(--cp-brown-soft);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+
+    .contact-hours__table tr.is-closed td {
+        color: #B02A2A;
+        font-weight: 600;
+    }
+
+    /* ---------- Socials ---------- */
+    .contact-socials {
+        margin-block-start: 1.5rem;
+        padding-block-start: 1.35rem;
+        border-block-start: 1px solid var(--cp-brown-line);
+    }
+
+    .contact-socials__title {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cp-brown-soft);
+        margin: 0 0 0.75rem;
+    }
+
+    .contact-socials__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .contact-socials__list a {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        color: var(--cp-brown);
+        transition: background-color 0.25s var(--cp-ease),
+                    color 0.25s var(--cp-ease),
+                    transform 0.25s var(--cp-ease),
+                    box-shadow 0.25s var(--cp-ease);
+    }
+
+    .contact-socials__list svg { width: 18px; height: 18px; }
+
+    .contact-socials__list a:hover {
+        background: var(--cp-saffron);
+        color: #3B2A1A;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(217, 142, 43, 0.3);
+    }
+
+    /* ============================================================
+       MAP STRIP
+       ============================================================ */
+    .contact-map {
+        padding-block-end: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .contact-map__card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        padding: clamp(1.35rem, 3vw, 2rem);
+        border-radius: var(--cp-r-lg);
+        background:
+            radial-gradient(560px 220px at 0% 0%, rgba(232, 163, 61, 0.20), transparent 60%),
+            radial-gradient(520px 220px at 100% 100%, rgba(124, 154, 91, 0.16), transparent 60%),
+            rgba(255, 255, 255, 0.58);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        backdrop-filter: blur(16px) saturate(150%);
+        box-shadow: var(--cp-shadow-sm);
+    }
+
+    .contact-map__text { min-width: 0; flex: 1 1 260px; }
+
+    .contact-map__title {
+        font-family: var(--cp-font-display);
+        font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+        font-weight: 600;
+        margin: 0 0 0.35rem;
+        color: var(--cp-brown);
+        line-height: 1.15;
+    }
+
+    .contact-map__address {
+        font-size: 0.9rem;
+        color: var(--cp-brown-soft);
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .contact-map__action {
+        flex: 0 0 auto;
+    }
+
+    .contact-map__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.82rem 1.6rem;
+        border-radius: var(--cp-r-pill);
+        background: linear-gradient(135deg, var(--cp-saffron), var(--cp-saffron-deep));
+        color: #3B2A1A;
+        font-family: var(--cp-font-body);
+        font-size: 0.86rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(217, 142, 43, 0.32);
+        transition: transform 0.25s var(--cp-ease), box-shadow 0.25s var(--cp-ease);
+    }
+
+    .contact-map__btn svg { width: 16px; height: 16px; }
+
+    .contact-map__btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(217, 142, 43, 0.44);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 700px) {
+        .contact-container { width: min(1120px, 100% - 1.75rem); }
+        .contact-card__body { padding: 1.15rem; }
+        .contact-card__head { padding: 1rem 1.15rem; }
+        .contact-submit-row { justify-content: stretch; }
+        .contact-submit { width: 100%; }
+    }
+
+    /* ============================================================
+       REVEAL
+       ============================================================ */
+    .contact-page [data-reveal] {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.75s var(--cp-ease), transform 0.75s var(--cp-ease);
+    }
+
+    .contact-page [data-reveal].is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .contact-page [data-reveal] {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="contact-page">
+
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
+    <header class="contact-header">
+        <p class="contact-eyebrow">{% trans "Get in Touch" %}</p>
+        <h1 class="contact-title">{% trans "Contact Us" %}</h1>
+        <p class="contact-lead">
+            {% trans "Questions about a custom order, a celebration cake, or an existing purchase? Send us a message — we usually reply the same day." %}
+        </p>
+    </header>
+
+    <div class="contact-container">
+
+        <!-- ============================================================
+             MESSAGES
+             ============================================================ -->
+        {% if messages %}
+            <ul class="contact-messages">
+                {% for message in messages %}
+                    <li class="contact-message contact-message--{{ message.tags|default:'info' }}">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- ============================================================
+             MAIN GRID
+             ============================================================ -->
+        <div class="contact-grid">
+
+            <!-- ================== FORM ================== -->
+            <section class="contact-card" data-reveal aria-labelledby="contact-form-title">
+                <div class="contact-card__head">
+                    <span class="contact-card__head-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m22 2-7 20-4-9-9-4Z"/>
+                            <path d="M22 2 11 13"/>
+                        </svg>
+                    </span>
+                    <h2 id="contact-form-title">{% trans "Send a Message" %}</h2>
+                </div>
+                <div class="contact-card__body">
+                    <form method="post" novalidate class="contact-form">
+                        {% csrf_token %}
+                        <div class="contact-fields">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="contact-submit-row">
+                            <button type="submit" class="contact-submit">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true">
+                                    <path d="m22 2-7 20-4-9-9-4Z"/>
+                                </svg>
+                                {% trans "Send Message" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ================== INFO ================== -->
+            <aside class="contact-card" data-reveal aria-labelledby="contact-info-title">
+                <div class="contact-card__head">
+                    <span class="contact-card__head-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/>
+                            <circle cx="12" cy="10" r="2.6"/>
+                        </svg>
+                    </span>
+                    <h2 id="contact-info-title">{% trans "Visit or Reach Us" %}</h2>
+                </div>
+                <div class="contact-card__body">
+
+                    <ul class="contact-info-list">
+                        {% if siteinfo.address %}
+                        <li class="contact-info-item">
+                            <span class="contact-info-item__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/>
+                                    <circle cx="12" cy="10" r="2.6"/>
+                                </svg>
+                            </span>
+                            <div class="contact-info-item__body">
+                                <p class="contact-info-item__label">{% trans "Address" %}</p>
+                                <p class="contact-info-item__value">{{ siteinfo.address }}</p>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if siteinfo.phone %}
+                        <li class="contact-info-item">
+                            <span class="contact-info-item__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.9v2.1a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 3.2 2 2 0 0 1 4.1 1h2.1a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L7.1 8.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.2Z"/>
+                                </svg>
+                            </span>
+                            <div class="contact-info-item__body">
+                                <p class="contact-info-item__label">{% trans "Phone" %}</p>
+                                <p class="contact-info-item__value">
+                                    <a href="tel:{{ siteinfo.phone }}" dir="ltr">{{ siteinfo.phone }}</a>
+                                </p>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if siteinfo.email %}
+                        <li class="contact-info-item">
+                            <span class="contact-info-item__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                                    <path d="m3 7 9 6 9-6"/>
+                                </svg>
+                            </span>
+                            <div class="contact-info-item__body">
+                                <p class="contact-info-item__label">{% trans "Email" %}</p>
+                                <p class="contact-info-item__value">
+                                    <a href="mailto:{{ siteinfo.email }}">{{ siteinfo.email }}</a>
+                                </p>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    {% if siteinfo.working_hours %}
+                    <div class="contact-hours">
+                        <h3 class="contact-hours__title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M12 7v5l3.2 2"/>
+                            </svg>
+                            {% trans "Opening Hours" %}
+                        </h3>
+                        <table class="contact-hours__table">
+                            <tbody>
+                                {% for day_key, hours in siteinfo.working_hours.items %}
+                                    <tr class="{% if hours == 'closed' %}is-closed{% endif %}">
+                                        <th scope="row">
+                                            {% if day_key == 'saturday' %}{% trans "Saturday" %}
+                                            {% elif day_key == 'sunday' %}{% trans "Sunday" %}
+                                            {% elif day_key == 'monday' %}{% trans "Monday" %}
+                                            {% elif day_key == 'tuesday' %}{% trans "Tuesday" %}
+                                            {% elif day_key == 'wednesday' %}{% trans "Wednesday" %}
+                                            {% elif day_key == 'thursday' %}{% trans "Thursday" %}
+                                            {% elif day_key == 'friday' %}{% trans "Friday" %}
+                                            {% else %}{{ day_key|title }}{% endif %}
+                                        </th>
+                                        <td dir="ltr">
+                                            {% if hours == 'closed' %}{% trans "Closed" %}{% else %}{{ hours }}{% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+
+                    {% if siteinfo.instagram or siteinfo.telegram or siteinfo.whatsapp or siteinfo.facebook or siteinfo.twitter %}
+                    <div class="contact-socials">
+                        <p class="contact-socials__title">{% trans "Follow Us" %}</p>
+                        <ul class="contact-socials__list">
+                            {% if siteinfo.instagram %}
+                            <li>
+                                <a href="{{ siteinfo.instagram }}" target="_blank" rel="noopener noreferrer"
+                                   aria-label="{% trans 'Instagram' %}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="5"/>
+                                        <circle cx="12" cy="12" r="4"/>
+                                        <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% if siteinfo.telegram %}
+                            <li>
+                                <a href="{{ siteinfo.telegram }}" target="_blank" rel="noopener noreferrer"
+                                   aria-label="{% trans 'Telegram' %}">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.4 13.1 1.6 11.6c-1-.3-1-1 .2-1.5l18.6-7.2c.9-.3 1.7.2 1.5 1.4Z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% if siteinfo.whatsapp %}
+                            <li>
+                                <a href="{{ siteinfo.whatsapp }}" target="_blank" rel="noopener noreferrer"
+                                   aria-label="{% trans 'WhatsApp' %}">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 0 1 0 16.4 8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8Z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% if siteinfo.facebook %}
+                            <li>
+                                <a href="{{ siteinfo.facebook }}" target="_blank" rel="noopener noreferrer"
+                                   aria-label="{% trans 'Facebook' %}">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M14 9V7.5c0-.7.2-1.1 1.2-1.1H17V3.7c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V9H8.2v3h2.4v8h3.1v-8h2.5l.4-3H14Z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% if siteinfo.twitter %}
+                            <li>
+                                <a href="{{ siteinfo.twitter }}" target="_blank" rel="noopener noreferrer"
+                                   aria-label="{% trans 'Twitter' %}">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M18.9 3H21l-6.5 7.4L21.6 21h-6l-4.7-6-5.3 6H3.4l6.9-7.8L2.8 3h6.1l4.3 5.5L18.9 3Zm-1.1 16.2h1.2L8.3 4.7H7l10.8 14.5Z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- ============================================================
+             MAP CTA
+             ============================================================ -->
+        {% if siteinfo.address_url %}
+        <section class="contact-map" data-reveal aria-label="{% trans 'Find us on the map' %}">
+            <div class="contact-map__card">
+                <div class="contact-map__text">
+                    <h2 class="contact-map__title">{% trans "Find Us on the Map" %}</h2>
+                    <p class="contact-map__address">
+                        {% if siteinfo.address %}{{ siteinfo.address }}{% else %}
+                            {% trans "Tap below to open our location in your maps app." %}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="contact-map__action">
+                    <a class="contact-map__btn" href="{{ siteinfo.address_url }}"
+                       target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+                            <path d="m12 2 9 7-9 13L3 9Z"/>
+                            <path d="m3 9 9 4 9-4"/>
+                        </svg>
+                        {% trans "Get Directions" %}
+                    </a>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
