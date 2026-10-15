@@ -79,6 +79,7 @@ MIDDLEWARE = [
     'django_permissions_policy.PermissionsPolicyMiddleware', # django-permissions-policyHeader
     'csp.middleware.CSPMiddleware', # CSP Header
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "cores.middleware.ForceDefaultLanguageMiddleware",   # ← برای زبان فارسی  
     "django.middleware.locale.LocaleMiddleware",   # ← قبل از CommonMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
