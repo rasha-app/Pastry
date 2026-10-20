@@ -43,3 +43,5 @@ phonenumbers==9.0.40
 crispy-bootstrap5==2026.9     # برای ظاهر فرم استفاده میشه
 django-crispy-forms==2.7      # برای ظاهر فرم استفاده میشه
 django-unfold==0.107.0      # تغییر ظاهر پنل ادمین تو حال csp کار نمیکنه
+django-autocomplete-light==5.0.0 # برای autocomplete کردن فیلدها در فرم‌ها استفاده میشه
+django-formset==2.2.4           # برای مدیریت فرم‌های تودرتو و فرم‌ست‌ها در Django استفاده می‌شود.
