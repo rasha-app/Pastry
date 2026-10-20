@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load i18n static jformat humanize my_template_tags %}
+
+{% block title %}
+  {% if op == 'tag' or op == 'category' %}{{ title }} — {% trans "Zarrin Patisserie" %}
+  {% else %}{% trans "Shop All Pastries" %} — {% trans "Zarrin Patisserie" %}{% endif %}
+{% endblock title %}
+
+{% block canonical %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.pg-head{max-width:var(--max);margin-inline:auto;padding:2.5rem 1rem 0;display:grid;gap:.6rem}
+.pg-head h1{font-size:clamp(1.9rem,4vw,2.8rem)}
+.pg-head p{opacity:.8;max-width:44rem}
+.pg-head__meta{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.pg-count{padding:.15rem .7rem;border-radius:999px;background:rgba(107,142,78,.16);color:var(--pistachio-d);font:700 .75rem var(--sans)}
+.pg-wrap{max-width:var(--max);margin-inline:auto;padding:1.5rem 1rem 3.5rem}
+.pg-grid{margin-top:1.25rem}
+.pg-card{display:flex;flex-direction:column;height:100%}
+.pg-card a.pg-link{color:inherit;display:flex;flex-direction:column;height:100%}
+.pg-card .card__body{flex:1}
+.pg-price{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.pg-price strong{font:600 1.2rem var(--serif);color:var(--honey)}
+.pg-price s{opacity:.55;font-size:.9rem}
+.pg-cur{font-size:.75rem;font-weight:700;color:var(--pistachio-d)}
+.pg-empty{padding:2.5rem 1.5rem;text-align:center;display:grid;gap:.8rem;justify-items:center}
+/* restyle the existing includes/pagination.html to Zarrin theme without touching it */
+.pagination{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;list-style:none;padding:1.5rem 0 0;margin:0}
+.page-link-custom{width:2.4rem;height:2.4rem;display:inline-grid;place-items:center;border-radius:999px!important;border:1px solid var(--hair);background:rgba(255,255,255,.7);color:var(--brown)!important;text-decoration:none;font-weight:700;margin:0!important}
+a.page-link-custom:hover{background:rgba(232,163,61,.3)!important;color:var(--brown)!important}
+.active-page{background:var(--saffron)!important;border-color:var(--saffron)!important;color:var(--brown)!important}
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="pg-head">
+  {% if op == 'tag' or op == 'category' %}
+    <p class="hero__label">{% if op == 'tag' %}{% trans "Tag" %}{% else %}{% trans "Category" %}{% endif %}</p>
+    <h1>{{ title }}</h1>
+  {% else %}
+    <p class="hero__label">{% trans "Handcrafted Persian Sweets" %}</p>
+    <h1>{% trans "Shop All Pastries" %}</h1>
+    <p>{% trans "Baklava, cakes and traditional sweets — baked fresh every day with pistachio, saffron and honey." %}</p>
+  {% endif %}
+  {% if page_obj and page_obj.paginator.count %}
+  <div class="pg-head__meta">
+    <span class="pg-count">{% blocktrans count c=page_obj.paginator.count %}{{ c }} product{% plural %}{{ c }} products{% endblocktrans %}</span>
+  </div>
+  {% endif %}
+</div>
+
+<div class="pg-wrap">
+  {% if products %}
+  <div class="grid pg-grid">
+    {% for product in products %}
+    <article class="card pg-card">
+      <a class="pg-link" href="{{ product.get_absolute_url }}" aria-label="{{ product.title }}">
+        <div class="card__img">
+          {% if product.main_image %}
+            <img src="{{ product.main_image.url }}" alt="{{ product.title }}" loading="lazy">
+          {% else %}
+            <img src="https://placehold.co/640x800/E8A33D/3B2A1A?text={{ product.title|urlencode }}" alt="{{ product.title }}" loading="lazy">
+          {% endif %}
+          {% if product.discount_percent %}
+            <span class="badge-tag">٪{{ product.discount_percent }} {% trans "off" %}</span>
+          {% endif %}
+        </div>
+        <div class="card__body">
+          <h3>{{ product.title }}</h3>
+          {% if product.description %}
+            <p>{{ product.description|truncatechars:90 }}</p>
+          {% endif %}
+          <div class="card__foot">
+            <span class="pg-price">
+              {% if product.discount_price %}
+                <strong>{{ product.discount_price|per_num|intcomma:False }} {% trans "Rial" %}</strong>
+                <s>{{ product.base_price|per_num|intcomma:False }}</s>
+              {% else %}
+                <strong>{{ product.base_price|per_num|intcomma:False }} {% trans "Rial" %}</strong>
+              {% endif %}
+            </span>
+            <span class="btn btn--soft">{% trans "View" %}</span>
+          </div>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="glass pg-empty">
+    <h2>{% trans "Nothing here yet" %}</h2>
+    <p>{% trans "No products found. Please check back soon for fresh bakes." %}</p>
+    <a class="btn btn--gold" href="{% url 'products_list' %}">{% trans "Back to shop" %}</a>
+  </div>
+  {% endif %}
+
+  {% include "includes/pagination.html" %}
+</div>
+{% endblock content %}

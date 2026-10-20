@@ -68,6 +68,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
 
+    'dal',
+    'dal_select2',
+    'dal_alight',
+    'formset',
+
     'django_cleanup.apps.CleanupConfig', #django-cleanup clear changed pic
 
     # My Apps

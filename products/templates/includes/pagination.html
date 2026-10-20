@@ -1,0 +1,53 @@
+{% load i18n %}
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation" class="mt-5">
+    <ul class="pagination justify-content-center flex-wrap gap-1">
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == 1 or num == page_obj.paginator.num_pages or num >= page_obj.number|add:-3 and num <= page_obj.number|add:3 %}
+                {% if num == page_obj.number %}
+                    <li class="page-item active">
+                        <span class="page-link page-link-custom active-page">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link page-link-custom text-dark" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% elif num == 2 and page_obj.number > 5 %}
+                <li class="page-item disabled">
+                    <span class="page-link page-link-custom text-muted">…</span>
+                </li>
+            {% elif num == page_obj.paginator.num_pages|add:-1 and page_obj.number < page_obj.paginator.num_pages|add:-4 %}
+                <li class="page-item disabled">
+                    <span class="page-link page-link-custom text-muted">…</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}
+
+<style>
+    .page-link-custom {
+        border-radius: 50% !important;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 4px;
+        transition: all 0.2s;
+    }
+    .page-link-custom:hover {
+        transform: scale(1.1);
+        background-color: #0d6efd;
+        color: white;
+    }
+    .active-page {
+        background-color: #0d6efd !important;
+        color: white !important;
+        border-color: #0d6efd !important;
+        font-weight: bold;
+    }
+</style>

@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% load i18n static jformat humanize  my_template_tags %}
+
+{% block title %}{{ product.meta_title|default:product.title }} — {% trans "Zarrin Patisserie" %}{% endblock title %}
+
+{% block canonical %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ product.get_absolute_url }}">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.pd-wrap{max-width:var(--max);margin-inline:auto;padding:1.5rem 1rem 3.5rem;display:grid;gap:1.5rem}
+.pd-crumb{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;font-size:.82rem;opacity:.85}
+.pd-grid{display:grid;gap:1.25rem}
+@media(min-width:900px){.pd-grid{grid-template-columns:1.05fr .95fr;align-items:start}}
+.pd-gallery{display:grid;gap:.7rem}
+.pd-main{position:relative;border-radius:14px;overflow:hidden;background:rgba(255,255,255,.6);border:1px solid var(--line);aspect-ratio:4/3.4}
+.pd-main img{width:100%;height:100%;object-fit:cover}
+.pd-thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(4.5rem,1fr));gap:.5rem}
+.pd-thumbs button{border:1px solid var(--hair);border-radius:10px;overflow:hidden;padding:0;background:#fff;cursor:pointer;aspect-ratio:1}
+.pd-thumbs button.is-active{outline:2px solid var(--saffron);outline-offset:2px}
+.pd-thumbs img{width:100%;height:100%;object-fit:cover}
+.pd-info{display:grid;gap:1rem;align-content:start}
+.pd-card{padding:1.5rem;display:grid;gap:.9rem}
+.pd-label{font:700 .72rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--honey)}
+.pd-info h1{font-size:clamp(1.8rem,3.5vw,2.6rem)}
+.pd-desc{opacity:.85}
+.pd-price{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.pd-price strong{font:600 1.8rem var(--serif);color:var(--honey)}
+.pd-price s{opacity:.55}
+.pd-cur{font-size:.85rem;font-weight:700;color:var(--pistachio-d)}
+.pd-stock{font-size:.85rem;font-weight:700}
+.pd-stock.ok{color:var(--pistachio-d)}
+.pd-stock.out{color:#a33}
+.pd-opts{display:grid;gap:.9rem}
+.pd-opt{border-top:1px solid var(--hair);padding-top:.9rem;display:grid;gap:.55rem}
+.pd-choices{display:flex;flex-wrap:wrap;gap:.5rem}
+.pd-choices label{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .9rem;border-radius:999px;border:1px solid var(--hair);background:rgba(255,255,255,.7);font-size:.85rem;font-weight:600;cursor:pointer}
+.pd-choices label:has(input:checked){background:rgba(232,163,61,.3);border-color:var(--honey)}
+.pd-opt-img{width:1.6rem;height:1.6rem;border-radius:50%;object-fit:cover;flex:none}
+.pd-hint{font-size:.78rem;opacity:.7}
+.pd-req{color:var(--honey);font-weight:700}
+.pd-field{display:grid;gap:.3rem;font-size:.85rem}
+.pd-field input[type=text],.pd-field input[type=number]{border:1px solid var(--hair);border-radius:10px;padding:.55rem .7rem;background:rgba(255,255,255,.85);color:var(--brown);font:inherit;max-width:100%}
+.pd-total{display:flex;justify-content:space-between;align-items:center;background:rgba(232,163,61,.14);border:1px dashed rgba(201,123,45,.5);border-radius:12px;padding:.7rem 1rem;font-weight:700}
+.pd-total strong{font:600 1.3rem var(--serif);color:var(--honey)}
+.pd-actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.pd-meta{display:grid;gap:.6rem;font-size:.88rem}
+.pd-meta div{display:flex;gap:.5rem;flex-wrap:wrap}
+.pd-meta dt{font-weight:700;color:var(--honey);min-width:7.5rem}
+.pd-meta dd{margin:0;opacity:.9}
+.pd-sec{padding:1.5rem;display:grid;gap:.8rem}
+.pd-table{display:grid;gap:.4rem;font-size:.9rem}
+.pd-table div{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed var(--hair);padding-block:.35rem}
+.pd-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="pd-wrap">
+  <nav class="pd-crumb" aria-label="{% trans 'Breadcrumb' %}">
+    <a href="{% url 'home' %}">{% trans "Home" %}</a><span>/</span>
+    <a href="{% url 'products_list' %}">{% trans "Shop" %}</a><span>/</span>
+    <a href="{% url 'category' pk=product.category_id %}">{{ product.category.title }}</a><span>/</span>
+    <span>{{ product.title }}</span>
+  </nav>
+  <div class="pd-grid">
+    <div class="pd-gallery">
+      <div class="pd-main">
+        {% if product.main_image %}
+          <img id="pd-main-img" src="{{ product.main_image.url }}" alt="{{ product.title }}">
+        {% elif product.images.all.0.image %}
+          <img id="pd-main-img" src="{{ product.images.all.0.image.url }}" alt="{{ product.title }}">
+        {% else %}
+          <img id="pd-main-img" src="https://placehold.co/900x750/E8A33D/3B2A1A?text={{ product.title|urlencode }}" alt="{{ product.title }}">
+        {% endif %}
+        {% if product.discount_percent %}<span class="badge-tag">٪{{ product.discount_percent }} {% trans "off" %}</span>{% endif %}
+      </div>
+      <div class="pd-thumbs">
+        {% if product.main_image %}
+        <button type="button" class="is-active" data-src="{{ product.main_image.url }}" aria-label="{{ product.title }}"><img src="{{ product.main_image.url }}" alt="" loading="lazy"></button>
+        {% endif %}
+        {% for img in product.images.all %}{% if img.image %}
+        <button type="button" data-src="{{ img.image.url }}" aria-label="{{ img.title|default:product.title }}"><img src="{{ img.image.url }}" alt="{{ img.title|default:'' }}" loading="lazy"></button>
+        {% endif %}{% endfor %}
+        {# variant images (color/shape) join the gallery too #}
+        {% for v in product.variants.all %}{% if v.image %}
+        <button type="button" data-src="{{ v.image.url }}" data-variant-img="{{ v.pk }}" aria-label="{{ v.title }}"><img src="{{ v.image.url }}" alt="{{ v.title }}" loading="lazy"></button>
+        {% endif %}{% endfor %}
+      </div>
+    </div>
+    <div class="pd-info">
+      <div class="glass pd-card">
+        <p class="pd-label">{{ product.category.title }}</p>
+        <h1>{{ product.title }}</h1>
+        {% if product.description %}<p class="pd-desc">{{ product.description }}</p>{% endif %}
+        <div class="pd-price">
+          <strong>{{ product.final_price|per_num|intcomma:False }} {% trans "Rial" %}</strong>
+          {% if product.discount_price and product.final_price != product.base_price %}<s>{{ product.base_price|per_num|intcomma:False }}</s>{% endif %}
+        </div>
+        {% if product.is_available and product.stock_quantity != 0 %}
+          <p class="pd-stock ok">{% trans "Available — baked fresh on order" %}</p>
+        {% else %}
+          <p class="pd-stock out">{% trans "Currently unavailable" %}</p>
+        {% endif %}
+        {% if product.variants.all %}
+        <div class="pd-opts">
+          {% regroup product.variants.all by variant_type as variant_groups %}
+          {% for g in variant_groups %}
+          <div class="pd-opt">
+            <h3>{{ g.list.0.get_variant_type_display }}</h3>
+            <div class="pd-choices">
+              {% for v in g.list %}
+              <label>
+                <input type="radio" name="variant-{{ g.grouper }}" value="{{ v.pk }}"{% if forloop.first %} checked{% endif %} data-price="{{ v.extra_price|default:0 }}"{% if v.image %} data-img="{{ v.image.url }}"{% endif %}>
+                {% if v.image %}<img class="pd-opt-img" src="{{ v.image.url }}" alt="" loading="lazy">{% endif %}
+                {{ v.title }}{% if v.extra_price %} +{{ v.extra_price|per_num|intcomma:False }} {% trans "Rial" %}{% endif %}
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {# Customization: ONLY when product is customizable #}
+        {% if product.is_customizable %}
+          {% if product.options.all %}
+          <div class="pd-opts" id="pd-custom">
+            <h3>{% trans "Customize your pastry" %}</h3>
+            {% for opt in product.options.all %}
+            <div class="pd-opt">
+              <h3>{{ opt.group_title }}{% if opt.is_required %} <span class="pd-req">*</span>{% endif %}</h3>
+              {% if opt.option_type == 'text' %}
+                {% for val in opt.values.all %}
+                <label class="pd-field">{{ val.title }}
+                  <input type="text" name="opt-{{ opt.pk }}-{{ val.pk }}" placeholder="{{ val.title }}" maxlength="100">
+                </label>
+                {% empty %}
+                <label class="pd-field">{{ opt.group_title }}
+                  <input type="text" name="opt-{{ opt.pk }}" placeholder="{{ opt.group_title }}" maxlength="100">
+                </label>
+                {% endfor %}
+              {% elif opt.option_type == 'number' %}
+                {% for val in opt.values.all %}
+                <label class="pd-field">{{ val.title }}
+                  <input type="number" name="opt-{{ opt.pk }}-{{ val.pk }}" min="0" placeholder="0">
+                </label>
+                {% empty %}
+                <label class="pd-field">{{ opt.group_title }}
+                  <input type="number" name="opt-{{ opt.pk }}" min="0" placeholder="0">
+                </label>
+                {% endfor %}
+              {% elif opt.option_type == 'image' %}
+                <p class="pd-hint">{% trans "You can upload your reference image at checkout." %}</p>
+                {% for val in opt.values.all %}
+                  {% if val.image %}<img class="pd-opt-img" src="{{ val.image.url }}" alt="{{ val.title }}" loading="lazy">{% endif %}
+                  <span>{{ val.title }}{% if val.extra_price %} +{{ val.extra_price|per_num|intcomma:False }} {% trans "Rial" %}{% endif %}</span>
+                {% endfor %}
+              {% else %}
+                {# single / multi #}
+                <div class="pd-choices">
+                  {% for val in opt.values.all %}
+                  <label>
+                    <input type="{% if opt.option_type == 'multi' %}checkbox{% else %}radio{% endif %}" name="opt-{{ opt.pk }}" value="{{ val.pk }}" data-price="{{ val.extra_price|default:0 }}">
+                    {% if val.image %}<img class="pd-opt-img" src="{{ val.image.url }}" alt="" loading="lazy">{% endif %}
+                    {{ val.title }}{% if val.extra_price %} +{{ val.extra_price|per_num|intcomma:False }} {% trans "Rial" %}{% endif %}
+                  </label>
+                  {% endfor %}
+                </div>
+                {% if opt.option_type == 'multi' and opt.max_select %}
+                <p class="pd-hint">{% blocktrans with m=opt.max_select %}Up to {{ m }} selections{% endblocktrans %}</p>
+                {% endif %}
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="pd-hint">{% trans "This pastry is customizable — options will appear here once added." %}</p>
+          {% endif %}
+        {% endif %}
+        <div class="pd-total"><span>{% trans "Total" %} ({% trans "Rial" %})</span><strong id="pd-total" data-base="{{ product.final_price|stringformat:'d' }}">{{ product.final_price|per_num|intcomma:False }}</strong></div>
+        <div class="pd-actions">
+          <a class="btn btn--gold" href="#">{% trans "Add to Cart" %}</a>
+          <a class="btn btn--soft" href="{% url 'products_list' %}">{% trans "Back to shop" %}</a>
+        </div>
+        <dl class="pd-meta">
+          <div><dt>{% trans "Preparation" %}</dt><dd>{{ product.preparation_time }} {% trans "minutes" %}</dd></div>
+          <div><dt>{% trans "Min order" %}</dt><dd>{{ product.min_order_quantity }}</dd></div>
+          <div><dt>{% trans "Max order" %}</dt><dd>{{ product.max_order_quantity }}</dd></div>
+          <div><dt>{% trans "Shelf life" %}</dt><dd>{{ product.shelf_life_hours }} {% trans "hours" %}</dd></div>
+          {% if product.weight_grams %}<div><dt>{% trans "Weight" %}</dt><dd>{{ product.weight_grams }} g</dd></div>{% endif %}
+        </dl>
+        {% if user.is_staff %}
+        <div class="pd-actions">
+          <a class="btn btn--soft" href="{% url 'product_update' pk=product.pk slug=product.slug %}">{% trans "Edit" %}</a>
+          <a class="btn btn--soft" href="{% url 'product_delete' pk=product.pk slug=product.slug %}">{% trans "Delete" %}</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if product.text %}
+  <section class="glass pd-sec"><h2>{% trans "About this pastry" %}</h2><p>{{ product.text|linebreaksbr }}</p></section>
+  {% endif %}
+  <section class="glass pd-sec"><h2>{% trans "Details" %}</h2>
+    <div class="pd-table">
+      <div><span>{% trans "Category" %}</span><a href="{% url 'category' pk=product.category_id %}">{{ product.category.title }}</a></div>
+      {% if product.ingredients.all %}<div><span>{% trans "Ingredients" %}</span><span>{{ product.ingredients.all|join:", " }}</span></div>{% endif %}
+      <div><span>{% trans "Perishable" %}</span><span>{% if product.is_perishable %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</span></div>
+      <div><span>{% trans "Needs refrigeration" %}</span><span>{% if product.requires_refrigeration %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</span></div>
+      {% if product.height and product.width and product.length %}<div><span>{% trans "Size (H×W×L)" %}</span><span>{{ product.height }} × {{ product.width }} × {{ product.length }} cm</span></div>{% endif %}
+      {% if product.discount_expires_date %}<div><span>{% trans "Discount until" %}</span><span>{{ product.discount_expires_date|jformat:"%Y/%m/%d — %H:%M" }}</span></div>{% endif %}
+    </div>
+    {% if product.tags.all %}
+    <div class="pd-tags">{% for t in product.tags.all %}<a class="tag" href="{% url 'tag' pk=t.pk %}">{{ t.title }}</a>{% endfor %}</div>
+    {% endif %}
+  </section>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script nonce="{{ request.csp_nonce }}">
+document.addEventListener('DOMContentLoaded', function () {
+  var main = document.getElementById('pd-main-img');
+  var thumbs = document.querySelectorAll('.pd-thumbs button');
+  function setActive(btn) {
+    thumbs.forEach(function (b) { b.classList.remove('is-active'); });
+    if (btn) btn.classList.add('is-active');
+  }
+  thumbs.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.dataset.src && main) main.src = btn.dataset.src;
+      setActive(btn);
+    });
+  });
+  // جمع زنده باکس Total پایینی + مقداردهی اولیه با انتخاب‌های پیش‌فرض
+  var totalEl = document.getElementById('pd-total');
+  function recalcTotal() {
+    if (!totalEl) return;
+    var base = parseInt((totalEl.getAttribute('data-base') || '0').replace(/[^\d]/g, ''), 10) || 0;
+    var extra = 0;
+    document.querySelectorAll('input[data-price]:checked').forEach(function (inp) {
+      extra += parseInt((inp.getAttribute('data-price') || '0').replace(/[^\d]/g, ''), 10) || 0;
+    });
+    totalEl.textContent = (base + extra).toLocaleString('fa-IR');
+  }
+  recalcTotal(); // وریشنت پیش‌فرض (checked) هم حساب شود
+  document.querySelectorAll('input[data-price]').forEach(function (el) {
+    el.addEventListener('change', function () {
+      recalcTotal();
+      // variant with image -> swap main gallery image
+      if (el.dataset.img && main && el.checked) {
+        main.src = el.dataset.img;
+        var match = document.querySelector('.pd-thumbs button[data-variant-img="' + el.value + '"]');
+        if (match) setActive(match);
+      }
+    });
+  });
+});
+</script>
+{% endblock extra_js %}

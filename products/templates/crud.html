@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+
+{% load static i18n %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block extra_css %}
+{{ form.media.css }}
+<style nonce="{{ request.csp_nonce }}">
+/* هماهنگ با main.css: --brown / --saffron / --cream / .glass / .btn--gold */
+.crud-wrap{max-width:1100px;margin:24px auto 48px;padding:0 16px}
+.crud-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:6px}
+.crud-head h1{font-size:1.6rem}
+.crud-head .spacer{flex:1}
+.crud-sub{opacity:.75;font-size:.9rem;margin:0 0 8px}
+.crud-card{background:rgba(255,255,255,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;
+  box-shadow:0 8px 24px rgba(59,42,26,.08)}
+.crud-card>h2{margin:0 0 10px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.crud-card>h2::before{content:"";width:.55rem;height:.55rem;border-radius:50%;
+  background:linear-gradient(135deg,var(--saffron),var(--honey));flex:none}
+.crud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.crud-field{margin:10px 0}
+.crud-field label{font-weight:700;display:block;margin-bottom:4px;font-size:.88rem}
+.crud-field label.required::after{content:" *";color:#b3261e;font-weight:700}
+.crud-field input[type=text],.crud-field input[type=number],.crud-field input[type=datetime-local],
+.crud-field select,.crud-field textarea{width:100%;padding:.6rem .8rem;border:1px solid var(--hair);
+  border-radius:10px;font:inherit;color:var(--brown);background:rgba(255,255,255,.85)}
+.crud-field textarea{min-height:90px;resize:vertical}
+.crud-field input:focus,.crud-field select:focus,.crud-field textarea:focus{
+  outline:2px solid var(--saffron);outline-offset:1px;border-color:var(--saffron)}
+.crud-field .helptext{color:#8a8175;font-size:12px;display:block;margin-top:2px}
+.crud-check{display:flex;align-items:center;gap:8px;margin:10px 0;font-size:.9rem}
+.crud-check input{width:1.1rem;height:1.1rem;accent-color:var(--honey)}
+.errorlist{color:#b3261e;margin:4px 0;padding:0;list-style:none;font-size:13px}
+.fs-item{border:1px solid var(--hair);border-radius:10px;padding:12px;margin:10px 0;
+  background:rgba(255,255,255,.75);position:relative}
+.fs-item.is-deleted{opacity:.45}
+.fs-item .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.opt-block{border:2px solid var(--hair);border-radius:12px;padding:12px;margin:12px 0;background:rgba(255,248,236,.7)}
+.opt-block>h3{margin:0 0 6px;font-size:.95rem}
+.val-item{border:1px dashed #b9b09e;border-radius:8px;padding:10px;margin:8px 0;background:#fff}
+.del-check{display:inline-flex;gap:6px;align-items:center;margin-top:8px;color:#b3261e;font-size:13px}
+/* چک‌باکس DELETE مخفیِ فرم‌های تودرتو — فقط از طریق دکمه Remove کنترل می‌شود */
+.val-item input[name$="-DELETE"], .opt-block input[name$="-DELETE"]{display:none!important}
+/* دکمه‌های اختصاصی crud — .btn پایه از main.css می‌آید */
+.btn-crud{display:inline-flex;align-items:center;justify-content:center;padding:.7rem 1.3rem;border-radius:999px;
+  font:700 .9rem var(--sans);border:1px solid transparent;cursor:pointer;
+  transition:transform .25s var(--ease),box-shadow .25s,background .25s;
+  background:var(--saffron);color:var(--brown)}
+.btn-crud:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(232,163,61,.28),0 10px 26px rgba(217,142,43,.4)}
+.btn-crud--ghost{background:rgba(255,255,255,.7);border-color:var(--hair);color:var(--brown)}
+.btn-crud--ghost:hover{background:#fff}
+.btn-crud--danger{background:#b3261e;color:#fff;border-color:#b3261e}
+.btn-crud--sm{padding:.5rem 1rem;font-size:.82rem}
+.empty-form{display:none!important}
+.form-actions{position:sticky;bottom:12px;display:flex;gap:10px;justify-content:flex-end;
+  background:rgba(255,248,236,.85);backdrop-filter:blur(12px);border:1px solid var(--line);
+  border-radius:14px;padding:12px 16px;margin-top:16px}
+/* dal_alight با تم سایت */
+autocomplete-select{display:block}
+autocomplete-select-input input{width:100%;padding:.6rem .8rem;border:1px solid var(--hair)!important;
+  border-radius:10px!important;font:inherit;color:var(--brown);background:rgba(255,255,255,.85)}
+autocomplete-select-input input:focus{outline:2px solid var(--saffron);outline-offset:1px;border-color:var(--saffron)}
+autocomplete-select [slot=deck] [data-value]{background:rgba(232,163,61,.18)!important;
+  border:1px solid rgba(201,123,45,.45);color:var(--brown)!important}
+.autocomplete-light-box{border-radius:10px!important;box-shadow:0 12px 32px rgba(59,42,26,.18)!important}
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="crud-wrap">
+<div class="crud-head">
+<h1>{{ title }}</h1>
+<span class="spacer"></span>
+<a class="btn-crud btn-crud--ghost btn-crud--sm" href="{% url 'products_list' %}">{% trans "Back to list" %}</a>
+</div>
+{% if is_delete %}
+<div class="crud-card">
+<p>"{{ product.title }}" {% trans "will be deleted with all images/variants/options/values. Sure?" %}</p>
+<form method="post">{% csrf_token %}
+<button class="btn-crud btn-crud--danger" type="submit">{% trans "Yes, delete" %}</button>
+<a class="btn-crud btn-crud--ghost" href="{{ product.get_absolute_url }}">{% trans "Cancel" %}</a>
+</form>
+</div>
+{% else %}
+<form method="post" enctype="multipart/form-data" id="product-form" novalidate>
+{% csrf_token %}
+{{ form.non_field_errors }}
+<div class="crud-card">
+<h2>{% trans "Main info" %}</h2>
+<p class="crud-sub">{% trans "Title, category, prices and stock." %}</p>
+<div class="crud-grid">
+{% for field in form %}
+{% if field.name != "tags" and field.name != "ingredients" and field.name != "new_tags" and field.name != "new_ingredients" %}
+{% if field.field.widget.input_type == "checkbox" %}
+<div class="crud-check">{{ field }}<label for="{{ field.id_for_label }}" class="{% if field.field.required %}required{% endif %}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>{{ field.errors }}{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}</div>
+{% else %}
+<div class="crud-field"><label for="{{ field.id_for_label }}" class="{% if field.field.required %}required{% endif %}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>{{ field }}{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}{{ field.errors }}</div>
+{% endif %}
+{% endif %}
+{% endfor %}
+</div>
+</div>
+<div class="crud-card">
+<h2>{% trans "Tags" %}</h2>
+<p class="crud-sub">{% trans "Type to search; if it doesn't exist, choose “Create …” — no jQuery needed." %}</p>
+<div class="crud-field">{{ form.tags.label_tag }}{{ form.tags }}{{ form.tags.errors }}</div>
+<details class="crud-field"><summary>{% trans "Add manually (comma-separated)" %}</summary>
+<div style="margin-top:8px">{{ form.new_tags }}{{ form.new_tags.errors }}{% if form.new_tags.help_text %}<span class="helptext">{{ form.new_tags.help_text }}</span>{% endif %}</div>
+</details>
+<h2 style="margin-top:14px">{% trans "Ingredients" %}</h2>
+<div class="crud-field">{{ form.ingredients.label_tag }}{{ form.ingredients }}{{ form.ingredients.errors }}</div>
+<details class="crud-field"><summary>{% trans "Add manually (comma-separated)" %}</summary>
+<div style="margin-top:8px">{{ form.new_ingredients }}{{ form.new_ingredients.errors }}{% if form.new_ingredients.help_text %}<span class="helptext">{{ form.new_ingredients.help_text }}</span>{% endif %}</div>
+</details>
+</div>
+
+<div class="crud-card" data-formset-root="images">
+<h2>{% trans "Images" %}</h2>
+<p class="crud-sub">{% trans "First image is the cover." %}</p>
+{{ image_formset.management_form }}
+{{ image_formset.non_form_errors }}
+<div data-formset-list="images">
+{% for f in image_formset.forms %}
+<div class="fs-item" data-formset-item="images">
+{{ f.id }}{{ f.non_field_errors }}
+<div class="row">
+<div class="crud-field"><label for="{{ f.image.id_for_label }}" class="{% if f.image.field.required %}required{% endif %}">{{ f.image.label }}{% if f.image.field.required %} *{% endif %}</label>{{ f.image }}{{ f.image.errors }}</div>
+<div class="crud-field"><label for="{{ f.title.id_for_label }}" class="{% if f.title.field.required %}required{% endif %}">{{ f.title.label }}{% if f.title.field.required %} *{% endif %}</label>{{ f.title }}{{ f.title.errors }}</div>
+</div>
+{% if f.instance.pk %}<label class="del-check">{{ f.DELETE }} {% trans "Delete" %}</label>{% endif %}
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+</div>
+{% endfor %}
+</div>
+<div class="empty-form" data-empty-form="images">
+<div class="fs-item" data-formset-item="images">
+{{ image_formset.empty_form.id }}
+<div class="row">
+<div class="crud-field">{{ image_formset.empty_form.image.label_tag }}{{ image_formset.empty_form.image }}</div>
+<div class="crud-field">{{ image_formset.empty_form.title.label_tag }}{{ image_formset.empty_form.title }}</div>
+</div>
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+</div>
+</div>
+<button type="button" class="btn-crud btn-crud--sm" data-add-formset="images">+ {% trans "Add image" %}</button>
+</div>
+
+<div class="crud-card" data-formset-root="variants">
+<h2>{% trans "Variants" %}</h2>
+<p class="crud-sub">{% trans "e.g. size, flavor — each with its own extra price." %}</p>
+{{ variant_formset.management_form }}
+{{ variant_formset.non_form_errors }}
+<div data-formset-list="variants">
+{% for f in variant_formset.forms %}
+<div class="fs-item" data-formset-item="variants">
+{{ f.id }}{{ f.non_field_errors }}
+<div class="row">
+<div class="crud-field"><label>{{ f.variant_type.label }}{% if f.variant_type.field.required %} *{% endif %}</label>{{ f.variant_type }}{{ f.variant_type.errors }}</div>
+<div class="crud-field"><label>{{ f.title.label }}{% if f.title.field.required %} *{% endif %}</label>{{ f.title }}{{ f.title.errors }}</div>
+<div class="crud-field"><label>{{ f.extra_price.label }}{% if f.extra_price.field.required %} *{% endif %}</label>{{ f.extra_price }}{{ f.extra_price.errors }}</div>
+<div class="crud-field"><label>{{ f.image.label }}{% if f.image.field.required %} *{% endif %}</label>{{ f.image }}{{ f.image.errors }}</div>
+<div class="crud-check"><label>{{ f.is_active }} {{ f.is_active.label }}</label>{{ f.is_active.errors }}</div>
+</div>
+{% if f.instance.pk %}<label class="del-check">{{ f.DELETE }} {% trans "Delete" %}</label>{% endif %}
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+</div>
+{% endfor %}
+</div>
+<div class="empty-form" data-empty-form="variants">
+<div class="fs-item" data-formset-item="variants">
+{{ variant_formset.empty_form.id }}
+<div class="row">
+<div class="crud-field">{{ variant_formset.empty_form.variant_type.label_tag }}{{ variant_formset.empty_form.variant_type }}</div>
+<div class="crud-field">{{ variant_formset.empty_form.title.label_tag }}{{ variant_formset.empty_form.title }}</div>
+<div class="crud-field">{{ variant_formset.empty_form.extra_price.label_tag }}{{ variant_formset.empty_form.extra_price }}</div>
+<div class="crud-field">{{ variant_formset.empty_form.image.label_tag }}{{ variant_formset.empty_form.image }}</div>
+<div class="crud-check"><label>{{ variant_formset.empty_form.is_active }} {{ variant_formset.empty_form.is_active.label }}</label></div>
+</div>
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+</div>
+</div>
+<button type="button" class="btn-crud btn-crud--sm" data-add-formset="variants">+ {% trans "Add variant" %}</button>
+</div>
+
+<div class="crud-card" data-formset-root="options">
+<h2>{% trans "Customization Options + Values (nested)" %}</h2>
+<p class="crud-sub">{% trans "e.g. “Topping” group with chocolate / nut values." %}</p>
+{{ option_formset.management_form }}
+{{ option_formset.non_form_errors }}
+<div data-formset-list="options">
+{% for opt_form, val_fs in option_value_pairs %}
+<div class="opt-block" data-formset-item="options" data-option-prefix="{{ opt_form.prefix }}">
+{{ opt_form.id }}{{ opt_form.non_field_errors }}
+<h3>{{ opt_form.instance.group_title|default:_("New option") }}</h3>
+<div class="row">
+<div class="crud-field"><label>{{ opt_form.group_title.label }}{% if opt_form.group_title.field.required %} *{% endif %}</label>{{ opt_form.group_title }}</div>
+<div class="crud-field"><label>{{ opt_form.option_type.label }}{% if opt_form.option_type.field.required %} *{% endif %}</label>{{ opt_form.option_type }}</div>
+<div class="crud-field"><label>{{ opt_form.min_select.label }}{% if opt_form.min_select.field.required %} *{% endif %}</label>{{ opt_form.min_select }}</div>
+<div class="crud-field"><label>{{ opt_form.max_select.label }}{% if opt_form.max_select.field.required %} *{% endif %}</label>{{ opt_form.max_select }}</div>
+<div class="crud-check"><label>{{ opt_form.is_required }} {{ opt_form.is_required.label }}</label></div>
+</div>
+{{ opt_form.group_title.errors }}{{ opt_form.option_type.errors }}
+{% if opt_form.instance.pk %}<label class="del-check">{{ opt_form.DELETE }} {% trans "Delete" %}</label>{% endif %}
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+<h4>{% trans "Values" %}</h4>
+<div data-values-root>
+{{ val_fs.management_form }}
+{{ val_fs.non_form_errors }}
+<div data-values-list>
+{% for vf in val_fs.forms %}
+<div class="val-item" data-values-item>
+{{ vf.id }}{{ vf.non_field_errors }}{{ vf.DELETE }}
+<div class="row">
+<div class="crud-field"><label>{{ vf.title.label }}{% if vf.title.field.required %} *{% endif %}</label>{{ vf.title }}</div>
+<div class="crud-field"><label>{{ vf.extra_price.label }}{% if vf.extra_price.field.required %} *{% endif %}</label>{{ vf.extra_price }}</div>
+<div class="crud-field"><label>{{ vf.image.label }}{% if vf.image.field.required %} *{% endif %}</label>{{ vf.image }}</div>
+<div class="crud-check"><label>{{ vf.is_active }} {{ vf.is_active.label }}</label></div>
+</div>
+{{ vf.title.errors }}{{ vf.extra_price.errors }}
+{% if vf.instance.pk %}<label class="del-check">{{ vf.DELETE }} {% trans "Delete" %}</label>{% endif %}
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+</div>
+{% endfor %}
+</div>
+<button type="button" class="btn-crud btn-crud--sm" data-add-values>+ {% trans "Add value" %}</button>
+</div>
+</div>
+{% endfor %}
+</div>
+<button type="button" class="btn-crud btn-crud--sm" data-add-formset="options">+ {% trans "Add option" %}</button>
+<div class="empty-form" data-empty-form="options">
+<div class="opt-block" data-option-template data-formset-item="options">
+{{ option_formset.empty_form.id }}
+{{ option_formset.empty_form.DELETE }}
+{{ option_formset.empty_form.non_field_errors }}
+<div class="row">
+<div class="crud-field">{{ option_formset.empty_form.group_title.label_tag }}{{ option_formset.empty_form.group_title }}</div>
+<div class="crud-field">{{ option_formset.empty_form.option_type.label_tag }}{{ option_formset.empty_form.option_type }}</div>
+<div class="crud-field">{{ option_formset.empty_form.min_select.label_tag }}{{ option_formset.empty_form.min_select }}</div>
+<div class="crud-field">{{ option_formset.empty_form.max_select.label_tag }}{{ option_formset.empty_form.max_select }}</div>
+<div class="crud-check"><label>{{ option_formset.empty_form.is_required }} {{ option_formset.empty_form.is_required.label }}</label></div>
+</div>
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+<div data-values-root data-values-empty="1">
+<input type="hidden" name="__VALUES_MGMT__-TOTAL_FORMS" value="1">
+<input type="hidden" name="__VALUES_MGMT__-INITIAL_FORMS" value="0">
+<input type="hidden" name="__VALUES_MGMT__-MIN_NUM_FORMS" value="0">
+<input type="hidden" name="__VALUES_MGMT__-MAX_NUM_FORMS" value="1000">
+<div data-values-list></div>
+<button type="button" class="btn-crud btn-crud--sm" data-add-values>+ {% trans "Add value" %}</button>
+</div>
+</div>
+</div>
+</div>
+<div class="empty-form" data-values-empty-item style="display:none!important">
+<div class="val-item" data-values-item>
+<input type="hidden" name="__VALUES_MGMT__-__prefix__-id" value="">
+<input type="checkbox" name="__VALUES_MGMT__-__prefix__-DELETE" style="display:none">
+<div class="row">
+<div class="crud-field"><label for="id___VALUES_MGMT__-__prefix__-title">Title:</label><input type="text" name="__VALUES_MGMT__-__prefix__-title" id="id___VALUES_MGMT__-__prefix__-title"></div>
+<div class="crud-field"><label for="id___VALUES_MGMT__-__prefix__-extra_price">Extra Price:</label><input type="number" name="__VALUES_MGMT__-__prefix__-extra_price" id="id___VALUES_MGMT__-__prefix__-extra_price" value="0"></div>
+<div class="crud-field"><label for="id___VALUES_MGMT__-__prefix__-image">Image:</label><input type="file" name="__VALUES_MGMT__-__prefix__-image" id="id___VALUES_MGMT__-__prefix__-image" accept="image/*"></div>
+<div class="crud-check"><label><input type="checkbox" name="__VALUES_MGMT__-__prefix__-is_active" id="id___VALUES_MGMT__-__prefix__-is_active" checked> Is Active</label></div>
+</div>
+<button type="button" class="btn-crud btn-crud--ghost btn-crud--sm" data-remove-item>{% trans "Remove" %}</button>
+</div>
+</div>
+
+<div class="form-actions">
+<a class="btn-crud btn-crud--ghost" href="{% url 'products_list' %}">{% trans "Cancel" %}</a>
+<button class="btn-crud" type="submit">{% trans "Save" %}</button>
+</div>
+</form>
+{% endif %}
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+{{ form.media.js }}
+<script nonce="{{ request.csp_nonce }}">
+(function(){
+"use strict";
+function mgmt(prefix){
+  function by(suffix){
+    return document.querySelector('#product-form input[name="'+prefix+'-'+suffix+'"]');
+  }
+  return {
+    total: by("TOTAL_FORMS"), initial: by("INITIAL_FORMS"),
+    min: by("MIN_NUM_FORMS"), max: by("MAX_NUM_FORMS")
+  };
+}
+/* فرم‌ست‌های ساده: images / variants / options */
+document.querySelectorAll('[data-add-formset]').forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var key = btn.getAttribute("data-add-formset");
+    var root = btn.closest('[data-formset-root="'+key+'"]');
+    if(!root) return;
+    var list = root.querySelector('[data-formset-list="'+key+'"]');
+    var empty = root.querySelector('[data-empty-form="'+key+'"]');
+    if(!list || !empty) return;
+    var prefix = key; /* images / variants / options */
+    var m = mgmt(prefix);
+    if(!m.total) return;
+    var idx = parseInt(m.total.value, 10);
+    var html = empty.innerHTML.replace(/__prefix__/g, String(idx));
+    if(key === "options"){
+      /* management فرم values آپشن جدید: values-options-N */
+      var vPrefix = "values-options-" + idx;
+      html = html.split("__VALUES_MGMT__").join(vPrefix);
+      /* فیلدهای خالی values برای ایندکس 0 */
+      var vEmpty = document.querySelector('[data-values-empty-item]');
+      var vFields = vEmpty ? vEmpty.innerHTML : "";
+      vFields = vFields.split("__VALUES_MGMT__").join(vPrefix).split("__prefix__").join("0");
+      /* TOTAL_FORMS values آپشن جدید باید 0 باشد تا فرم خالی اعتبارسنجی نشود */
+      html = html.split('name="'+vPrefix+'-TOTAL_FORMS" value="1"').join('name="'+vPrefix+'-TOTAL_FORMS" value="0"');
+      html = html.split("__OPT__").join(vPrefix);
+    }
+    var tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    /* ممکن است چند ریشه باشد؛ همه را منتقل کن */
+    var nodes = [];
+    Array.prototype.forEach.call(tmp.childNodes, function(n){
+      if(n.nodeType === 1) nodes.push(n);
+      else if(n.nodeType === 3 && n.textContent.trim() !== "") nodes.push(n);
+    });
+    if(nodes.length === 0) return;
+    nodes.forEach(function(node){
+    /* empty_form خودش hidden است؛ visible کن */
+    if(node.classList && node.classList.contains("empty-form")) node.classList.remove("empty-form");
+    Array.prototype.forEach.call(node.querySelectorAll(".empty-form"), function(n){ n.classList.remove("empty-form"); n.style.display = ""; });
+    if(node.style) node.style.display = "";
+    /* یک value خالی آماده داخل آپشن جدید بگذار تا کاربر مستقیم تایپ کند */
+    if(key === "options"){
+      var vList = node.querySelector('[data-values-list]');
+      var vTotal = node.querySelector('input[name$="-TOTAL_FORMS"]');
+      if(vList && vTotal && vEmpty){
+        var first = document.createElement("div");
+        first.innerHTML = vFields;
+        var firstNode = first.firstElementChild || first;
+        if(firstNode.classList && firstNode.classList.contains("empty-form")) firstNode.classList.remove("empty-form");
+        if(firstNode.style) firstNode.style.display = "";
+        vList.appendChild(firstNode);
+        vTotal.value = "1";
+      }
+      /* دکمه Add value آپشن جدید را زنده کن */
+      var addBtn = node.querySelector('[data-add-values]');
+      if(addBtn) wireValuesButton(addBtn);
+    }
+    /* id خالی (id_*-__prefix__) را برای آپشن جدید فیکس کن */
+    Array.prototype.forEach.call(node.querySelectorAll("[id]"), function(el){
+      el.id = el.id.replace(/__prefix__/g, String(idx));
+    });
+    list.appendChild(node);
+    }); /* end nodes.forEach */
+    m.total.value = String(idx + nodes.length);
+  });
+});
+/* حذف آیتم: موجود → تیک DELETE + کم‌رنگ؛ جدید → مخفی + غیرفعال (TOTAL_FORMS دست نخورد) */
+document.getElementById("product-form").addEventListener("click", function(ev){
+  var btn = ev.target.closest("[data-remove-item]");
+  if(!btn) return;
+  var item = btn.closest("[data-formset-item],[data-values-item]");
+  if(!item) return;
+  var chk = item.querySelector('input[type="checkbox"][name$="-DELETE"]');
+  var hasPk = !!item.querySelector('input[type="hidden"][name$="-id"][value]:not([value=""])');
+  if(chk && hasPk){
+    chk.checked = !chk.checked;
+    item.classList.toggle("is-deleted", chk.checked);
+  } else if(chk){
+    /* فرم جدیدِ رندرشده با can_delete: تیک DELETE بزن + مخفی کن تا ایندکس‌ها به‌هم نریزد */
+    chk.checked = true;
+    item.classList.add("is-deleted");
+    item.style.display = "none";
+    item.querySelectorAll("input,select,textarea").forEach(function(el){
+      if(el === chk) return;
+      if(el.type === "checkbox" || el.type === "radio"){ el.checked = false; }
+      else if(el.type !== "hidden" || !/-id$/.test(el.name||"")){ el.value = ""; }
+    });
+  } else {
+    /* empty-template بدون DELETE: مخفی + غیرفعال کن تا POST نشود ولی شمارش حفظ شود */
+    item.classList.add("is-deleted");
+    item.style.display = "none";
+    item.querySelectorAll("input,select,textarea").forEach(function(el){ el.disabled = true; });
+  }
+});
+/* values داخل هر آپشن (موجود و جدید) */
+function wireValuesButton(btn){
+  if(btn.__wired) return;
+  btn.__wired = true;
+  btn.addEventListener("click", function(){
+    var vRoot = btn.closest('[data-values-root]');
+    if(!vRoot) return;
+    var totalInput = vRoot.querySelector('input[name$="-TOTAL_FORMS"]');
+    if(!totalInput) return;
+    var vPrefix = totalInput.name.replace(/-TOTAL_FORMS$/, "");
+    var idx = parseInt(totalInput.value, 10);
+    var emptyItem = document.querySelector('[data-values-empty-item]');
+    var list = vRoot.querySelector('[data-values-list]');
+    if(vRoot.hasAttribute("data-values-empty") && emptyItem){
+      var html = emptyItem.innerHTML.split("__VALUES_MGMT__").join(vPrefix).split("__prefix__").join(String(idx));
+      var tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      var node = tmp.firstElementChild || tmp;
+      if(node.classList && node.classList.contains("empty-form")) node.classList.remove("empty-form");
+      if(node.style) node.style.display = "";
+      list.appendChild(node);
+      totalInput.value = String(idx + 1);
+      return;
+    }
+    /* آپشن موجود: از آخرین آیتم کلون بگیر */
+      var list = vRoot.querySelector('[data-values-list]');
+      var last = list ? list.querySelector('[data-values-item]:last-child') : null;
+      if(!last) return;
+      var clone = last.cloneNode(true);
+      clone.querySelectorAll("input,select,textarea").forEach(function(el){
+        if(el.name) el.name = el.name.replace(vPrefix+"-"+String(idx-1), vPrefix+"-"+String(idx));
+        if(el.id) el.id = el.id.replace(vPrefix+"-"+String(idx-1), vPrefix+"-"+String(idx));
+        if(el.type === "checkbox" || el.type === "radio") el.checked = false;
+        else if(el.tagName === "SELECT") el.selectedIndex = 0;
+        else el.value = "";
+      });
+      /* pk قبلی را پاک کن تا رکورد جدید ساخته شود */
+      clone.querySelectorAll('input[name$="-id"]').forEach(function(el){ el.value = ""; });
+      clone.querySelectorAll('input[name$="-DELETE"]').forEach(function(el){ el.checked = false; });
+      list.appendChild(clone);
+      totalInput.value = String(idx + 1);
+  });
+}
+document.querySelectorAll('[data-add-values]').forEach(function(btn){
+  if(btn.closest('[data-empty-form]')) return;
+  wireValuesButton(btn);
+});
+/* dal_alight خودش media/js خودش را دارد؛ init دستی لازم نیست چون باعث double-init می‌شود. */
+})();
+</script>
+{% endblock extra_js %}
