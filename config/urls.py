@@ -21,11 +21,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('cores.urls')),
+    path('products/', include('products.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
     path("i18n/", include("django.conf.urls.i18n")),   # ← برای set_language
-]
+] 
 
 if settings.DEBUG:
     urlpatterns +=[

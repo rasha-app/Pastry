@@ -72,7 +72,8 @@ INSTALLED_APPS = [
 
     # My Apps
     'accounts',
-    'cores',  
+    'cores',
+    'products',
     'customFT',
 ]
 
