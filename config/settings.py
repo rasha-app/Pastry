@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # third party apps
 
@@ -71,7 +72,8 @@ INSTALLED_APPS = [
 
     # My Apps
     'accounts',
-    'cores',
+    'cores',  
+    'customFT',
 ]
 
 MIDDLEWARE = [
