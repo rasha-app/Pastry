@@ -312,9 +312,9 @@ class ProfileViews(LoginRequiredMixin, TemplateView):
             messages.success(request, _('Profile updated successfully.'))
             logger.info("Profile updated for user=%s", user.pk)
             return redirect('profile')
-
+        errors = "\n".join(f"{field}: {', '.join(errors)}"for field, errors in form.errors.items()) # type: ignore
         logger.warning("Profile form invalid for user=%s errors=%s",user.pk, form.errors.as_json(),)
-        messages.warning(request, _(('Please fix the errors below and try again.')))
+        messages.warning(request, _(('Please fix the errors below and try again.\n{error}').format(error=errors)))
         return self.render_to_response(self.get_context_data(forms=form))
 
     def _handle_address_add(self, request, user):

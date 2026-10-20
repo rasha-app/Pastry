@@ -1,12 +1,6 @@
 import phonenumbers
 
-from io import BytesIO
-from pathlib import Path
-from typing import Any
-from PIL import Image
-
 from django import forms
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
@@ -19,70 +13,7 @@ from allauth.account.forms import LoginForm as BaseLoginForm
 
 from accounts.models import CustomUser,Address
 
-IMAGE_EXTS = {'jpg', 'jpeg', 'png', 'webp'}
-
-def compress_image_file(media,max_size_mb: float = 0.5,max_dimension: int = 1920,quality: int = 75,threshold_kb: int = 300,):
-    """
-    فشرده‌سازی یک فایل تصویری.
-    - اگر فایل غیرتصویری باشد یا از قبل کوچک باشد، دست‌نخورده برگردانده می‌شود.
-    - اگر خطایی رخ دهد یا خروجی بزرگ‌تر از ورودی شود، فایل اصلی برگردانده می‌شود.
-    """
-    if not media:
-        return media
-
-    ext = Path(media.name).suffix.lower().lstrip('.')
-    if ext not in IMAGE_EXTS:
-        return media  # mp3, mp4, pdf و... دست نزن
-
-    if media.size <= threshold_kb * 1024:
-        return media  # از قبل کوچک است
-
-    try:
-        media.seek(0)
-        img = Image.open(media)
-
-        # کوچک کردن ابعاد در صورت نیاز
-        if max(img.size) > max_dimension:
-            try:
-                resample = Image.Resampling.LANCZOS
-            except AttributeError:
-                resample = Image.LANCZOS  # type: ignore Pillow قدیمی
-            img.thumbnail((max_dimension, max_dimension), resample)
-
-        # برای JPEG باید RGB باشد، بقیه RGBA
-        if img.mode in ('RGBA', 'P', 'LA'):
-            if ext in ('jpg', 'jpeg'):
-                img = img.convert('RGB')
-            else:
-                img = img.convert('RGBA')
-
-        output = BytesIO()
-        save_kwargs: dict[str, Any] = {'optimize': True}
-        if ext in ('jpg', 'jpeg'):
-            save_kwargs['quality'] = quality
-            save_kwargs['format'] = 'JPEG'
-        elif ext == 'png':
-            save_kwargs['format'] = 'PNG'
-        elif ext == 'webp':
-            save_kwargs['quality'] = quality
-            save_kwargs['format'] = 'WEBP'
-
-        img.save(output, **save_kwargs)
-        output.seek(0)
-        new_size = output.getbuffer().nbytes
-
-        # اگر فایل جدید بزرگ‌تر شد، همان اصلی را نگه دار
-        if new_size >= media.size:
-            media.seek(0)
-            return media
-        return InMemoryUploadedFile(output,field_name='image',name=media.name,content_type=f'image/{ext}',size=new_size,charset=None,)
-    except Exception:
-        # در صورت هر خطایی، فایل اصلی برگردانده می‌شود
-        try:
-            media.seek(0)
-        except Exception:
-            pass
-        return media
+from cores.image_utils import compress_image_file
 
 class ProfileForms(forms.ModelForm):
     class Meta:
