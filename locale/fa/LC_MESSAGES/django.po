@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 15:48+0330\n"
+"POT-Creation-Date: 2026-10-21 10:55+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Persian\n"
@@ -48,55 +48,59 @@ msgstr "تاریخ‌های مهم"
 msgid "Accounts"
 msgstr "حساب‌های کاربری"
 
-#: .\accounts\forms.py:91
+#: .\accounts\forms.py:24
 msgid "Exm: 1405-01-01 Solar calendar"
 msgstr "مثال: 01-01-1374 تقویم شمسی"
 
-#: .\accounts\forms.py:99 .\accounts\forms.py:113
+#: .\accounts\forms.py:32 .\accounts\forms.py:46
 msgid "No files selected"
 msgstr "هیچ فایلی انتخاب نشده است"
 
-#: .\accounts\forms.py:135 .\accounts\models.py:35
+#: .\accounts\forms.py:70 .\accounts\forms.py:95 .\accounts\models.py:35
 msgid "Phone Number"
 msgstr "شماره تلفن"
 
-#: .\accounts\forms.py:137
+#: .\accounts\forms.py:72 .\accounts\forms.py:97
 msgid "Exm: 09123456789"
 msgstr "مثال: ۰۹۱۲۳۴۵۶۷۸۹"
 
-#: .\accounts\forms.py:145
+#: .\accounts\forms.py:80 .\accounts\forms.py:105
 msgid "Invalid phone number."
 msgstr "شماره تلفن نامعتبر است."
 
-#: .\accounts\forms.py:148
+#: .\accounts\forms.py:83 .\accounts\forms.py:108
 msgid "Invalid phone number format."
 msgstr "قالب شماره تلفن نامعتبر است."
 
-#: .\accounts\forms.py:153
+#: .\accounts\forms.py:88 .\accounts\forms.py:113
 msgid "6 Digit Code"
 msgstr "کد ۶ رقمی"
 
-#: .\accounts\forms.py:154
+#: .\accounts\forms.py:89 .\accounts\forms.py:114
 msgid "Verified Code"
 msgstr "کد تأیید"
 
-#: .\accounts\forms.py:158
+#: .\accounts\forms.py:118
 msgid "New Password"
 msgstr "رمز عبور جدید"
 
-#: .\accounts\forms.py:159
+#: .\accounts\forms.py:119
 msgid "Confirm New Password"
 msgstr "تکرار رمز عبور جدید"
 
-#: .\accounts\forms.py:166
+#: .\accounts\forms.py:126
 msgid "Passwords do not match."
 msgstr "رمزهای عبور مطابقت ندارند."
 
-#: .\accounts\forms.py:176
+#: .\accounts\forms.py:146
 msgid "Forgot your password?"
 msgstr "رمز عبور خود را فراموش کرده اید؟"
 
-#: .\accounts\models.py:19
+#: .\accounts\forms.py:147
+msgid "Login with Phone"
+msgstr "ورود با تلفن همراه"
+
+#: .\accounts\models.py:19 .\products\models.py:21
 msgid "Valid formats are: JPG, JPEG, PNG and WEBP."
 msgstr "قالب‌های معتبر عبارتند از: JPG، JPEG، PNG و WEBP."
 
@@ -189,7 +193,9 @@ msgstr "شهر"
 msgid "Enter the full address including street, alley, etc."
 msgstr "آدرس کامل را همراه با خیابان، کوچه و... وارد کنید."
 
-#: .\accounts\models.py:75 .\accounts\models.py:89 .\templates\home.html:111
+#: .\accounts\models.py:75 .\accounts\models.py:89 .\cores\admin.py:83
+#: .\cores\models.py:111 .\cores\templates\contact.html:660
+#: .\cores\templates\home.html:111
 msgid "Address"
 msgstr "آدرس"
 
@@ -201,15 +207,15 @@ msgstr "کد پستی"
 msgid "Plaque Number"
 msgstr "پلاک"
 
-#: .\accounts\models.py:78
+#: .\accounts\models.py:78 .\accounts\templates\profile.html:739
 msgid "Block"
 msgstr "بلوک"
 
-#: .\accounts\models.py:79
+#: .\accounts\models.py:79 .\accounts\templates\profile.html:740
 msgid "Floor"
 msgstr "طبقه"
 
-#: .\accounts\models.py:80 .\accounts\templates\profile.html:457
+#: .\accounts\models.py:80 .\accounts\templates\profile.html:741
 msgid "Unit"
 msgstr "واحد"
 
@@ -217,81 +223,116 @@ msgstr "واحد"
 msgid "Default Address"
 msgstr "آدرس پیش‌فرض"
 
-#: .\accounts\models.py:82
+#: .\accounts\models.py:82 .\cores\models.py:92 .\cores\models.py:129
+#: .\products\models.py:53
 msgid "Created Date"
 msgstr "تاریخ ایجاد"
 
-#: .\accounts\models.py:90
+#: .\accounts\models.py:90 .\accounts\templates\profile.html:663
 msgid "Addresses"
 msgstr "آدرس‌ها"
 
-#: .\accounts\templates\profile.html:4 .\accounts\templates\profile.html:388
+#: .\accounts\templates\login_by_phone.html:7
+#: .\accounts\templates\login_by_phone.html:15
+#: .\accounts\templates\login_by_phone.html:23 .\templates\base.html:205
+msgid "Login"
+msgstr "ورود"
+
+#: .\accounts\templates\login_by_phone.html:26
+#: .\accounts\templates\reset_pass_by_phone.html:26
+msgid "Code Send"
+msgstr "ارسال کد"
+
+#: .\accounts\templates\profile.html:4
 msgid "Profile"
 msgstr "پروفایل"
 
-#: .\accounts\templates\profile.html:389
-msgid "Manage your account information and security"
-msgstr "اطلاعات و امنیت حساب خود را مدیریت کنید"
+#: .\accounts\templates\profile.html:621
+msgid "My Profile"
+msgstr "پروفایل من"
 
-#: .\accounts\templates\profile.html:398
-msgid "Change email address"
-msgstr "تغییر آدرس ایمیل"
+#: .\accounts\templates\profile.html:622
+msgid "Manage your account information, addresses and security"
+msgstr "اطلاعات حساب، آدرس‌ها و امنیت خود را مدیریت کنید"
 
-#: .\accounts\templates\profile.html:399
-msgid "Update your email"
-msgstr "ایمیل خود را به‌روزرسانی کنید"
+#: .\accounts\templates\profile.html:638
+msgid "Profile sections"
+msgstr "بخش‌های پروفایل"
 
-#: .\accounts\templates\profile.html:407
-msgid "Change password"
-msgstr "تغییر رمز عبور"
+#: .\accounts\templates\profile.html:650
+msgid "Personal Info"
+msgstr "اطلاعات شخصی"
 
-#: .\accounts\templates\profile.html:408
-msgid "Keep your account safe"
-msgstr "حساب خود را امن نگه دارید"
+#: .\accounts\templates\profile.html:676
+msgid "Security"
+msgstr "امنیت"
 
-#: .\accounts\templates\profile.html:417
+#: .\accounts\templates\profile.html:690
 msgid "Personal Information"
 msgstr "اطلاعات شخصی"
 
-#: .\accounts\templates\profile.html:426
+#: .\accounts\templates\profile.html:700
 msgid "Save changes"
 msgstr "ذخیره تغییرات"
 
-#: .\accounts\templates\profile.html:435
+#: .\accounts\templates\profile.html:717
 msgid "My Addresses"
 msgstr "آدرس‌های من"
 
-#: .\accounts\templates\profile.html:445
+#: .\accounts\templates\profile.html:727
 msgid "Default"
 msgstr "پیش‌فرض"
 
-#: .\accounts\templates\profile.html:455
+#: .\accounts\templates\profile.html:737
 msgid "Postal code"
 msgstr "کد پستی"
 
-#: .\accounts\templates\profile.html:456
+#: .\accounts\templates\profile.html:738
 msgid "Plaque"
 msgstr "پلاک"
 
-#: .\accounts\templates\profile.html:460
+#: .\accounts\templates\profile.html:745
 msgid "Delete this address?"
 msgstr "این آدرس حذف شود؟"
 
-#: .\accounts\templates\profile.html:464
+#: .\accounts\templates\profile.html:749 .\products\templates\crud.html:132
+#: .\products\templates\crud.html:166 .\products\templates\crud.html:205
+#: .\products\templates\crud.html:222
+#: .\products\templates\product_detail.html:196
 msgid "Delete"
 msgstr "حذف"
 
-#: .\accounts\templates\profile.html:471
+#: .\accounts\templates\profile.html:756
 msgid "You haven't added any addresses yet."
 msgstr "شما هنوز هیچ آدرسی اضافه نکرده‌اید."
 
-#: .\accounts\templates\profile.html:479
+#: .\accounts\templates\profile.html:763
 msgid "Add New Address"
 msgstr "افزودن آدرس جدید"
 
-#: .\accounts\templates\profile.html:488
+#: .\accounts\templates\profile.html:773
 msgid "Add address"
 msgstr "افزودن آدرس"
+
+#: .\accounts\templates\profile.html:790
+msgid "Account Security"
+msgstr "امنیت حساب"
+
+#: .\accounts\templates\profile.html:804
+msgid "Change email address"
+msgstr "تغییر آدرس ایمیل"
+
+#: .\accounts\templates\profile.html:805
+msgid "Update your email"
+msgstr "ایمیل خود را به‌روزرسانی کنید"
+
+#: .\accounts\templates\profile.html:826
+msgid "Change password"
+msgstr "تغییر رمز عبور"
+
+#: .\accounts\templates\profile.html:827
+msgid "Keep your account safe"
+msgstr "حساب خود را امن نگه دارید"
 
 #: .\accounts\templates\reset_form.html:4
 msgid "Password Reset Form"
@@ -323,10 +364,6 @@ msgstr "بازنشانی با تلفن"
 msgid "Submit"
 msgstr "ارسال"
 
-#: .\accounts\templates\reset_pass_by_phone.html:26
-msgid "Code Send"
-msgstr "ارسال کد"
-
 #: .\accounts\templates\reset_password_set_by_phone.html:20
 #: .\templates\account\password_change.html:5
 #: .\templates\account\password_change.html:15
@@ -351,66 +388,1381 @@ msgstr "سرویس پیامک موقتاً در دسترس نیست."
 msgid "Unspecified error, try again later."
 msgstr "خطای نامشخص، لطفاً بعداً دوباره تلاش کنید."
 
-#: .\accounts\views.py:53
+#: .\accounts\views.py:59 .\accounts\views.py:164
 msgid "If this phone is registered, a code will be sent."
 msgstr "اگر این تلفن ثبت شده باشد، کدی ارسال خواهد شد."
 
-#: .\accounts\views.py:58
+#: .\accounts\views.py:64 .\accounts\views.py:169
 msgid "Please wait 60 seconds before requesting a new code."
 msgstr "لطفاً ۶۰ ثانیه قبل از درخواست کد جدید صبر کنید."
 
-#: .\accounts\views.py:78
+#: .\accounts\views.py:83 .\accounts\views.py:189
 msgid "Session expired, try again."
 msgstr "نشست منقضی شد، دوباره تلاش کنید."
 
-#: .\accounts\views.py:83
+#: .\accounts\views.py:88 .\accounts\views.py:194
 msgid "Invalid OTP code."
 msgstr "کد یکبار مصرف نامعتبر است."
 
-#: .\accounts\views.py:89 .\accounts\views.py:94
+#: .\accounts\views.py:94 .\accounts\views.py:99 .\accounts\views.py:200
+#: .\accounts\views.py:205
 msgid "OTP expired"
 msgstr "کد یکبار مصرف منقضی شد"
 
-#: .\accounts\views.py:103
-msgid "Phone verified. Please set your new password."
-msgstr "تلفن تأیید شد. لطفاً رمز عبور جدید خود را تعیین کنید."
+#: .\accounts\views.py:108
+msgid "Login Successfully."
+msgstr "ورود با موفقیت انجام شد."
 
-#: .\accounts\views.py:111
+#: .\accounts\views.py:116 .\accounts\views.py:222
 #, python-brace-format
 msgid "Wrong code. Remaining attempts: {remain}"
 msgstr "کد اشتباه است. تلاش‌های باقی‌مانده: {remain}"
 
-#: .\accounts\views.py:143
+#: .\accounts\views.py:214
+msgid "Phone verified. Please set your new password."
+msgstr "تلفن تأیید شد. لطفاً رمز عبور جدید خود را تعیین کنید."
+
+#: .\accounts\views.py:254
 msgid "Session expired. Please start over."
 msgstr "نشست منقضی شد. لطفاً از ابتدا شروع کنید."
 
-#: .\accounts\views.py:152
+#: .\accounts\views.py:263
 msgid "User not found."
 msgstr "کاربر یافت نشد."
 
-#: .\accounts\views.py:161
+#: .\accounts\views.py:272
 msgid "Password reset successfully. Please login."
 msgstr "رمز عبور با موفقیت بازنشانی شد. لطفاً وارد شوید."
 
-#: .\accounts\views.py:263
+#: .\accounts\views.py:312
 msgid "Profile updated successfully."
 msgstr "پروفایل با موفقیت بروزرسانی شد."
 
-#: .\accounts\views.py:271 .\accounts\views.py:299
-msgid "Please fix the errors below and try again."
-msgstr "لطفاً خطاهای زیر را برطرف کرده و دوباره امتحان کنید."
-
-#: .\accounts\views.py:291
+#: .\accounts\views.py:337
 msgid "Address added successfully."
 msgstr "آدرس با موفقیت اضافه شد."
 
-#: .\accounts\views.py:311
+#: .\accounts\views.py:345
+msgid "Please fix the errors below and try again."
+msgstr "لطفاً خطاهای زیر را برطرف کرده و دوباره امتحان کنید."
+
+#: .\accounts\views.py:357
 msgid "Address not found."
 msgstr "آدرس یافت نشد."
 
-#: .\accounts\views.py:330
+#: .\accounts\views.py:376
 msgid "Address removed successfully."
 msgstr "آدرس با موفقیت حذف شد."
+
+#: .\cores\admin.py:33
+msgid "Contact Info"
+msgstr "اطلاعات تماس"
+
+#: .\cores\admin.py:36
+msgid "Message Info"
+msgstr "اطلاعات پیام"
+
+#: .\cores\admin.py:41 .\cores\models.py:90
+msgid "Subject"
+msgstr "موضوع"
+
+#: .\cores\admin.py:58 .\cores\models.py:91
+msgid "Message"
+msgstr "پیام"
+
+#: .\cores\admin.py:71
+msgid "Basic Info"
+msgstr "اطلاعات پایه"
+
+#: .\cores\admin.py:74
+msgid "Social Links"
+msgstr "پیوندهای اجتماعی"
+
+#: .\cores\admin.py:86
+msgid "Working Hours"
+msgstr "ساعات کاری"
+
+#: .\cores\admin.py:89
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: .\cores\admin.py:94
+msgid "Links"
+msgstr "پیوندها"
+
+#: .\cores\admin.py:97
+msgid "Save first to preview links."
+msgstr "ابتدا ذخیره کنید تا پیش‌نمایش پیوندها نمایش داده شود."
+
+#: .\cores\admin.py:128 .\products\admin.py:70 .\products\admin.py:92
+msgid "Main"
+msgstr "اصلی"
+
+#: .\cores\admin.py:131
+msgid "Meta"
+msgstr "متا"
+
+#: .\cores\admin.py:136 .\cores\models.py:124 .\products\models.py:84
+#: .\products\models.py:120
+msgid "Description"
+msgstr "توضیحات"
+
+#: .\cores\admin.py:140
+msgid "Poster"
+msgstr "پوستر"
+
+#: .\cores\admin.py:144
+msgid "No image"
+msgstr "بدون تصویر"
+
+#: .\cores\apps.py:7
+msgid "Cores"
+msgstr "هسته"
+
+#: .\cores\forms.py:17
+msgid "Name and Last Name"
+msgstr "نام و نام خانوادگی"
+
+#: .\cores\forms.py:22
+msgid "Your name"
+msgstr "نام شما"
+
+#: .\cores\forms.py:26
+msgid "Your email"
+msgstr "ایمیل شما"
+
+#: .\cores\forms.py:30
+msgid "Exam: 09010001111"
+msgstr "مثال: ۰۹۰۱۰۰۰۱۱۱۱"
+
+#: .\cores\forms.py:35
+msgid "Write your message..."
+msgstr "پیام خود را بنویسید…"
+
+#: .\cores\forms.py:44
+msgid "Bot detected."
+msgstr "ربات شناسایی شد."
+
+#: .\cores\models.py:35
+msgid "Valid formats are: JPG, JPEG, PNG , MP3 , MP4 and WEBP."
+msgstr "قالب‌های معتبر عبارتند از: JPG، JPEG، PNG، MP3، MP4 و WEBP."
+
+#: .\cores\models.py:40
+msgid "File size must be less than 60 MB."
+msgstr "حجم فایل باید کمتر از ۶۰ مگابایت باشد."
+
+#: .\cores\models.py:44
+msgid "File size must be less than 6 MB."
+msgstr "حجم فایل باید کمتر از ۶ مگابایت باشد."
+
+#: .\cores\models.py:48
+msgid "File size must be less than 1 MB."
+msgstr "حجم فایل باید کمتر از ۱ مگابایت باشد."
+
+#: .\cores\models.py:56
+msgid "Image dimensions are too large."
+msgstr "ابعاد تصویر بیش از حد بزرگ است."
+
+#: .\cores\models.py:61
+msgid "The submitted file is not a valid image."
+msgstr "فایل ارسال‌شده تصویر معتبری نیست."
+
+#: .\cores\models.py:63
+msgid "Unspecified error"
+msgstr "خطای نامشخص"
+
+#: .\cores\models.py:81
+msgid "suggestion"
+msgstr "پیشنهاد"
+
+#: .\cores\models.py:82
+msgid "report"
+msgstr "گزارش"
+
+#: .\cores\models.py:83
+msgid "advertising"
+msgstr "تبلیغات"
+
+#: .\cores\models.py:84
+msgid "support"
+msgstr "پشتیبانی"
+
+#: .\cores\models.py:85
+msgid "other"
+msgstr "سایر"
+
+#: .\cores\models.py:87
+msgid "User Name"
+msgstr "نام کاربر"
+
+#: .\cores\models.py:88 .\cores\models.py:103
+#: .\cores\templates\contact.html:693
+msgid "Email"
+msgstr "ایمیل"
+
+#: .\cores\models.py:89 .\cores\models.py:104
+#: .\cores\templates\contact.html:675 .\cores\templates\home.html:139
+msgid "Phone"
+msgstr "تلفن"
+
+#: .\cores\models.py:99 .\templates\base.html:51 .\templates\base.html:109
+#: .\templates\base.html:131
+msgid "Contact"
+msgstr "تماس با ما"
+
+#: .\cores\models.py:100
+msgid "Contacts"
+msgstr "تماس‌ها"
+
+#: .\cores\models.py:105 .\cores\templates\contact.html:758
+msgid "Telegram"
+msgstr "تلگرام"
+
+#: .\cores\models.py:106 .\cores\templates\contact.html:744
+msgid "Instagram"
+msgstr "اینستاگرام"
+
+#: .\cores\models.py:107 .\cores\templates\contact.html:780
+msgid "Facebook"
+msgstr "فیسبوک"
+
+#: .\cores\models.py:108 .\cores\templates\contact.html:791
+msgid "Twitter"
+msgstr "توییتر"
+
+#: .\cores\models.py:109
+msgid "Whatsapp"
+msgstr "واتس‌اپ"
+
+#: .\cores\models.py:110
+msgid "Address Url"
+msgstr "پیوند آدرس"
+
+#: .\cores\models.py:112
+msgid "working hours"
+msgstr "ساعات کاری"
+
+#: .\cores\models.py:119 .\cores\models.py:120
+msgid "Site Info"
+msgstr "اطلاعات سایت"
+
+#: .\cores\models.py:123 .\cores\models.py:141 .\products\models.py:59
+#: .\products\models.py:71 .\products\models.py:83 .\products\models.py:118
+#: .\products\models.py:204 .\products\models.py:224 .\products\models.py:290
+msgid "Title"
+msgstr "عنوان"
+
+#: .\cores\models.py:126 .\products\models.py:121 .\products\models.py:257
+msgid "Text"
+msgstr "متن"
+
+#: .\cores\models.py:128
+msgid "Poster Image"
+msgstr "تصویر پوستر"
+
+#: .\cores\models.py:135 .\cores\models.py:136 .\cores\models.py:139
+#: .\templates\base.html:50 .\templates\base.html:103
+msgid "About"
+msgstr "درباره ما"
+
+#: .\cores\models.py:140 .\products\models.py:203 .\products\models.py:226
+#: .\products\models.py:291
+msgid "Image"
+msgstr "تصویر"
+
+#: .\cores\models.py:147
+msgid "About Image"
+msgstr "تصویر درباره ما"
+
+#: .\cores\models.py:148
+msgid "About Images"
+msgstr "تصاویر درباره ما"
+
+#: .\cores\templates\about.html:4
+msgid "About Us"
+msgstr "درباره ما"
+
+#: .\cores\templates\about.html:557
+msgid "Our Persian bakery"
+msgstr "قنادی ایرانی ما"
+
+#: .\cores\templates\about.html:562
+msgid "Our Story"
+msgstr "داستان ما"
+
+#: .\cores\templates\about.html:564
+msgid "About Golestan"
+msgstr "درباره گلستان"
+
+#: .\cores\templates\about.html:579
+msgid "Handcrafted Since Day One"
+msgstr "دست‌ساز از روز اول"
+
+#: .\cores\templates\about.html:581
+msgid "A Boutique Bakery, Rooted in Persian Tradition"
+msgstr "یک قنادی بوتیکی، ریشه‌دار در سنت ایرانی"
+
+#: .\cores\templates\about.html:595
+msgid "What we stand for"
+msgstr "ارزش‌های ما"
+
+#: .\cores\templates\about.html:607
+msgid "Baked Fresh Daily"
+msgstr "پخت تازه روزانه"
+
+#: .\cores\templates\about.html:609
+msgid "Every tray leaves our kitchen the same morning it is sold."
+msgstr "هر سینی همان صبحی که فروخته می‌شود از آشپزخانه ما خارج می‌شود."
+
+#: .\cores\templates\about.html:620
+msgid "Real Ingredients"
+msgstr "مواد اولیه واقعی"
+
+#: .\cores\templates\about.html:622
+msgid "Saffron from Khorasan, pistachios from Rafsanjan, and pure honey."
+msgstr "زعفران از خراسان، پسته از رفسنجان و عسل خالص."
+
+#: .\cores\templates\about.html:634
+msgid "Made by Hand"
+msgstr "ساخته دست"
+
+#: .\cores\templates\about.html:636
+msgid ""
+"Filo layers, delicate creams and finishing touches — all done by our pastry "
+"chefs."
+msgstr "لایه‌های خمیر، کرم‌های لطیف و تزئینات نهایی — همه توسط شیرینی‌پزهای ما انجام می‌شود."
+
+#: .\cores\templates\about.html:648
+msgid "Family Owned"
+msgstr "خانوادگی"
+
+#: .\cores\templates\about.html:650
+msgid "A small team who treat every order as if it were for their own table."
+msgstr "تیمی کوچک که با هر سفارش طوری رفتار می‌کند که گویی برای سفره خودشان است."
+
+#: .\cores\templates\about.html:667
+msgid "Inside the Kitchen"
+msgstr "داخل آشپزخانه"
+
+#: .\cores\templates\about.html:669
+msgid "A Look at Our Craft"
+msgstr "نگاهی به هنر ما"
+
+#: .\cores\templates\about.html:701
+msgid "Taste What We Bake"
+msgstr "طعم آنچه می‌پزیم را بچشید"
+
+#: .\cores\templates\about.html:704
+msgid ""
+"Browse our signature baklava, celebration cakes and traditional sweets — or "
+"drop by the bakery for a warm tray and a cup of tea."
+msgstr "باقلواهای مخصوص، کیک‌های جشن و شیرینی‌های سنتی ما را ببینید — یا به قنادی سر بزنید برای یک سینی گرم و یک فنجان چای."
+
+#: .\cores\templates\about.html:709 .\cores\templates\home.html:14
+msgid "Shop Now"
+msgstr "همین حالا خرید کنید"
+
+#: .\cores\templates\about.html:712
+msgid "Visit Us"
+msgstr "به ما سر بزنید"
+
+#: .\cores\templates\about.html:733
+msgid "Our Story Is Coming Soon"
+msgstr "داستان ما به‌زودی می‌آید"
+
+#: .\cores\templates\about.html:735
+msgid ""
+"We are still writing down the story of our bakery. Meanwhile, feel free to "
+"explore our pastries or get in touch with us directly."
+msgstr "ما هنوز در حال نوشتن داستان قنادی‌مان هستیم. در این میان، شیرینی‌های ما را ببینید یا مستقیم با ما در تماس باشید."
+
+#: .\cores\templates\contact.html:4 .\cores\templates\contact.html:577
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: .\cores\templates\contact.html:576
+msgid "Get in Touch"
+msgstr "در تماس باشید"
+
+#: .\cores\templates\contact.html:579
+msgid ""
+"Questions about a custom order, a celebration cake, or an existing purchase? "
+"Send us a message — we usually reply the same day."
+msgstr "سؤالی درباره سفارش سفارشی، کیک جشن یا خرید قبلی دارید؟ برای ما پیام بفرستید — معمولاً همان روز پاسخ می‌دهیم."
+
+#: .\cores\templates\contact.html:613
+msgid "Send a Message"
+msgstr "ارسال پیام"
+
+#: .\cores\templates\contact.html:628
+msgid "Send Message"
+msgstr "ارسال پیام"
+
+#: .\cores\templates\contact.html:645
+msgid "Visit or Reach Us"
+msgstr "مراجعه حضوری یا تماس با ما"
+
+#: .\cores\templates\contact.html:711 .\cores\templates\home.html:115
+#: .\templates\base.html:141
+msgid "Opening Hours"
+msgstr "ساعات کاری"
+
+#: .\cores\templates\contact.html:718 .\cores\templates\home.html:121
+#: .\templates\base.html:148
+msgid "Saturday"
+msgstr "شنبه"
+
+#: .\cores\templates\contact.html:719 .\cores\templates\home.html:122
+#: .\templates\base.html:149
+msgid "Sunday"
+msgstr "یکشنبه"
+
+#: .\cores\templates\contact.html:720 .\cores\templates\home.html:123
+#: .\templates\base.html:150
+msgid "Monday"
+msgstr "دوشنبه"
+
+#: .\cores\templates\contact.html:721 .\cores\templates\home.html:124
+#: .\templates\base.html:151
+msgid "Tuesday"
+msgstr "سه‌شنبه"
+
+#: .\cores\templates\contact.html:722 .\cores\templates\home.html:125
+#: .\templates\base.html:152
+msgid "Wednesday"
+msgstr "چهارشنبه"
+
+#: .\cores\templates\contact.html:723 .\cores\templates\home.html:126
+#: .\templates\base.html:153
+msgid "Thursday"
+msgstr "پنجشنبه"
+
+#: .\cores\templates\contact.html:724 .\cores\templates\home.html:127
+#: .\templates\base.html:154
+msgid "Friday"
+msgstr "جمعه"
+
+#: .\cores\templates\contact.html:728 .\cores\templates\home.html:131
+#: .\templates\base.html:158
+msgid "Closed"
+msgstr "بسته"
+
+#: .\cores\templates\contact.html:739
+msgid "Follow Us"
+msgstr "ما را دنبال کنید"
+
+#: .\cores\templates\contact.html:769
+msgid "WhatsApp"
+msgstr "واتس‌اپ"
+
+#: .\cores\templates\contact.html:811
+msgid "Find us on the map"
+msgstr "ما را روی نقشه پیدا کنید"
+
+#: .\cores\templates\contact.html:814
+msgid "Find Us on the Map"
+msgstr "ما را روی نقشه پیدا کنید"
+
+#: .\cores\templates\contact.html:817
+msgid "Tap below to open our location in your maps app."
+msgstr "برای باز کردن موقعیت ما در برنامه نقشه، روی دکمه زیر بزنید."
+
+#: .\cores\templates\contact.html:830 .\cores\templates\home.html:108
+msgid "Get Directions"
+msgstr "مسیریابی"
+
+#: .\cores\templates\home.html:4
+msgid "Zarrin Patisserie — Persian Baklava, Cakes & Pastries"
+msgstr "قنادی زرین — باقلوا، کیک و شیرینی ایرانی"
+
+#: .\cores\templates\home.html:8
+msgid "Golden baklava layered with crushed pistachios"
+msgstr "باقلوا طلایی با لایه‌های پسته کوبیده"
+
+#: .\cores\templates\home.html:10 .\products\templates\products_list.html:44
+msgid "Handcrafted Persian Sweets"
+msgstr "شیرینی‌های ایرانی دست‌ساز"
+
+#: .\cores\templates\home.html:11
+msgid "Fresh Baklava, Cakes & Traditional Pastries"
+msgstr "باقلوا، کیک و شیرینی‌های سنتی تازه"
+
+#: .\cores\templates\home.html:12
+msgid ""
+"Made daily with real pistachios, saffron, honey, and premium ingredients."
+msgstr "هر روز با پسته واقعی، زعفران، عسل و مواد اولیه درجه‌یک تهیه می‌شود."
+
+#: .\cores\templates\home.html:15
+msgid "Explore Our Menu"
+msgstr "منوی ما را کاوش کنید"
+
+#: .\cores\templates\home.html:21
+msgid "Fresh Daily Baking"
+msgstr "پخت تازه روزانه"
+
+#: .\cores\templates\home.html:22
+msgid "Premium Pistachios & Saffron"
+msgstr "پسته و زعفران درجه‌یک"
+
+#: .\cores\templates\home.html:23
+msgid "Custom Celebration Cakes"
+msgstr "کیک‌های جشن سفارشی"
+
+#: .\cores\templates\home.html:24
+msgid "Fast Local Delivery"
+msgstr "ارسال سریع محلی"
+
+#: .\cores\templates\home.html:29
+msgid "Signature Creations"
+msgstr "آفریده‌های امضایی"
+
+#: .\cores\templates\home.html:30
+msgid "Chef's selection of our most loved pastries"
+msgstr "انتخاب سرآشپز از محبوب‌ترین شیرینی‌های ما"
+
+#: .\cores\templates\home.html:34
+msgid "Pistachio baklava on a ceramic plate"
+msgstr "باقلوا پسته‌ای روی بشقاب سرامیکی"
+
+#: .\cores\templates\home.html:34
+msgid "Best Seller"
+msgstr "پرفروش‌ترین"
+
+#: .\cores\templates\home.html:36
+msgid "Baklava"
+msgstr "باقلوا"
+
+#: .\cores\templates\home.html:37 .\cores\templates\home.html:84
+msgid "Pistachio Baklava"
+msgstr "باقلوا پسته‌ای"
+
+#: .\cores\templates\home.html:38
+msgid ""
+"Thirty-two crisp filo layers, crushed Persian pistachios and honey syrup."
+msgstr "سی‌ودو لایه ترد خمیر یوفا، پسته کوبیده ایرانی و شربت عسل."
+
+#: .\cores\templates\home.html:39 .\cores\templates\home.html:48
+#: .\cores\templates\home.html:57 .\cores\templates\home.html:66
+#: .\products\templates\product_detail.html:183
+msgid "Add to Cart"
+msgstr "افزودن به سبد خرید"
+
+#: .\cores\templates\home.html:43
+msgid "Saffron cake topped with pistachio and rose petals"
+msgstr "کیک زعفرانی با تزئین پسته و گلبرگ‌های رز"
+
+#: .\cores\templates\home.html:43
+msgid "Chef's Choice"
+msgstr "انتخاب سرآشپز"
+
+#: .\cores\templates\home.html:45
+msgid "Cake"
+msgstr "کیک"
+
+#: .\cores\templates\home.html:46
+msgid "Saffron Cream Cake"
+msgstr "کیک خامه‌ای زعفرانی"
+
+#: .\cores\templates\home.html:47
+msgid "Soft sponge, saffron-infused cream and a crown of pistachio."
+msgstr "اسفنجی نرم، خامه آغشته به زعفران و تاجی از پسته."
+
+#: .\cores\templates\home.html:52
+msgid "Traditional almond cookies"
+msgstr "کلوچه‌های سنتی بادامی"
+
+#: .\cores\templates\home.html:54
+msgid "Cookies"
+msgstr "کلوچه‌ها"
+
+#: .\cores\templates\home.html:55 .\cores\templates\home.html:99
+msgid "Cardamom Almond Cookies"
+msgstr "کلوچه‌های بادامی هل"
+
+#: .\cores\templates\home.html:56
+msgid "Delicate, buttery and perfumed with cardamom and rose water."
+msgstr "لطیف، کره‌ای و معطر با هل و گلاب."
+
+#: .\cores\templates\home.html:61
+msgid "Sohan saffron brittle with pistachios"
+msgstr "سوهان زعفرانی با پسته"
+
+#: .\cores\templates\home.html:61
+msgid "New"
+msgstr "جدید"
+
+#: .\cores\templates\home.html:63
+msgid "Traditional Sweets"
+msgstr "شیرینی‌های سنتی"
+
+#: .\cores\templates\home.html:64 .\cores\templates\home.html:94
+msgid "Saffron Sohan"
+msgstr "سوهان زعفرانی"
+
+#: .\cores\templates\home.html:65
+msgid "Golden saffron brittle, slowly caramelised and finished with pistachio."
+msgstr "سوهان زعفرانی طلایی، آهسته کاراملی شده و با پسته تکمیل شده است."
+
+#: .\cores\templates\home.html:74
+msgid "Loved by Our Customers"
+msgstr "محبوب مشتریان ما"
+
+#: .\cores\templates\home.html:76
+msgid "Previous review"
+msgstr "نظر قبلی"
+
+#: .\cores\templates\home.html:77
+msgid "Next review"
+msgstr "نظر بعدی"
+
+#: .\cores\templates\home.html:80
+msgid "Customer reviews"
+msgstr "نظرات مشتریان"
+
+#: .\cores\templates\home.html:82 .\cores\templates\home.html:87
+#: .\cores\templates\home.html:92 .\cores\templates\home.html:97
+msgid "5 out of 5 stars"
+msgstr "۵ از ۵ ستاره"
+
+#: .\cores\templates\home.html:83
+msgid ""
+"The baklava is crisp, never too sweet, and the pistachio is unmistakable. "
+"Our family's new tradition."
+msgstr ""
+"باقلوا ترد است، هرگز زیادی شیرین نیست و پسته‌اش کاملاً محسوس است. سنت جدید "
+"خانواده ما."
+
+#: .\cores\templates\home.html:84
+msgid "SM"
+msgstr "س.م"
+
+#: .\cores\templates\home.html:84
+msgid "Sara M."
+msgstr "سارا م."
+
+#: .\cores\templates\home.html:88
+msgid ""
+"They made our wedding cake with saffron cream. Guests are still talking "
+"about it."
+msgstr ""
+"آن‌ها کیک عروسی ما را با خامه زعفرانی درست کردند. مهمانان هنوز درباره‌اش حرف "
+"می‌زنند."
+
+#: .\cores\templates\home.html:89
+msgid "AR"
+msgstr "آ.ر"
+
+#: .\cores\templates\home.html:89
+msgid "Arman R."
+msgstr "آرمان ر."
+
+#: .\cores\templates\home.html:89
+msgid "Custom Celebration Cake"
+msgstr "کیک جشن سفارشی"
+
+#: .\cores\templates\home.html:93
+msgid ""
+"Delivery arrived warm and beautifully boxed. You can taste the care in every "
+"piece."
+msgstr ""
+"سفارش گرم و در جعبه‌ای زیبا به دستمان رسید. می‌توانید ذوق و توجه را در هر تکه "
+"بچشید."
+
+#: .\cores\templates\home.html:94
+msgid "NK"
+msgstr "ن.ک"
+
+#: .\cores\templates\home.html:94
+msgid "Nasim K."
+msgstr "نسیم ک."
+
+#: .\cores\templates\home.html:98
+msgid ""
+"The cardamom cookies remind me of my grandmother's kitchen. Honest, "
+"fragrant, perfect with tea."
+msgstr ""
+"کلوچه‌های هل مرا به یاد آشپزخانه مادربزرگم می‌اندازد. صادقانه، معطر و عالی با "
+"چای."
+
+#: .\cores\templates\home.html:99
+msgid "DH"
+msgstr "د.ه"
+
+#: .\cores\templates\home.html:99
+msgid "Dariush H."
+msgstr "داریوش ه."
+
+#: .\cores\templates\home.html:106
+msgid "Visit Our Bakery"
+msgstr "از قنادی ما دیدن کنید"
+
+#: .\cores\templates\home.html:107
+msgid ""
+"Step inside, breathe in the saffron and honey, and let us pack a box while "
+"it is still warm."
+msgstr ""
+"قدم بگذارید داخل، عطر زعفران و عسل را تنفس کنید و بگذارید تا جعبه‌ای برایتان "
+"ببندیم، در حالی که هنوز گرم است."
+
+#: .\cores\templates\home.html:146
+msgid "Sweet Offers, Straight to Your Inbox"
+msgstr "پیشنهادهای شیرین، مستقیم در صندوق ایمیل شما"
+
+#: .\cores\templates\home.html:147
+msgid ""
+"New creations, seasonal flavours and a little something for your first order."
+msgstr "آفریده‌های جدید، طعم‌های فصلی و یک چیز کوچک برای اولین سفارش شما."
+
+#: .\cores\templates\home.html:151
+msgid "Email address"
+msgstr "آدرس ایمیل"
+
+#: .\cores\templates\home.html:152
+msgid "Your email address"
+msgstr "آدرس ایمیل شما"
+
+#: .\cores\templates\home.html:153
+msgid "Subscribe"
+msgstr "عضویت"
+
+#: .\cores\templates\search_results.html:3
+msgid "search"
+msgstr "جستجو"
+
+#: .\cores\views.py:39
+msgid "Submitted successfully"
+msgstr "با موفقیت ثبت شد."
+
+#: .\products\admin.py:71
+msgid "SEO"
+msgstr "سئو"
+
+#: .\products\admin.py:96
+msgid "Relations"
+msgstr "روابط"
+
+#: .\products\admin.py:97
+msgid "Price & Discount"
+msgstr "قیمت و تخفیف"
+
+#: .\products\admin.py:100
+msgid "Stock"
+msgstr "موجودی"
+
+#: .\products\admin.py:101
+msgid "Physical"
+msgstr "فیزیکی"
+
+#: .\products\admin.py:106
+msgid "SEO & Meta"
+msgstr "سئو و متا"
+
+#: .\products\admin.py:110
+msgid "Final Price"
+msgstr "قیمت نهایی"
+
+#: .\products\apps.py:7 .\products\models.py:199
+msgid "Products"
+msgstr "محصولات"
+
+#: .\products\forms.py:43 .\products\views.py:56 .\products\views.py:92
+#, python-format
+msgid "Value too long: %(v)s"
+msgstr "مقدار بیش از حد طولانی است: %(v)s"
+
+#: .\products\forms.py:62 .\products\models.py:68 .\products\models.py:123
+#: .\products\templates\crud.html:106
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+#: .\products\forms.py:65
+msgid "Search or create tags…"
+msgstr "برچسب‌ها را جستجو یا ایجاد کنید…"
+
+#: .\products\forms.py:68 .\products\models.py:79 .\products\models.py:80
+#: .\products\models.py:124 .\products\templates\crud.html:112
+#: .\products\templates\product_detail.html:208
+msgid "Ingredients"
+msgstr "مواد اولیه"
+
+#: .\products\forms.py:71
+msgid "Search or create ingredients…"
+msgstr "مواد اولیه را جستجو یا ایجاد کنید…"
+
+#: .\products\forms.py:73
+msgid "New tags"
+msgstr "برچسب‌های جدید"
+
+#: .\products\forms.py:74
+msgid "Or type comma-separated here. e.g: sweet, birthday"
+msgstr "یا اینجا با کاما جدا بنویسید. مثلاً: sweet, birthday"
+
+#: .\products\forms.py:76
+msgid "New ingredients"
+msgstr "مواد اولیه جدید"
+
+#: .\products\forms.py:77
+msgid "Or type comma-separated here."
+msgstr "یا اینجا با کاما جدا بنویسید."
+
+#: .\products\forms.py:114
+msgid "Too many new tags (max 30)."
+msgstr "تعداد برچسب‌های جدید بیش از حد است (حداکثر ۳۰)."
+
+#: .\products\forms.py:117
+#, python-format
+msgid "Tag too long: %(v)s"
+msgstr "برچسب بیش از حد طولانی است: %(v)s"
+
+#: .\products\forms.py:123
+msgid "Too many new ingredients."
+msgstr "تعداد مواد اولیه جدید بیش از حد است."
+
+#: .\products\forms.py:222
+msgid "Duplicate variant in this form."
+msgstr "واریانت تکراری در این فرم."
+
+#: .\products\forms.py:242
+msgid "Duplicate option group_title."
+msgstr "عنوان گروه گزینه تکراری است."
+
+#: .\products\models.py:24
+msgid "File size must be less than 1000 KB."
+msgstr "حجم فایل باید کمتر از ۱۰۰۰ کیلوبایت باشد."
+
+#: .\products\models.py:51
+msgid "Meta Title"
+msgstr "عنوان متا"
+
+#: .\products\models.py:67 .\products\templates\products_list.html:41
+msgid "Tag"
+msgstr "برچسب"
+
+#: .\products\models.py:85
+msgid "Parent"
+msgstr "والد"
+
+#: .\products\models.py:86 .\products\models.py:228 .\products\models.py:293
+msgid "Is Active"
+msgstr "فعال است"
+
+#: .\products\models.py:105
+msgid "A category with this name exists in this parent."
+msgstr "دسته‌ای با این نام در این والد وجود دارد."
+
+#: .\products\models.py:109 .\products\models.py:117
+#: .\products\templates\product_detail.html:207
+#: .\products\templates\products_list.html:41
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#: .\products\models.py:110
+msgid "Categories"
+msgstr "دسته‌بندی‌ها"
+
+#: .\products\models.py:119
+msgid "Slug"
+msgstr "نامک"
+
+#: .\products\models.py:122
+msgid "Is Published"
+msgstr "منتشر شده است"
+
+#: .\products\models.py:125
+msgid "Base Price"
+msgstr "قیمت پایه"
+
+#: .\products\models.py:126
+msgid "Discount Price"
+msgstr "قیمت تخفیف‌دار"
+
+#: .\products\models.py:127
+msgid "Discount Percent"
+msgstr "درصد تخفیف"
+
+#: .\products\models.py:128
+msgid "Discount Expires Date"
+msgstr "تاریخ انقضای تخفیف"
+
+#: .\products\models.py:129
+msgid "Stock Quantity"
+msgstr "موجودی انبار"
+
+#: .\products\models.py:130
+msgid "Min Order Quantity"
+msgstr "حداقل تعداد سفارش"
+
+#: .\products\models.py:131
+msgid "Max Order Quantity"
+msgstr "حداکثر تعداد سفارش"
+
+#: .\products\models.py:132
+msgid "Weight Grams"
+msgstr "وزن (گرم)"
+
+#: .\products\models.py:133
+msgid "Height"
+msgstr "ارتفاع"
+
+#: .\products\models.py:134
+msgid "Width"
+msgstr "عرض"
+
+#: .\products\models.py:135
+msgid "Length"
+msgstr "طول"
+
+#: .\products\models.py:136
+msgid "Preparation Time 'Minutes'"
+msgstr "زمان آماده‌سازی (دقیقه)"
+
+#: .\products\models.py:137
+msgid "Shelf Life 'Hours'"
+msgstr "ماندگاری (ساعت)"
+
+#: .\products\models.py:138
+msgid "Is Perishable"
+msgstr "فاسدشدنی است"
+
+#: .\products\models.py:139
+msgid "Requires Refrigeration"
+msgstr "نیاز به یخچال دارد"
+
+#: .\products\models.py:140
+msgid "Main Image"
+msgstr "تصویر اصلی"
+
+#: .\products\models.py:141
+msgid "Is Customizable"
+msgstr "قابل سفارشی‌سازی است"
+
+#: .\products\models.py:142
+msgid "Is Available"
+msgstr "موجود است"
+
+#: .\products\models.py:143
+msgid "Modified Date"
+msgstr "تاریخ ویرایش"
+
+#: .\products\models.py:153
+msgid "min_order_quantity cannot be greater than max_order_quantity."
+msgstr "حداقل تعداد سفارش نمی‌تواند بیشتر از حداکثر تعداد سفارش باشد."
+
+#: .\products\models.py:155
+msgid "discount_percent must be between 1 and 100."
+msgstr "درصد تخفیف باید بین ۱ تا ۱۰۰ باشد."
+
+#: .\products\models.py:198 .\products\models.py:202 .\products\models.py:222
+#: .\products\models.py:261
+msgid "Product"
+msgstr "محصول"
+
+#: .\products\models.py:211
+msgid "Product Image"
+msgstr "تصویر محصول"
+
+#: .\products\models.py:212
+msgid "Product Images"
+msgstr "تصاویر محصول"
+
+#: .\products\models.py:216
+msgid "Size"
+msgstr "اندازه"
+
+#: .\products\models.py:217
+msgid "Flavor"
+msgstr "طعم"
+
+#: .\products\models.py:218
+msgid "Color"
+msgstr "رنگ"
+
+#: .\products\models.py:219 .\products\templates\product_detail.html:191
+msgid "Weight"
+msgstr "وزن"
+
+#: .\products\models.py:220
+msgid "Shape"
+msgstr "شکل"
+
+#: .\products\models.py:223
+msgid "Variant Type"
+msgstr "نوع واریانت"
+
+#: .\products\models.py:225
+msgid "value"
+msgstr "مقدار"
+
+#: .\products\models.py:227 .\products\models.py:292
+msgid "Extra Price"
+msgstr "قیمت اضافه"
+
+#: .\products\models.py:233 .\products\models.py:299 .\products\views.py:50
+#: .\products\views.py:86
+msgid "Title cannot be empty."
+msgstr "عنوان نمی‌تواند خالی باشد."
+
+#: .\products\models.py:247
+msgid "Product Variant"
+msgstr "واریانت محصول"
+
+#: .\products\models.py:248
+msgid "Product Variants"
+msgstr "واریانت‌های محصول"
+
+#: .\products\models.py:255
+msgid "Single Select"
+msgstr "تک‌انتخابی"
+
+#: .\products\models.py:256
+msgid "Multi Select"
+msgstr "چندانتخابی"
+
+#: .\products\models.py:258
+msgid "Number"
+msgstr "عددی"
+
+#: .\products\models.py:259
+msgid "Image Upload"
+msgstr "آپلود تصویر"
+
+#: .\products\models.py:262
+msgid "Group Title"
+msgstr "عنوان گروه"
+
+#: .\products\models.py:263
+msgid "Option Type"
+msgstr "نوع گزینه"
+
+#: .\products\models.py:264
+msgid "Is Required"
+msgstr "اجباری است"
+
+#: .\products\models.py:265
+msgid "Min Select"
+msgstr "حداقل انتخاب"
+
+#: .\products\models.py:266
+msgid "Max Select"
+msgstr "حداکثر انتخاب"
+
+#: .\products\models.py:275
+msgid "min_select cannot be greater than max_select."
+msgstr "حداقل انتخاب نمی‌تواند بیشتر از حداکثر انتخاب باشد."
+
+#: .\products\models.py:278
+msgid "For text/number/image options min/max must be 0 or 1."
+msgstr "برای گزینه‌های متنی/عددی/تصویری حداقل/حداکثر باید ۰ یا ۱ باشد."
+
+#: .\products\models.py:282
+msgid "Customization Option"
+msgstr "گزینه سفارشی‌سازی"
+
+#: .\products\models.py:283
+msgid "Customization Options"
+msgstr "گزینه‌های سفارشی‌سازی"
+
+#: .\products\models.py:289
+msgid "Option"
+msgstr "گزینه"
+
+#: .\products\models.py:310
+msgid "Customization Value"
+msgstr "مقدار سفارشی‌سازی"
+
+#: .\products\models.py:311
+msgid "Customization Values"
+msgstr "مقادیر سفارشی‌سازی"
+
+#: .\products\templates\crud.html:76
+msgid "Back to list"
+msgstr "بازگشت به فهرست"
+
+#: .\products\templates\crud.html:80
+msgid "will be deleted with all images/variants/options/values. Sure?"
+msgstr "با تمام تصاویر/واریانت‌ها/گزینه‌ها/مقادیر حذف خواهد شد. مطمئن هستید؟"
+
+#: .\products\templates\crud.html:82
+msgid "Yes, delete"
+msgstr "بله، حذف شود"
+
+#: .\products\templates\crud.html:83 .\products\templates\crud.html:272
+#: .\templates\account\base_confirm_code.html:54
+#: .\templates\account\base_confirm_code.html:58
+#: .\templates\account\password_reset_from_key.html:40
+msgid "Cancel"
+msgstr "انصراف"
+
+#: .\products\templates\crud.html:91
+msgid "Main info"
+msgstr "اطلاعات اصلی"
+
+#: .\products\templates\crud.html:92
+msgid "Title, category, prices and stock."
+msgstr "عنوان، دسته‌بندی، قیمت‌ها و موجودی."
+
+#: .\products\templates\crud.html:107
+msgid ""
+"Type to search; if it doesn't exist, choose “Create …” — no jQuery needed."
+msgstr "برای جستجو تایپ کنید؛ اگر وجود نداشت، «ایجاد …» را انتخاب کنید — بدون نیاز به jQuery."
+
+#: .\products\templates\crud.html:109 .\products\templates\crud.html:114
+msgid "Add manually (comma-separated)"
+msgstr "افزودن دستی (با کاما جدا شود)"
+
+#: .\products\templates\crud.html:120
+msgid "Images"
+msgstr "تصاویر"
+
+#: .\products\templates\crud.html:121
+msgid "First image is the cover."
+msgstr "تصویر اول، تصویر جلد است."
+
+#: .\products\templates\crud.html:133 .\products\templates\crud.html:144
+#: .\products\templates\crud.html:167 .\products\templates\crud.html:181
+#: .\products\templates\crud.html:206 .\products\templates\crud.html:223
+#: .\products\templates\crud.html:245 .\products\templates\crud.html:267
+#: .\templates\account\email.html:69
+msgid "Remove"
+msgstr "حذف"
+
+#: .\products\templates\crud.html:147
+msgid "Add image"
+msgstr "افزودن تصویر"
+
+#: .\products\templates\crud.html:151
+msgid "Variants"
+msgstr "واریانت‌ها"
+
+#: .\products\templates\crud.html:152
+msgid "e.g. size, flavor — each with its own extra price."
+msgstr "مثلاً اندازه، طعم — هر کدام با قیمت اضافه خودش."
+
+#: .\products\templates\crud.html:184
+msgid "Add variant"
+msgstr "افزودن واریانت"
+
+#: .\products\templates\crud.html:188
+msgid "Customization Options + Values (nested)"
+msgstr "گزینه‌های سفارشی‌سازی + مقادیر (تودرتو)"
+
+#: .\products\templates\crud.html:189
+msgid "e.g. “Topping” group with chocolate / nut values."
+msgstr "مثلاً گروه «روکش» با مقادیر شکلات / مغز."
+
+#: .\products\templates\crud.html:196
+msgid "New option"
+msgstr "گزینه جدید"
+
+#: .\products\templates\crud.html:207
+msgid "Values"
+msgstr "مقادیر"
+
+#: .\products\templates\crud.html:227 .\products\templates\crud.html:252
+msgid "Add value"
+msgstr "افزودن مقدار"
+
+#: .\products\templates\crud.html:232
+msgid "Add option"
+msgstr "افزودن گزینه"
+
+#: .\products\templates\crud.html:273
+msgid "Save"
+msgstr "ذخیره"
+
+#: .\products\templates\product_detail.html:4
+#: .\products\templates\products_list.html:5
+#: .\products\templates\products_list.html:6 .\templates\base.html:9
+#: .\templates\base.html:173
+msgid "Zarrin Patisserie"
+msgstr "قنادی زرین"
+
+#: .\products\templates\product_detail.html:61
+msgid "Breadcrumb"
+msgstr "مسیر ناوبری"
+
+#: .\products\templates\product_detail.html:62 .\templates\base.html:47
+#: .\templates\base.html:97
+msgid "Home"
+msgstr "خانه"
+
+#: .\products\templates\product_detail.html:63 .\templates\base.html:48
+#: .\templates\base.html:100 .\templates\base.html:188
+msgid "Shop"
+msgstr "فروشگاه"
+
+#: .\products\templates\product_detail.html:77
+#: .\products\templates\products_list.html:68
+msgid "off"
+msgstr "تخفیف"
+
+#: .\products\templates\product_detail.html:98
+#: .\products\templates\product_detail.html:117
+#: .\products\templates\product_detail.html:157
+#: .\products\templates\product_detail.html:166
+#: .\products\templates\product_detail.html:181
+#: .\products\templates\products_list.html:79
+#: .\products\templates\products_list.html:82
+msgid "Rial"
+msgstr "ریال"
+
+#: .\products\templates\product_detail.html:102
+msgid "Available — baked fresh on order"
+msgstr "موجود — پس از سفارش تازه پخته می‌شود"
+
+#: .\products\templates\product_detail.html:104
+msgid "Currently unavailable"
+msgstr "در حال حاضر ناموجود"
+
+#: .\products\templates\product_detail.html:129
+msgid "Customize your pastry"
+msgstr "شیرینی خود را سفارشی کنید"
+
+#: .\products\templates\product_detail.html:154
+msgid "You can upload your reference image at checkout."
+msgstr "می‌توانید تصویر مرجع خود را هنگام تسویه‌حساب آپلود کنید."
+
+#: .\products\templates\product_detail.html:171
+#, python-format
+msgid "Up to %(m)s selections"
+msgstr "تا %(m)s انتخاب"
+
+#: .\products\templates\product_detail.html:178
+msgid "This pastry is customizable — options will appear here once added."
+msgstr "این شیرینی قابل سفارشی‌سازی است — گزینه‌ها پس از افزوده شدن اینجا نمایش داده می‌شوند."
+
+#: .\products\templates\product_detail.html:181
+msgid "Total"
+msgstr "جمع کل"
+
+#: .\products\templates\product_detail.html:184
+#: .\products\templates\products_list.html:96
+msgid "Back to shop"
+msgstr "بازگشت به فروشگاه"
+
+#: .\products\templates\product_detail.html:187
+msgid "Preparation"
+msgstr "آماده‌سازی"
+
+#: .\products\templates\product_detail.html:187
+msgid "minutes"
+msgstr "دقیقه"
+
+#: .\products\templates\product_detail.html:188
+msgid "Min order"
+msgstr "حداقل سفارش"
+
+#: .\products\templates\product_detail.html:189
+msgid "Max order"
+msgstr "حداکثر سفارش"
+
+#: .\products\templates\product_detail.html:190
+msgid "Shelf life"
+msgstr "ماندگاری"
+
+#: .\products\templates\product_detail.html:190
+msgid "hours"
+msgstr "ساعت"
+
+#: .\products\templates\product_detail.html:195
+msgid "Edit"
+msgstr "ویرایش"
+
+#: .\products\templates\product_detail.html:203
+msgid "About this pastry"
+msgstr "درباره این شیرینی"
+
+#: .\products\templates\product_detail.html:205
+msgid "Details"
+msgstr "جزئیات"
+
+#: .\products\templates\product_detail.html:209
+msgid "Perishable"
+msgstr "فاسدشدنی"
+
+#: .\products\templates\product_detail.html:209
+#: .\products\templates\product_detail.html:210
+msgid "Yes"
+msgstr "بله"
+
+#: .\products\templates\product_detail.html:209
+#: .\products\templates\product_detail.html:210
+msgid "No"
+msgstr "خیر"
+
+#: .\products\templates\product_detail.html:210
+msgid "Needs refrigeration"
+msgstr "نیاز به نگهداری در یخچال دارد"
+
+#: .\products\templates\product_detail.html:211
+msgid "Size (H×W×L)"
+msgstr "ابعاد (ارتفاع×عرض×طول)"
+
+#: .\products\templates\product_detail.html:212
+msgid "Discount until"
+msgstr "تخفیف تا"
+
+#: .\products\templates\products_list.html:6
+#: .\products\templates\products_list.html:45
+msgid "Shop All Pastries"
+msgstr "مشاهده همه شیرینی‌ها"
+
+#: .\products\templates\products_list.html:46
+msgid ""
+"Baklava, cakes and traditional sweets — baked fresh every day with "
+"pistachio, saffron and honey."
+msgstr "باقلوا، کیک و شیرینی‌های سنتی — هر روز تازه با پسته، زعفران و عسل پخته می‌شود."
+
+#: .\products\templates\products_list.html:50
+#, python-format
+msgid "%(c)s product"
+msgid_plural "%(c)s products"
+msgstr[0] "%(c)s محصول"
+msgstr[1] "%(c)s محصول"
+
+#: .\products\templates\products_list.html:85
+msgid "View"
+msgstr "مشاهده"
+
+#: .\products\templates\products_list.html:94
+msgid "Nothing here yet"
+msgstr "هنوز چیزی اینجا نیست"
+
+#: .\products\templates\products_list.html:95
+msgid "No products found. Please check back soon for fresh bakes."
+msgstr "محصولی یافت نشد. لطفاً به‌زودی برای پخت‌های تازه برگردید."
+
+#: .\products\views.py:270
+msgid "Create Product"
+msgstr "ایجاد محصول"
+
+#: .\products\views.py:275 .\products\views.py:333
+msgid "Please correct the errors below."
+msgstr "لطفاً خطاهای زیر را اصلاح کنید."
+
+#: .\products\views.py:299 .\products\views.py:354
+msgid "Save failed."
+msgstr "ذخیره ناموفق بود."
+
+#: .\products\views.py:302
+msgid "Product created successfully."
+msgstr "محصول با موفقیت ایجاد شد."
+
+#: .\products\views.py:328
+msgid "Edit Product"
+msgstr "ویرایش محصول"
+
+#: .\products\views.py:357
+msgid "Product updated successfully."
+msgstr "محصول با موفقیت به‌روزرسانی شد."
+
+#: .\products\views.py:369
+msgid "Delete Product"
+msgstr "حذف محصول"
+
+#: .\products\views.py:373
+msgid "Product deleted."
+msgstr "محصول حذف شد."
 
 #: .\templates\403.html:9
 msgid "You do not have permission to access this page."
@@ -461,12 +1813,6 @@ msgstr "تأیید"
 msgid "Request new code"
 msgstr "درخواست کد جدید"
 
-#: .\templates\account\base_confirm_code.html:54
-#: .\templates\account\base_confirm_code.html:58
-#: .\templates\account\password_reset_from_key.html:40
-msgid "Cancel"
-msgstr "انصراف"
-
 #: .\templates\account\base_reauthenticate.html:6
 #: .\templates\account\base_reauthenticate.html:14
 msgid "Confirm Access"
@@ -496,6 +1842,7 @@ msgid "Sign In"
 msgstr "ورود"
 
 #: .\templates\account\confirm_password_reset_code.html:5
+#: .\templates\account\email\password_reset_subject.txt:3
 #: .\templates\account\password_reset.html:5
 #: .\templates\account\password_reset.html:13
 #: .\templates\account\password_reset_done.html:7
@@ -544,10 +1891,6 @@ msgstr "تعیین به‌عنوان اصلی"
 msgid "Re-send Verification"
 msgstr "ارسال مجدد تأیید"
 
-#: .\templates\account\email.html:69
-msgid "Remove"
-msgstr "حذف"
-
 #: .\templates\account\email.html:78
 msgid "Add Email Address"
 msgstr "افزودن آدرس ایمیل"
@@ -559,6 +1902,184 @@ msgstr "افزودن ایمیل"
 #: .\templates\account\email.html:106
 msgid "Do you really want to remove the selected email address?"
 msgstr "آیا واقعاً می‌خواهید آدرس ایمیل انتخاب‌شده را حذف کنید؟"
+
+#: .\templates\account\email\account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you or someone else tried to signup for "
+"an\n"
+"account using email address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that email address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr "شما این ایمیل را دریافت می‌کنید چون شما یا شخص دیگری سعی کرده با نشانی ایمیل %(email)s حسابی ثبت‌نام کند. اما حسابی با این نشانی ایمیل از قبل وجود دارد. اگر فراموش کرده‌اید، لطفاً برای بازیابی حساب خود از روند فراموشی رمز عبور استفاده کنید: %(password_reset_url)s"
+
+#: .\templates\account\email\account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr "حساب از قبل وجود دارد"
+
+#: .\templates\account\email\base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr "سلام از طرف %(site_name)s!"
+
+#: .\templates\account\email\base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr "از اینکه از %(site_name)s استفاده می‌کنید سپاسگزاریم! %(site_domain)s"
+
+#: .\templates\account\email\base_notification.txt:5
+msgid ""
+"You are receiving this mail because the following change was made to your "
+"account:"
+msgstr "شما این ایمیل را دریافت می‌کنید چون تغییر زیر در حساب شما انجام شده است:"
+
+#: .\templates\account\email\base_notification.txt:10
+#, python-format
+msgid ""
+"If you do not recognize this change then please take proper security "
+"precautions immediately. The change to your account originates from:\n"
+"\n"
+"- IP address: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Date: %(timestamp)s"
+msgstr "اگر این تغییر را نمی‌شناسید، لطفاً فوراً اقدامات امنیتی لازم را انجام دهید. این تغییر در حساب شما از طریق - نشانی IP: %(ip)s - مرورگر: %(user_agent)s - تاریخ: %(timestamp)s انجام شده است."
+
+#: .\templates\account\email\email_changed_message.txt:4
+#, python-format
+msgid "Your email has been changed from %(from_email)s to %(to_email)s."
+msgstr "ایمیل شما از %(from_email)s به %(to_email)s تغییر کرد."
+
+#: .\templates\account\email\email_changed_subject.txt:3
+msgid "Email Changed"
+msgstr "ایمیل تغییر کرد"
+
+#: .\templates\account\email\email_confirm_message.txt:4
+msgid "Your email has been confirmed."
+msgstr "ایمیل شما تأیید شد."
+
+#: .\templates\account\email\email_confirm_subject.txt:3
+msgid "Email Confirmation"
+msgstr "تأیید ایمیل"
+
+#: .\templates\account\email\email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this email because user %(user_display)s has given your "
+"email address to register an account on %(site_domain)s."
+msgstr "شما این ایمیل را دریافت می‌کنید چون کاربر %(user_display)s نشانی ایمیل شما را برای ثبت حساب در %(site_domain)s وارد کرده است."
+
+#: .\templates\account\email\email_confirmation_message.txt:7
+msgid ""
+"Your email verification code is listed below. Please enter it in your open "
+"browser window."
+msgstr "کد تأیید ایمیل شما در زیر آمده است. لطفاً آن را در پنجره باز مرورگر خود وارد کنید."
+
+#: .\templates\account\email\email_confirmation_message.txt:9
+#, python-format
+msgid "To confirm this is correct, go to %(activate_url)s"
+msgstr "برای تأیید صحت، به %(activate_url)s بروید"
+
+#: .\templates\account\email\email_confirmation_subject.txt:3
+msgid "Please Confirm Your Email Address"
+msgstr "لطفاً نشانی ایمیل خود را تأیید کنید"
+
+#: .\templates\account\email\email_deleted_message.txt:4
+#, python-format
+msgid "Email address %(deleted_email)s has been removed from your account."
+msgstr "نشانی ایمیل %(deleted_email)s از حساب شما حذف شد."
+
+#: .\templates\account\email\email_deleted_subject.txt:3
+msgid "Email Removed"
+msgstr "ایمیل حذف شد"
+
+#: .\templates\account\email\login_code_message.txt:5
+msgid ""
+"Your sign-in code is listed below. Please enter it in your open browser "
+"window."
+msgstr "کد ورود شما در زیر آمده است. لطفاً آن را در پنجره باز مرورگر خود وارد کنید."
+
+#: .\templates\account\email\login_code_message.txt:9
+#: .\templates\account\email\password_reset_code_message.txt:9
+#: .\templates\account\email\unknown_account_message.txt:6
+msgid "This mail can be safely ignored if you did not initiate this action."
+msgstr "اگر شما این اقدام را شروع نکرده‌اید، می‌توانید این ایمیل را نادیده بگیرید."
+
+#: .\templates\account\email\login_code_subject.txt:3
+msgid "Sign-In Code"
+msgstr "کد ورود"
+
+#: .\templates\account\email\password_changed_message.txt:4
+msgid "Your password has been changed."
+msgstr "رمز عبور شما تغییر کرد."
+
+#: .\templates\account\email\password_changed_subject.txt:3
+msgid "Password Changed"
+msgstr "رمز عبور تغییر کرد"
+
+#: .\templates\account\email\password_reset_code_message.txt:5
+msgid ""
+"Your password reset code is listed below. Please enter it in your open "
+"browser window."
+msgstr "کد بازنشانی رمز عبور شما در زیر آمده است. لطفاً آن را در پنجره باز مرورگر خود وارد کنید."
+
+#: .\templates\account\email\password_reset_code_subject.txt:3
+msgid "Password Reset Code"
+msgstr "کد بازنشانی رمز عبور"
+
+#: .\templates\account\email\password_reset_key_message.txt:4
+msgid ""
+"You're receiving this email because you or someone else has requested a "
+"password reset for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr "شما این ایمیل را دریافت می‌کنید چون شما یا شخص دیگری درخواست بازنشانی رمز عبور برای حساب کاربری شما کرده است. اگر درخواست بازنشانی نکرده‌اید، می‌توانید آن را نادیده بگیرید. برای بازنشانی رمز عبور روی پیوند زیر کلیک کنید."
+
+#: .\templates\account\email\password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "در صورتی که فراموش کرده‌اید، نام کاربری شما %(username)s است."
+
+#: .\templates\account\email\password_reset_key_subject.txt:3
+msgid "Password Reset Email"
+msgstr "ایمیل بازنشانی رمز عبور"
+
+#: .\templates\account\email\password_reset_message.txt:4
+msgid "Your password has been reset."
+msgstr "رمز عبور شما بازنشانی شد."
+
+#: .\templates\account\email\password_set_message.txt:4
+msgid "Your password has been set."
+msgstr "رمز عبور شما تنظیم شد."
+
+#: .\templates\account\email\password_set_subject.txt:3
+msgid "Password Set"
+msgstr "تنظیم رمز عبور"
+
+#: .\templates\account\email\unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you, or someone else, tried to access "
+"an account with email %(email)s. However, we do not have any record of such "
+"an account in our database."
+msgstr "شما این ایمیل را دریافت می‌کنید چون شما یا شخص دیگری سعی کرده به حسابی با ایمیل %(email)s دسترسی پیدا کند. اما ما هیچ سابقه‌ای از چنین حسابی در پایگاه داده خود نداریم."
+
+#: .\templates\account\email\unknown_account_message.txt:8
+msgid "If it was you, you can sign up for an account using the link below."
+msgstr "اگر خودتان بودید، می‌توانید با استفاده از پیوند زیر برای حساب ثبت‌نام کنید."
+
+#: .\templates\account\email\unknown_account_subject.txt:3
+msgid "Unknown Account"
+msgstr "حساب ناشناخته"
 
 #: .\templates\account\email_change.html:26
 #: .\templates\account\email_change.html:34
@@ -601,6 +2122,7 @@ msgstr ""
 "کاربر %(user_display)s است."
 
 #: .\templates\account\email_confirm.html:45
+#: .\templates\account\messages\email_confirmation_failed.txt:2
 #, python-format
 msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
@@ -642,6 +2164,66 @@ msgstr "خروج"
 #: .\templates\account\logout.html:20
 msgid "Are you sure you want to sign out?"
 msgstr "آیا مطمئن هستید که می‌خواهید خارج شوید؟"
+
+#: .\templates\account\messages\cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary email address (%(email)s)."
+msgstr "نمی‌توانید نشانی ایمیل اصلی خود (%(email)s) را حذف کنید."
+
+#: .\templates\account\messages\email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation email sent to %(email)s."
+msgstr "ایمیل تأیید به %(email)s ارسال شد."
+
+#: .\templates\account\messages\email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "شما %(email)s را تأیید کردید."
+
+#: .\templates\account\messages\email_deleted.txt:2
+#, python-format
+msgid "Removed email address %(email)s."
+msgstr "نشانی ایمیل %(email)s حذف شد."
+
+#: .\templates\account\messages\logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "با موفقیت به‌عنوان %(name)s وارد شدید."
+
+#: .\templates\account\messages\logged_out.txt:2
+msgid "You have signed out."
+msgstr "شما خارج شدید."
+
+#: .\templates\account\messages\login_code_sent.txt:2
+#, python-format
+msgid "A sign-in code has been sent to %(recipient)s."
+msgstr "کد ورود به %(recipient)s ارسال شد."
+
+#: .\templates\account\messages\password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "رمز عبور با موفقیت تغییر کرد."
+
+#: .\templates\account\messages\password_set.txt:2
+msgid "Password successfully set."
+msgstr "رمز عبور با موفقیت تنظیم شد."
+
+#: .\templates\account\messages\phone_verification_sent.txt:2
+#, python-format
+msgid "A verification code has been sent to %(phone)s."
+msgstr "کد تأیید به %(phone)s ارسال شد."
+
+#: .\templates\account\messages\phone_verified.txt:2
+#, python-format
+msgid "You have verified phone number %(phone)s."
+msgstr "شما شماره تلفن %(phone)s را تأیید کردید."
+
+#: .\templates\account\messages\primary_email_set.txt:2
+msgid "Primary email address set."
+msgstr "نشانی ایمیل اصلی تنظیم شد."
+
+#: .\templates\account\messages\unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "نشانی ایمیل اصلی شما باید تأیید شود."
 
 #: .\templates\account\password_change.html:33
 msgid "Forgot Password?"
@@ -843,57 +2425,41 @@ msgstr ""
 "<strong>توجه:</strong> شما همچنان می‌توانید <a href=\"%(email_url)s\">آدرس "
 "ایمیل خود را تغییر دهید</a>."
 
-#: .\templates\base.html:9 .\templates\base.html:108
-msgid "Zarrin Patisserie"
-msgstr "قنادی زرین"
-
 #: .\templates\base.html:10
 msgid ""
 "Handcrafted Persian baklava, cakes and traditional pastries, baked fresh "
 "every day."
 msgstr "باقلوا، کیک و شیرینی‌های سنتی ایرانی دست‌ساز، هر روز تازه پخته می‌شود."
 
-#: .\templates\base.html:37
+#: .\templates\base.html:40
 msgid "Skip to content"
 msgstr "پرش به محتوا"
 
-#: .\templates\base.html:41 .\templates\base.html:78
+#: .\templates\base.html:44 .\templates\base.html:84
 msgid "Zarrin"
 msgstr "زرین"
 
-#: .\templates\base.html:43
+#: .\templates\base.html:46
 msgid "Main navigation"
 msgstr "منوی اصلی"
 
-#: .\templates\base.html:44 .\templates\base.html:89
-msgid "Home"
-msgstr "خانه"
-
-#: .\templates\base.html:45 .\templates\base.html:89 .\templates\base.html:123
-msgid "Shop"
-msgstr "فروشگاه"
-
-#: .\templates\base.html:46 .\templates\base.html:89
+#: .\templates\base.html:49 .\templates\base.html:106
 msgid "Blog"
 msgstr "وبلاگ"
 
-#: .\templates\base.html:47 .\templates\base.html:89
-msgid "About"
-msgstr "درباره ما"
-
-#: .\templates\base.html:48 .\templates\base.html:89 .\templates\base.html:96
-msgid "Contact"
-msgstr "تماس با ما"
-
-#: .\templates\base.html:60
+#: .\templates\base.html:63
 msgid "Change language"
 msgstr "تغییر زبان"
 
 #: .\templates\base.html:68
+msgid "Logout"
+msgstr "خروج"
+
+#: .\templates\base.html:74
 msgid "Menu"
 msgstr "منو"
 
-#: .\templates\base.html:79
+#: .\templates\base.html:85
 msgid ""
 "A Persian patisserie baking baklava, cakes and traditional sweets by hand, "
 "every morning, with saffron, pistachio and honey."
@@ -901,350 +2467,78 @@ msgstr ""
 "یک قنادی ایرانی که هر روز صبح با زعفران، پسته و عسل، باقلوا، کیک و شیرینی‌های "
 "سنتی را به‌صورت دست‌ساز می‌پزد."
 
-#: .\templates\base.html:87
+#: .\templates\base.html:93
 msgid "Quick links"
 msgstr "دسترسی سریع"
 
-#: .\templates\base.html:88
+#: .\templates\base.html:94
 msgid "Quick Links"
 msgstr "دسترسی‌های سریع"
 
-#: .\templates\base.html:91
+#: .\templates\base.html:113
 msgid "Customer links"
 msgstr "لینک‌های مشتریان"
 
-#: .\templates\base.html:92
+#: .\templates\base.html:114
 msgid "Customers"
 msgstr "مشتریان"
 
-#: .\templates\base.html:93
+#: .\templates\base.html:117
 msgid "My Account"
 msgstr "حساب من"
 
-#: .\templates\base.html:93
+#: .\templates\base.html:120
 msgid "My Orders"
 msgstr "سفارش‌های من"
 
-#: .\templates\base.html:93 .\templates\base.html:126
+#: .\templates\base.html:123 .\templates\base.html:208
 msgid "Cart"
 msgstr "سبد خرید"
 
-#: .\templates\base.html:93
+#: .\templates\base.html:126
 msgid "Wishlist"
 msgstr "لیست علاقه‌مندی‌ها"
 
-#: .\templates\base.html:98 .\templates\home.html:111
-msgid "No. 12, Golestan Street, Tehran"
-msgstr "تهران، خیابان گلستان، پلاک ۱۲"
-
-#: .\templates\base.html:102 .\templates\home.html:112
-msgid "Saturday to Thursday: 9:00 AM – 10:00 PM"
-msgstr "شنبه تا پنجشنبه: ۹:۰۰ صبح تا ۱۰:۰۰ شب"
-
-#: .\templates\base.html:102 .\templates\home.html:112
-msgid "Friday: 2:00 PM – 10:00 PM"
-msgstr "جمعه: ۲:۰۰ بعدازظهر تا ۱۰:۰۰ شب"
-
-#: .\templates\base.html:108
+#: .\templates\base.html:173
 msgid "All rights reserved."
 msgstr "تمامی حقوق محفوظ است."
 
-#: .\templates\base.html:109
+#: .\templates\base.html:174
 msgid "Designed & Developed by"
 msgstr "طراحی و توسعه توسط"
 
-#: .\templates\base.html:109
+#: .\templates\base.html:174
 msgid "Your Name"
 msgstr "نام شما"
 
-#: .\templates\base.html:116
+#: .\templates\base.html:181
 msgid "Search pastries, cakes, and sweets..."
 msgstr "جستجوی شیرینی، کیک و دسر..."
 
-#: .\templates\base.html:116 .\templates\base.html:125
+#: .\templates\base.html:181 .\templates\base.html:207
 msgid "Search"
 msgstr "جستجو"
 
-#: .\templates\base.html:117
+#: .\templates\base.html:182
 msgid "Close search"
 msgstr "بستن جستجو"
 
-#: .\templates\base.html:121
+#: .\templates\base.html:186
 msgid "Quick navigation"
 msgstr "ناوبری سریع"
 
-#: .\templates\base.html:124
+#: .\templates\base.html:202
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: .\templates\home.html:4
-msgid "Zarrin Patisserie — Persian Baklava, Cakes & Pastries"
-msgstr "قنادی زرین — باقلوا، کیک و شیرینی ایرانی"
+#~ msgid "No. 12, Golestan Street, Tehran"
+#~ msgstr "تهران، خیابان گلستان، پلاک ۱۲"
 
-#: .\templates\home.html:8
-msgid "Golden baklava layered with crushed pistachios"
-msgstr "باقلوا طلایی با لایه‌های پسته کوبیده"
+#~ msgid "Saturday to Thursday: 9:00 AM – 10:00 PM"
+#~ msgstr "شنبه تا پنجشنبه: ۹:۰۰ صبح تا ۱۰:۰۰ شب"
 
-#: .\templates\home.html:10
-msgid "Handcrafted Persian Sweets"
-msgstr "شیرینی‌های ایرانی دست‌ساز"
-
-#: .\templates\home.html:11
-msgid "Fresh Baklava, Cakes & Traditional Pastries"
-msgstr "باقلوا، کیک و شیرینی‌های سنتی تازه"
-
-#: .\templates\home.html:12
-msgid ""
-"Made daily with real pistachios, saffron, honey, and premium ingredients."
-msgstr "هر روز با پسته واقعی، زعفران، عسل و مواد اولیه درجه‌یک تهیه می‌شود."
-
-#: .\templates\home.html:14
-msgid "Shop Now"
-msgstr "همین حالا خرید کنید"
-
-#: .\templates\home.html:15
-msgid "Explore Our Menu"
-msgstr "منوی ما را کاوش کنید"
-
-#: .\templates\home.html:21
-msgid "Fresh Daily Baking"
-msgstr "پخت تازه روزانه"
-
-#: .\templates\home.html:22
-msgid "Premium Pistachios & Saffron"
-msgstr "پسته و زعفران درجه‌یک"
-
-#: .\templates\home.html:23
-msgid "Custom Celebration Cakes"
-msgstr "کیک‌های جشن سفارشی"
-
-#: .\templates\home.html:24
-msgid "Fast Local Delivery"
-msgstr "ارسال سریع محلی"
-
-#: .\templates\home.html:29
-msgid "Signature Creations"
-msgstr "آفریده‌های امضایی"
-
-#: .\templates\home.html:30
-msgid "Chef's selection of our most loved pastries"
-msgstr "انتخاب سرآشپز از محبوب‌ترین شیرینی‌های ما"
-
-#: .\templates\home.html:34
-msgid "Pistachio baklava on a ceramic plate"
-msgstr "باقلوا پسته‌ای روی بشقاب سرامیکی"
-
-#: .\templates\home.html:34
-msgid "Best Seller"
-msgstr "پرفروش‌ترین"
-
-#: .\templates\home.html:36
-msgid "Baklava"
-msgstr "باقلوا"
-
-#: .\templates\home.html:37 .\templates\home.html:84
-msgid "Pistachio Baklava"
-msgstr "باقلوا پسته‌ای"
-
-#: .\templates\home.html:38
-msgid ""
-"Thirty-two crisp filo layers, crushed Persian pistachios and honey syrup."
-msgstr "سی‌ودو لایه ترد خمیر یوفا، پسته کوبیده ایرانی و شربت عسل."
-
-#: .\templates\home.html:39 .\templates\home.html:48 .\templates\home.html:57
-#: .\templates\home.html:66
-msgid "Add to Cart"
-msgstr "افزودن به سبد خرید"
-
-#: .\templates\home.html:43
-msgid "Saffron cake topped with pistachio and rose petals"
-msgstr "کیک زعفرانی با تزئین پسته و گلبرگ‌های رز"
-
-#: .\templates\home.html:43
-msgid "Chef's Choice"
-msgstr "انتخاب سرآشپز"
-
-#: .\templates\home.html:45
-msgid "Cake"
-msgstr "کیک"
-
-#: .\templates\home.html:46
-msgid "Saffron Cream Cake"
-msgstr "کیک خامه‌ای زعفرانی"
-
-#: .\templates\home.html:47
-msgid "Soft sponge, saffron-infused cream and a crown of pistachio."
-msgstr "اسفنجی نرم، خامه آغشته به زعفران و تاجی از پسته."
-
-#: .\templates\home.html:52
-msgid "Traditional almond cookies"
-msgstr "کلوچه‌های سنتی بادامی"
-
-#: .\templates\home.html:54
-msgid "Cookies"
-msgstr "کلوچه‌ها"
-
-#: .\templates\home.html:55 .\templates\home.html:99
-msgid "Cardamom Almond Cookies"
-msgstr "کلوچه‌های بادامی هل"
-
-#: .\templates\home.html:56
-msgid "Delicate, buttery and perfumed with cardamom and rose water."
-msgstr "لطیف، کره‌ای و معطر با هل و گلاب."
-
-#: .\templates\home.html:61
-msgid "Sohan saffron brittle with pistachios"
-msgstr "سوهان زعفرانی با پسته"
-
-#: .\templates\home.html:61
-msgid "New"
-msgstr "جدید"
-
-#: .\templates\home.html:63
-msgid "Traditional Sweets"
-msgstr "شیرینی‌های سنتی"
-
-#: .\templates\home.html:64 .\templates\home.html:94
-msgid "Saffron Sohan"
-msgstr "سوهان زعفرانی"
-
-#: .\templates\home.html:65
-msgid "Golden saffron brittle, slowly caramelised and finished with pistachio."
-msgstr "سوهان زعفرانی طلایی، آهسته کاراملی شده و با پسته تکمیل شده است."
-
-#: .\templates\home.html:74
-msgid "Loved by Our Customers"
-msgstr "محبوب مشتریان ما"
-
-#: .\templates\home.html:76
-msgid "Previous review"
-msgstr "نظر قبلی"
-
-#: .\templates\home.html:77
-msgid "Next review"
-msgstr "نظر بعدی"
-
-#: .\templates\home.html:80
-msgid "Customer reviews"
-msgstr "نظرات مشتریان"
-
-#: .\templates\home.html:82 .\templates\home.html:87 .\templates\home.html:92
-#: .\templates\home.html:97
-msgid "5 out of 5 stars"
-msgstr "۵ از ۵ ستاره"
-
-#: .\templates\home.html:83
-msgid ""
-"The baklava is crisp, never too sweet, and the pistachio is unmistakable. "
-"Our family's new tradition."
-msgstr ""
-"باقلوا ترد است، هرگز زیادی شیرین نیست و پسته‌اش کاملاً محسوس است. سنت جدید "
-"خانواده ما."
-
-#: .\templates\home.html:84
-msgid "SM"
-msgstr "س.م"
-
-#: .\templates\home.html:84
-msgid "Sara M."
-msgstr "سارا م."
-
-#: .\templates\home.html:88
-msgid ""
-"They made our wedding cake with saffron cream. Guests are still talking "
-"about it."
-msgstr ""
-"آن‌ها کیک عروسی ما را با خامه زعفرانی درست کردند. مهمانان هنوز درباره‌اش حرف "
-"می‌زنند."
-
-#: .\templates\home.html:89
-msgid "AR"
-msgstr "آ.ر"
-
-#: .\templates\home.html:89
-msgid "Arman R."
-msgstr "آرمان ر."
-
-#: .\templates\home.html:89
-msgid "Custom Celebration Cake"
-msgstr "کیک جشن سفارشی"
-
-#: .\templates\home.html:93
-msgid ""
-"Delivery arrived warm and beautifully boxed. You can taste the care in every "
-"piece."
-msgstr ""
-"سفارش گرم و در جعبه‌ای زیبا به دستمان رسید. می‌توانید ذوق و توجه را در هر تکه "
-"بچشید."
-
-#: .\templates\home.html:94
-msgid "NK"
-msgstr "ن.ک"
-
-#: .\templates\home.html:94
-msgid "Nasim K."
-msgstr "نسیم ک."
-
-#: .\templates\home.html:98
-msgid ""
-"The cardamom cookies remind me of my grandmother's kitchen. Honest, "
-"fragrant, perfect with tea."
-msgstr ""
-"کلوچه‌های هل مرا به یاد آشپزخانه مادربزرگم می‌اندازد. صادقانه، معطر و عالی با "
-"چای."
-
-#: .\templates\home.html:99
-msgid "DH"
-msgstr "د.ه"
-
-#: .\templates\home.html:99
-msgid "Dariush H."
-msgstr "داریوش ه."
-
-#: .\templates\home.html:106
-msgid "Visit Our Bakery"
-msgstr "از قنادی ما دیدن کنید"
-
-#: .\templates\home.html:107
-msgid ""
-"Step inside, breathe in the saffron and honey, and let us pack a box while "
-"it is still warm."
-msgstr ""
-"قدم بگذارید داخل، عطر زعفران و عسل را تنفس کنید و بگذارید تا جعبه‌ای برایتان "
-"ببندیم، در حالی که هنوز گرم است."
-
-#: .\templates\home.html:108
-msgid "Get Directions"
-msgstr "مسیریابی"
-
-#: .\templates\home.html:112
-msgid "Opening Hours"
-msgstr "ساعات کاری"
-
-#: .\templates\home.html:113
-msgid "Phone"
-msgstr "تلفن"
-
-#: .\templates\home.html:120
-msgid "Sweet Offers, Straight to Your Inbox"
-msgstr "پیشنهادهای شیرین، مستقیم در صندوق ایمیل شما"
-
-#: .\templates\home.html:121
-msgid ""
-"New creations, seasonal flavours and a little something for your first order."
-msgstr "آفریده‌های جدید، طعم‌های فصلی و یک چیز کوچک برای اولین سفارش شما."
-
-#: .\templates\home.html:125
-msgid "Email address"
-msgstr "آدرس ایمیل"
-
-#: .\templates\home.html:126
-msgid "Your email address"
-msgstr "آدرس ایمیل شما"
-
-#: .\templates\home.html:127
-msgid "Subscribe"
-msgstr "عضویت"
+#~ msgid "Friday: 2:00 PM – 10:00 PM"
+#~ msgstr "جمعه: ۲:۰۰ بعدازظهر تا ۱۰:۰۰ شب"
 
 #~ msgid "Change phone number"
 #~ msgstr "تغییر شماره تلفن"
@@ -1255,17 +2549,8 @@ msgstr "عضویت"
 #~ msgid "Browse our full collection of Persian sweets and pastries."
 #~ msgstr "مجموعه کامل شیرینی‌ها و دسرهای ایرانی ما را مرور کنید."
 
-#~ msgid "Product filters"
-#~ msgstr "فیلترهای محصول"
-
-#~ msgid "Category"
-#~ msgstr "دسته‌بندی"
-
 #~ msgid "Cakes"
 #~ msgstr "کیک‌ها"
-
-#~ msgid "Price"
-#~ msgstr "قیمت"
 
 #~ msgid "Under $15"
 #~ msgstr "زیر ۱۵ دلار"
@@ -1284,12 +2569,6 @@ msgstr "عضویت"
 
 #~ msgid "Nut-free"
 #~ msgstr "بدون مغزها"
-
-#~ msgid "Availability"
-#~ msgstr "موجودی"
-
-#~ msgid "In stock"
-#~ msgstr "موجود"
 
 #~ msgid "Apply Filters"
 #~ msgstr "اعمال فیلترها"
